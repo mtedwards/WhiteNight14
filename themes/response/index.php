@@ -3,25 +3,20 @@
 <!-- Row for main content area -->
 	<div class="small-12 large-8 columns" role="main">
 	
-	<?php if ( have_posts() ) : ?>
-	
-		<?php /* Start the Loop */ ?>
-		<?php while ( have_posts() ) : the_post(); ?>
-			<?php get_template_part( 'content', get_post_format() ); ?>
-		<?php endwhile; ?>
-		
-		<?php else : ?>
-			<?php get_template_part( 'content', 'none' ); ?>
-		
-	<?php endif; // end have_posts() check ?>
-	
-	<?php /* Display navigation to next/previous pages when applicable */ ?>
-	<?php if ( function_exists('reverie_pagination') ) { reverie_pagination(); } else if ( is_paged() ) { ?>
-		<nav id="post-nav">
-			<div class="post-previous"><?php next_posts_link( __( '&larr; Older posts', 'reverie' ) ); ?></div>
-			<div class="post-next"><?php previous_posts_link( __( 'Newer posts &rarr;', 'reverie' ) ); ?></div>
-		</nav>
-	<?php } ?>
+	<?php /* Start loop */ ?>
+	<?php while (have_posts()) : the_post(); ?>
+		<article <?php post_class() ?> id="post-<?php the_ID(); ?>">
+			<header>
+				<h1 class="entry-title"><?php the_title(); ?></h1>
+			</header>
+			<div class="entry-content">
+				<?php the_content(); ?>
+			</div>
+			<footer>
+				<?php wp_link_pages(array('before' => '<nav id="page-nav"><p>' . __('Pages:', 'reverie'), 'after' => '</p></nav>' )); ?>
+			</footer>
+		</article>
+	<?php endwhile; // End the loop ?>
 
 	</div>
 	<?php get_sidebar(); ?>

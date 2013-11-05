@@ -11,14 +11,17 @@
   // "foundation/foundation.reveal.js"
   // "foundation/foundation.section.js"
   // "foundation/foundation.tooltips.js"
-  // "foundation/foundation.interchange.js"
   // "foundation/foundation.placeholder.js"
   // "foundation/foundation.abide.js"
 */
 
 
-// @codekit-prepend "foundation/foundation.js", "respond.js", "foundation/foundation.topbar.js"
+// @codekit-prepend "foundation/foundation.js", "respond.js", "fitvids.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js"
 
-jQuery(document).ready(function($){
+$(document).ready(function(){
+    
     $(document).foundation();
+    
+    $('.entry-content').fitVids();
+    
 });

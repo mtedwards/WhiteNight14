@@ -6,12 +6,16 @@ require_once('lib/foundation.php'); // load Foundation specific functions like t
 /**********************
 Add theme supports
 **********************/
-function reverie_theme_support() {
 
+show_admin_bar(false);
+
+function reverie_theme_support() {
 	// Add post thumbnail supports. http://codex.wordpress.org/Post_Thumbnails
 	add_theme_support('post-thumbnails');
-	add_image_size( 'homepage-thumb', 220, 180, true ); // 220 pixels wide by 180 pixels tall, hard crop mode
-	// set_post_thumbnail_size(150, 150, false);
+	add_image_size( 'event-thumb', 200, 200, true); // 200 by 200 hard cropped image
+  add_image_size( 'event-small', 400, 9999 ); // Resize width 400 auto height
+  add_image_size( 'event-medium', 750, 9999 ); // Resize width 750 auto height
+  add_image_size( 'event-large', 1000, 9999 ); // Resize width 1000 auto height
 	
 	// rss thingy
 	add_theme_support('automatic-feed-links');
