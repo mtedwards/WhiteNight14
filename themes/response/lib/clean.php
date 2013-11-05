@@ -11,12 +11,9 @@ function reverie_startup() {
 
     // launching operation cleanup
     add_action('init', 'reverie_head_cleanup');
+    
     // remove WP version from RSS
     add_filter('the_generator', 'reverie_rss_version');
-    // remove pesky injected css for recent comments widget
-    add_filter( 'wp_head', 'reverie_remove_wp_widget_recent_comments_style', 1 );
-    // clean up comment styles in the head
-    add_action('wp_head', 'reverie_remove_recent_comments_style', 1);
     // clean up gallery output in wp
     add_filter('gallery_style', 'reverie_gallery_style');
 
@@ -34,20 +31,11 @@ function reverie_startup() {
 } /* end reverie_startup */
 
 
-/**********************
-WP_HEAD GOODNESS
-The default WordPress head is
-a mess. Let's clean it up.
-
-Thanks for Bones
-http://themble.com/bones/
-**********************/
-
 function reverie_head_cleanup() {
 	// category feeds
-	// remove_action( 'wp_head', 'feed_links_extra', 3 );
+	remove_action( 'wp_head', 'feed_links_extra', 3 );
 	// post and comment feeds
-	// remove_action( 'wp_head', 'feed_links', 2 );
+	remove_action( 'wp_head', 'feed_links', 2 );
 	// EditURI link
 	remove_action( 'wp_head', 'rsd_link' );
 	// windows live writer
@@ -62,37 +50,11 @@ function reverie_head_cleanup() {
 	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
 	// WP version
 	remove_action( 'wp_head', 'wp_generator' );
-  // remove WP version from css
-  add_filter( 'style_loader_src', 'reverie_remove_wp_ver_css_js', 9999 );
-  // remove Wp version from scripts
-  add_filter( 'script_loader_src', 'reverie_remove_wp_ver_css_js', 9999 );
-
 } /* end head cleanup */
 
 // remove WP version from RSS
 function reverie_rss_version() { return ''; }
 
-// remove WP version from scripts
-function reverie_remove_wp_ver_css_js( $src ) {
-    if ( strpos( $src, 'ver=' ) )
-        $src = remove_query_arg( 'ver', $src );
-    return $src;
-}
-
-// remove injected CSS for recent comments widget
-function reverie_remove_wp_widget_recent_comments_style() {
-   if ( has_filter('wp_head', 'wp_widget_recent_comments_style') ) {
-      remove_filter('wp_head', 'wp_widget_recent_comments_style' );
-   }
-}
-
-// remove injected CSS from recent comments widget
-function reverie_remove_recent_comments_style() {
-  global $wp_widget_factory;
-  if (isset($wp_widget_factory->widgets['WP_Widget_Recent_Comments'])) {
-    remove_action('wp_head', array($wp_widget_factory->widgets['WP_Widget_Recent_Comments'], 'recent_comments_style'));
-  }
-}
 
 // remove injected CSS from gallery
 function reverie_gallery_style($css) {
@@ -103,18 +65,16 @@ function reverie_gallery_style($css) {
 Enqueue CSS and Scripts
 **********************/
 
+
 // loading modernizr and jquery, and reply script
 function reverie_scripts_and_styles() {
   if (!is_admin()) {
-
+    // Register the main style
+    wp_register_style( 'main-stylesheet', get_template_directory_uri() . '/css/style.css', array(), '?=201308151507', 'all' );
+    	
     // modernizr (without media query polyfill)
-    wp_register_script( 'reverie-modernizr', get_template_directory_uri() . '/js/vendor/custom.modernizr.js', array(), '2.6.2', false );
-
-    // ie-only style sheet
-    wp_register_style( 'reverie-ie-only', get_template_directory_uri() . '/css/ie.css', array(), '' );
-
-    // comment reply script for threaded comments
-    if( get_option( 'thread_comments' ) )  { wp_enqueue_script( 'comment-reply' ); }
+    wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/js/vendor/custom.modernizr.js', array(), '2.6.2', false );
+    
     
     // deregister WordPress built in jQuery
     wp_deregister_script('jquery');
@@ -122,22 +82,16 @@ function reverie_scripts_and_styles() {
     wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", false, null, true);
     
     // adding Foundation scripts file in the footer
-    wp_register_script( 'reverie-js', get_template_directory_uri() . '/js/foundation-ck.js', array( 'jquery' ), '', true );
+    wp_register_script( 'foundation', get_template_directory_uri() . '/js/foundation-ck.js', array( 'jquery' ), '201311051313', true );
     
     if ($is_IE) {
        wp_register_script ( 'html5shiv', "http://html5shiv.googlecode.com/svn/trunk/html5.js" , false, true);
     }
-
+    
     // enqueue styles and scripts
-    wp_enqueue_script( 'reverie-modernizr' );
-    wp_enqueue_style('reverie-ie-only');
-    /*
-    I recommend using a plugin to call jQuery
-    using the google cdn. That way it stays cached
-    and your site will load faster.
-    */
+    wp_enqueue_style( 'main-stylesheet' );
     wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'reverie-js' );
+    wp_enqueue_script( 'foundation' );
     wp_enqueue_script( 'html5shiv' );
 
   }

@@ -17,9 +17,7 @@
 */
 
 
-//@codekit-prepend "foundation/foundation.js"
-
-// @codekit-prepend "foundation/foundation.topbar.js"
+// @codekit-prepend "foundation/foundation.js", "respond.js", "foundation/foundation.topbar.js"
 
 $(document ).ready(function() {
     $(document).foundation();

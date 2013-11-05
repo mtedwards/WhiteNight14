@@ -1,8 +1,6 @@
 <?php
 
 require_once('lib/clean.php'); // do all the cleaning and enqueue here
-require_once('lib/enqueue-sass.php'); 
-
 require_once('lib/foundation.php'); // load Foundation specific functions like top-bar
 
 /**********************
@@ -19,7 +17,7 @@ function reverie_theme_support() {
 	add_theme_support('automatic-feed-links');
 	
 	// Add post formarts supports. http://codex.wordpress.org/Post_Formats
-	add_theme_support('post-formats', array('gallery', 'link', 'image', 'video', 'audio'));
+	//add_theme_support('post-formats', array('gallery', 'link', 'image', 'video', 'audio'));
 	
 	// Add menu supports. http://codex.wordpress.org/Function_Reference/register_nav_menus
 	add_theme_support('menus');
@@ -30,25 +28,7 @@ function reverie_theme_support() {
 }
 add_action('after_setup_theme', 'reverie_theme_support'); /* end Reverie theme support */
 
-// create widget areas: sidebar, footer
-$sidebars = array('Sidebar');
-foreach ($sidebars as $sidebar) {
-	register_sidebar(array('name'=> $sidebar,
-		'before_widget' => '<article id="%1$s" class="row widget %2$s"><div class="small-12 columns">',
-		'after_widget' => '</div></article>',
-		'before_title' => '<h6><strong>',
-		'after_title' => '</strong></h6>'
-	));
-}
-$sidebars = array('Footer');
-foreach ($sidebars as $sidebar) {
-	register_sidebar(array('name'=> $sidebar,
-		'before_widget' => '<article id="%1$s" class="large-4 columns widget %2$s">',
-		'after_widget' => '</article>',
-		'before_title' => '<h6><strong>',
-		'after_title' => '</strong></h6>'
-	));
-}
+
 
 // return entry meta information for posts, used by multiple loops.
 function reverie_entry_meta() {

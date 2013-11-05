@@ -2353,94 +2353,43 @@ meta.foundation-mq-topbar {
   /* line 568, ../scss/foundation/components/_top-bar.scss */
   .no-js .top-bar-section .has-dropdown:hover > .dropdown {
     display: block; } }
-/* Start to customize Reverie */
-/* line 4, ../scss/_wordpress.scss */
+/* Some Default WordPress Styles to kick us off */
+/* line 9, ../scss/_wordpress.scss */
+.aligncenter,
+div.aligncenter {
+  display: block;
+  margin: 5px auto 5px auto; }
+
+/* line 14, ../scss/_wordpress.scss */
 .alignright {
   float: right;
   margin: 0 0 1em 1em; }
 
-/* line 12, ../scss/_wordpress.scss */
-header.row,
-.container.row,
-.row.full-width {
-  background-color: rgba(255, 255, 255, 0.2); }
+/* line 19, ../scss/_wordpress.scss */
+.alignleft {
+  float: left;
+  margin: 0 1em 1em 0; }
 
-/* line 17, ../scss/_wordpress.scss */
-h4.subheader {
-  margin-top: -1em; }
+/* line 24, ../scss/_wordpress.scss */
+a img.alignright {
+  float: right;
+  margin: 0 0 1em 1em; }
 
-/*
-.page-numbers li {
-	span:hover a,
-	span a:focus {
-		background: $pagination-link-active-bg;
-	}
-	span.current {
-		background: $pagination-link-current-background;
-		padding: $pagination-link-pad;
-		color: $pagination-link-current-font-color;
-		font-weight: $pagination-link-current-font-weight;
-		cursor: $pagination-link-current-cursor;
-	}
-}
-*/
-/*
-ol.commentlist {
-	margin-left: 0;
-	margin-top: 2em;
-	li {
-		list-style: none;
-		margin-bottom: 2em;
-	}
-		.comment-author img {
-			border-radius: 50%;
-			float: left;
-			margin: 0 1em 0 0;
-		}
-		.author-meta {
-			display: inline-block;
-		}
-			cite.fn {
-				@extend h4;
-				margin-right: 0.5em;
-			}
-		section.comment {
-			@include panel(white, 20px);
-		}
-			a.comment-reply-link {
-				float: right;
-				position: relative;
-				bottom: 1em;
-			}
-}
-*/
-/* line 74, ../scss/_wordpress.scss */
+/* line 29, ../scss/_wordpress.scss */
+a img.alignnone {
+  margin: 0 1em; }
+
+/* line 33, ../scss/_wordpress.scss */
+a img.alignleft {
+  float: left;
+  margin: 0 1em 1em 0; }
+
+/* line 38, ../scss/_wordpress.scss */
+a img.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
+
+/* line 69, ../scss/_wordpress.scss */
 ul {
   margin-left: 0; }
-
-/* line 79, ../scss/_wordpress.scss */
-.container img {
-  margin-bottom: 1.25em; }
-
-/* line 84, ../scss/_wordpress.scss */
-input.prefix.button {
-  line-height: 1; }
-
-/* line 89, ../scss/_wordpress.scss */
-#sidebar input.prefix.button {
-  line-height: 0.7; }
-
-/* line 93, ../scss/_wordpress.scss */
-.orbit-slide-number {
-  display: none; }
-
-/* line 97, ../scss/_wordpress.scss */
-h1.head {
-  position: absolute;
-  top: 0;
-  left: 100px;
-  font-size: 3em;
-  text-shadow: 0px 0px 1px #aaaaaa; }
-  /* line 103, ../scss/_wordpress.scss */
-  h1.head a {
-    color: white; }
