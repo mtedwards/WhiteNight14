@@ -6,9 +6,12 @@
 	<?php /* Start loop */ ?>
 	<?php while (have_posts()) : the_post(); ?>
 		<article <?php post_class() ?> id="post-<?php the_ID(); ?>">
+		  <?php $address = get_field('address'); ?>
 			<header>
 				<h1 class="entry-title"><?php the_title(); ?></h1>
 				<h3 class="subheader"><?php the_field('sub_title'); ?></h3>
+				<b><?php the_field('precinct'); ?></b><br>
+				<?php the_field('venue'); echo ', ' . $address[address]; ?>.
 			</header>
 			<div class="entry-content">
 				<?php 
