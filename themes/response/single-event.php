@@ -1,19 +1,31 @@
 <?php get_header(); ?>
 
 <!-- Row for main content area -->
-	<div class="small-12 medium-8 large-8 columns" role="main">
+	<div class="small-12 medium-12 large-12 columns" role="main">
 	
 	<?php /* Start loop */ ?>
 	<?php while (have_posts()) : the_post(); ?>
 		<article <?php post_class() ?> id="post-<?php the_ID(); ?>">
 		  <?php $address = get_field('address'); ?>
-			<header>
+		<div class="row">
+			<header class="small-12 columns">
 				<h1 class="entry-title"><?php the_title(); ?></h1>
 				<h3 class="subheader"><?php the_field('sub_title'); ?></h3>
-				<b><?php the_field('precinct'); ?></b><br>
-				<?php the_field('venue'); echo ', ' . $address[address]; ?>.
+				<?php if(get_field('all_night')) {
+  				echo '<b>7pm - 7am</b> This is an all night event.';
+				} else {
+				  $start = get_field('start_time');
+				  $time = strtotime($start);
+				  $duration = get_field('duration');
+				  $duration = $duration . 'minutes';
+				  $end = date("g:i a ", strtotime($duration, $time));
+  				echo '<b>Start:</b> ' . $start . '<br>';
+  				echo '<b>End:</b> ' .  $end . '<br>';
+				}?>				
 			</header>
-			<div class="entry-content">
+		</div>
+		<div class="row">
+			<div class="entry-content small-12 medium-8 large-8 columns">
 				<?php 
 				  $event_img = get_field('event_img');
 				  if($event_img) { 
@@ -37,13 +49,74 @@
             echo wp_oembed_get($video); }
           ?>
 			</div>
-			<footer>
+			<aside id="sidebar" class="small-12 medium-4 large-4 columns">
+			  <b><?php the_field('precinct'); ?></b><br>
+				<?php the_field('venue'); echo ', ' . $address[address]; ?>.<hr>
+			
+    	  <?php the_tags('<b>Tags:</b> <span class="radius secondary label">','</span> <span class="radius secondary label">','</span><hr>'); ?>
+    				
+    		<?php $terms = get_terms( 'genre' );
+              $count = count($terms);
+                 if ( $count > 0 ){
+                     echo "<b>Genre:</b> ";
+                     foreach ( $terms as $term ) {
+                       echo "<span class='radius secondary label'><a href='" . get_bloginfo('url') . "/genre/" . $term->slug . "'>" . $term->name . "</a></span> ";
+                        
+                     }
+                     echo "<hr>";
+                 } ?>
+                 
+        <?php $accessabilities = get_terms( 'accessability' );
+              $count = count($accessabilities);
+                 if ( $count > 0 ){
+                     echo "<b>Accessability:</b> ";
+                     foreach ( $accessabilities as $access ) {
+                       echo "<span class='radius secondary label'><a href='" . get_bloginfo('url') . "/accessability/" . $access->slug . "'>" . $access->name . "</a></span> ";
+                        
+                     }
+                     echo "<hr>";
+                 } ?>
+    
+    	
+    	  <?php  
+    	    $artist_name = get_field('artist_name');
+    	    $artist_bio = get_field('artist_bio');
+    	    $creative_credit = get_field('creative_credit');
+    	    $presented_by = get_field('presented_by');
+    	    if($artist_name || $artist_bio || $creative_credit || $presented_by ) {?>
+      	    <h4>Artist Details:</h4>
+    	    <?php }
+          if($artist_name) {
+            echo '<p><b>Artist Name:</b><br>' . $artist_name . '</p>';
+          }
+          if($artist_bio) {
+            echo '<b>Artist Bio:</b><br>' . $artist_bio;
+          }
+          if($creative_credit) {
+            echo '<p><b>Creative Credit:</b><br>' . $creative_credit . '</p>';
+          }
+          if($presented_by) {
+            echo '<p><b>Presented by:</b><br>' . $presented_by . '</p>';
+          }
+    	   
+    	   ?>
+          
+        
+      </aside><!-- /#sidebar -->
+    </div>
+    <div class="row">
+      <footer class="small-12 columns">
 				<?php wp_link_pages(array('before' => '<nav id="page-nav"><p>' . __('Pages:', 'reverie'), 'after' => '</p></nav>' )); ?>
 			</footer>
+    </div>
+			
+			
+			
+			
 		</article>
 	<?php endwhile; // End the loop ?>
 
 	</div>
-	<?php get_sidebar(); ?>
-		
+	<?php //get_sidebar(); ?>
+			
 <?php get_footer(); ?>
