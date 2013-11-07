@@ -21,7 +21,7 @@
 				  $end = date("g:i a ", strtotime($duration, $time));
   				echo '<b>Start:</b> ' . $start . '<br>';
   				echo '<b>End:</b> ' .  $end . '<br>';
-				}?>				
+				}?>	
 			</header>
 		</div>
 		<div class="row">
@@ -50,8 +50,21 @@
           ?>
 			</div>
 			<aside id="sidebar" class="small-12 medium-4 large-4 columns">
+			  <p><?php echo upb_bookmark_controls(); ?></p>
+			    <style>
+              #map-canvas {
+                height: 100%;
+                height: 0;
+                margin: 0 0 10px 0;
+                padding: 0 0 66% 0;
+              }
+            </style>
+
+			
 			  <b><?php the_field('precinct'); ?></b><br>
 				<?php the_field('venue'); echo ', ' . $address[address]; ?>.<hr>
+				<div id="map-canvas"></div>
+				<hr>
 			
     	  <?php the_tags('<b>Tags:</b> <span class="radius secondary label">','</span> <span class="radius secondary label">','</span><hr>'); ?>
     				
@@ -119,4 +132,47 @@
 	</div>
 	<?php //get_sidebar(); ?>
 			
+   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+  <script>
+    // This example displays a marker at the center of Australia.
+    // When the user clicks the marker, an info window opens.
+    
+    function initialize() {
+      var myLatlng = new google.maps.LatLng(<?php echo $address[coordinates]; ?>);
+      var mapOptions = {
+        zoom: 12,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+    
+      var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    
+      var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h4 id="firstHeading" class="firstHeading"><?php the_title(); ?></h4>'+
+          '<div id="bodyContent">'+
+          '<p></p>' +
+          '</div>'+
+          '</div>';
+    
+      var infowindow = new google.maps.InfoWindow({
+          content: contentString
+      });
+    
+      var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          title: '<?php the_title(); ?>'
+      });
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+      });
+    }
+    
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+  </script>		
+	
+		
 <?php get_footer(); ?>
