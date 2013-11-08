@@ -5,14 +5,9 @@ get_header(); ?>
 	<div class="small-12 large-12 columns" role="main">
   
   <?php
-  $args = array( 
-      'post_type' => 'event',  
-      );
-  
-  $the_query = new WP_Query( $args );
    
-   if ( $the_query->have_posts() ) :
-    while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+   if ( have_posts() ) :
+    while ( have_posts() ) : the_post(); ?>
 		<article <?php post_class() ?> id="post-<?php the_ID(); ?>">
 			<header>
 				<a href="<?php the_permalink(); ?>"><h1 class="entry-title"><?php the_title(); ?></h1></a>
@@ -35,16 +30,10 @@ get_header(); ?>
   
   
   <h1>MAP:</h1>
-    <?php
-  $args = array( 
-      'post_type' => 'event',  
-      );
-  
-  $the_query = new WP_Query( $args );
-   
-   if ( $the_query->have_posts() ) : ?>
+    <?php   
+   if ( have_posts() ) : ?>
    <div class="acf-map">
-   <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+   <?php while ( have_posts() ) : the_post(); ?>
 
 		<?php  $location = get_field('location'); ?>
 			<div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
