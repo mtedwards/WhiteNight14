@@ -18,10 +18,13 @@
 
 // @codekit-prepend "foundation/foundation.js", "respond.js", "fitvids.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js"
 
-$(document).ready(function(){
-    
-    $(document).foundation();
-    
-    $('.entry-content').fitVids();
-    
-});
+
+(function($) {
+  $(document).ready(function(){
+      
+      $(document).foundation();
+      
+      $('.entry-content').fitVids();
+      
+  });
+})(jQuery);

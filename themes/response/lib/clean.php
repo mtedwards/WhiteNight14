@@ -76,10 +76,12 @@ function reverie_scripts_and_styles() {
     wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/js/vendor/custom.modernizr.js', array(), '2.6.2', false );
     
     
-    // deregister WordPress built in jQuery
+    /*
+// deregister WordPress built in jQuery
     wp_deregister_script('jquery');
     // register Google jQuery
     wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js", false, null, true);
+*/
     
     // adding Foundation scripts file in the footer
     wp_register_script( 'foundation', get_template_directory_uri() . '/js/foundation-ck.js', array( 'jquery' ), '201311051313', true );
