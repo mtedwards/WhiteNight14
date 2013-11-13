@@ -42,3 +42,13 @@ function reverie_entry_meta() {
 
 // THE FOLLOWING CONTENT SHOULD BE MOVED OUT TO A MUST USE PLUGIN
 
+
+function remove_event_taxonomy_boxes() {
+	remove_meta_box( 'tagsdiv-precinct' , 'event' , 'normal' );
+	remove_meta_box( 'tagsdiv-venue' , 'event' , 'normal' );
+	remove_meta_box( 'tagsdiv-genre' , 'event' , 'normal' );
+	remove_meta_box( 'tagsdiv-accessibility' , 'event' , 'normal' );
+}
+add_action( 'admin_menu' , 'remove_event_taxonomy_boxes' );
+
+

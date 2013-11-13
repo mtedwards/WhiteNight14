@@ -14,7 +14,15 @@ get_header(); ?>
 			</header>
 			<div class="entry-content">
 				<?php the_excerpt(); ?>
-				<a href="<?php the_permalink(); ?>">View Event</a>
+				<a href="<?php the_permalink(); ?>">View Event</a><br>
+				<?php 
+				  $venue2 = get_field('venue_2');
+				  //print_r($venue2[0]) . '<br>';
+				  $term_id = 'venue_' . $venue2[0]->term_id;
+				  $location = get_field('location', $term_id);
+				  echo 'Venue: <a href="' . get_bloginfo('url') . '/venue/' . $venue2[0]->slug . '">' . $venue2[0]->name . '</a>';
+				 ?>
+				
 			</div>
 		</article>
 		
@@ -35,7 +43,15 @@ get_header(); ?>
    <div class="acf-map">
    <?php while ( have_posts() ) : the_post(); ?>
 
-		<?php  $location = get_field('location'); ?>
+		<?php
+		  $venue2 = get_field('venue_2');
+		  if($venue2) {
+  		  $venue2 = 'venue_' . $venue2[0]->term_id;
+  		  $location = get_field('location', $venue2);
+		  } else {
+		    $location = get_field('location'); 
+		  }
+		  ?>
 			<div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
 				<h4><?php the_title();?></h4>
 				<p class="address"><?php echo $location['address']; ?></p>
