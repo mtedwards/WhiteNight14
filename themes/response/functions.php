@@ -51,4 +51,13 @@ function remove_event_taxonomy_boxes() {
 }
 add_action( 'admin_menu' , 'remove_event_taxonomy_boxes' );
 
+function remove_media_button_from_event() {	
+	global $post;
+  if( $post->post_type == 'event' ) {
+    remove_action( 'media_buttons', 'media_buttons' );
+  }
+}
+
+add_action('admin_head','remove_media_button_from_event');
+
 
