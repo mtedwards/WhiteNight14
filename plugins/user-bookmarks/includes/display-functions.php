@@ -47,7 +47,7 @@ function upb_show_bookmark_links($content) {
 add_filter('the_content', 'upb_show_bookmark_links');
 
 // will show a list of a user's bookmarks
-function upb_list_bookmarks( $delete_link = true, $delete_text = 'Delete' ) {
+function upb_list_bookmarks( $delete_link = true, $delete_text = 'Remove Event' ) {
 	
 	if(is_user_logged_in()) {
 		$display = '<ul class="upb-bookmarks-list">';
@@ -55,13 +55,29 @@ function upb_list_bookmarks( $delete_link = true, $delete_text = 'Delete' ) {
 			$bookmarks = upb_get_user_meta(upb_get_user_id());
 			if($bookmarks) {
 				foreach( $bookmarks as $bookmark) {
-					
-					$display .= '<li class="upb_bookmark bookmark-' . $bookmark . '">';
-						$display .= '<a href="' . get_permalink($bookmark) . '" class="upb_bookmark_link" title="' . get_the_title($bookmark) . '">' . get_the_title($bookmark) . '</a>';
-						if($delete_link) {
-							$display .= ' - <a href="#" class="upb_del_bookmark upb_del_bookmark_' . $bookmark . '" rel="' . $bookmark . '" title="' . __('Remove this Bookmark') . '">' . $delete_text . '</a>';
+					global $post;
+         
+         // Assign your post details to $post (& not any other variable name!!!!)
+         $post = $bookmark;         
+         setup_postdata( $post );
+
+					$display .= '<div class="row bookmark-' . $bookmark . '">';
+          
+          $display .= '<a href="' . get_permalink() . '" class="upb_bookmark_link small-12 columns" title="' . get_the_title() . '">';
+          $display .= get_the_title();
+          
+          $event_img = get_field('event_img');
+				  if($event_img) { 
+				  $display .= $event_img;
+          }
+          
+          $display .= '</a>';
+          
+          
+          if($delete_link) {
+							$display .= '<a href="#" class="columns small-12 right upb_del_bookmark_' . $bookmark . '" rel="' . $bookmark . '" title="' . __('Remove this Bookmark') . '">Remove Event</a>';
 						}
-					$display .= '</li>';
+					$display .= '</div>';
 			
 				}
 			} else {

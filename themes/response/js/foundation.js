@@ -18,13 +18,29 @@
 
 // @codekit-prepend "foundation/foundation.js", "respond.js", "fitvids.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js"
 
-
 (function($) {
   $(document).ready(function(){
       
       $(document).foundation();
       
       $('.entry-content').fitVids();
+      
+      $('body').on('click','#logged-out-my-planner', function(e){
+        e.preventDefault();
+        toggleMyPlanner();
+      });
+      
+      $('body').on('click','#my-planner-button', function(e){
+        e.preventDefault();
+        toggleMyPlanner();
+      });
+      
+      
+      
+      function toggleMyPlanner(e) {
+        $('#my-planner-header').slideToggle(100);
+      }
+
       
   });
 })(jQuery);

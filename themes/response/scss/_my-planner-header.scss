@@ -1,0 +1,13 @@
+.my-planner {
+  position:relative;
+}
+
+.my-planner-login-box {
+  display: none;
+  position: absolute;
+  background: white;
+  padding:10px;
+  z-index: 1000;
+  border: 1px solid #efefef;
+  margin: 5px 0 0 -10px;
+}
