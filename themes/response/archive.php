@@ -3,30 +3,30 @@ get_header(); ?>
 
 <!-- Row for main content area -->
 	<div class="small-12 large-12 columns" role="main">
-  
+  <div class="acf-map"></div>
   <?php
    
    if ( have_posts() ) :
     while ( have_posts() ) : the_post(); ?>
-		<article <?php post_class() ?> id="post-<?php the_ID(); ?>">
+		<article <?php post_class('small-6 columns') ?> id="post-<?php the_ID(); ?>">
 			<header>
-				<a href="<?php the_permalink(); ?>"><h1 class="entry-title"><?php the_title(); ?></h1></a>
+				<a href="<?php the_permalink(); ?>"><h3 class="entry-title"><?php the_title(); ?></h3></a>
 			</header>
 			<div class="entry-content">
-				<?php the_excerpt(); ?>
 				<a href="<?php the_permalink(); ?>">View Event</a><br>
-				<?php 
-				  $venue2 = get_field('venue_2');
-				  //print_r($venue2[0]) . '<br>';
-				  $term_id = 'venue_' . $venue2[0]->term_id;
-				  $location = get_field('location', $term_id);
-				  echo 'Venue: <a href="' . get_bloginfo('url') . '/venue/' . $venue2[0]->slug . '">' . $venue2[0]->name . '</a>';
-				 ?>
-				
 			</div>
-		</article>
-		
-		
+			  <?php if(get_field('existing_venue')) {
+  			  $venue = get_field('venue');
+  			  $location = get_field('location', 'venue_' . $venue[0]->term_id ); 
+			  } else {
+  			  $location = get_field('location');
+			  } ?>
+  			<div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
+        	<h4><?php the_title();?></h4>
+        	<p class="address"><?php echo $location['address']; ?></p>
+        	<p><a href="<?php the_permalink(); ?>">Read More</a></p>
+        </div>
+		</article>		
 	<?php   
   endwhile;
   endif;
@@ -35,52 +35,7 @@ get_header(); ?>
   wp_reset_postdata();
   
   ?> 
-  
-  
-  <h1>MAP:</h1>
-    <?php   
-   if ( have_posts() ) : ?>
-   <div class="acf-map">
-   <?php while ( have_posts() ) : the_post(); ?>
-
-		<?php
-		  $venue2 = get_field('venue_2');
-		  if($venue2) {
-  		  $venue2 = 'venue_' . $venue2[0]->term_id;
-  		  $location = get_field('location', $venue2);
-		  } else {
-		    $location = get_field('location'); 
-		  }
-		  ?>
-			<div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
-				<h4><?php the_title();?></h4>
-				<p class="address"><?php echo $location['address']; ?></p>
-				<p><a href="<?php the_permalink(); ?>">Read More</a></p>
-			</div>
-
-	<?php   
-  endwhile; ?>
-  </div>
-  <?php endif; 
-  
-  // Reset Post Data
-  wp_reset_postdata();
-  
-  ?> 
-	</div>
-		<br><br>
-		
-<style type="text/css">
-       
-      .acf-map {
-      	width: 100%;
-      	height: 400px;
-      	border: #ccc solid 1px;
-      	margin: 20px 0;
-      }
-       
-  </style>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script type="text/javascript">
     (function($) {
      
@@ -100,8 +55,8 @@ get_header(); ?>
     function render_map( $el ) {
      
     	// var
-    	var $markers = $el.find('.marker');
-     
+    	var $markers = $('.marker');
+      
     	// vars
     	var args = {
     		zoom		: 16,
@@ -114,6 +69,8 @@ get_header(); ?>
      
     	// add a markers reference
     	map.markers = [];
+      
+      $markers.hide();
      
     	// add markers
     	$markers.each(function(){
@@ -149,7 +106,7 @@ get_header(); ?>
     	// create marker
     	var marker = new google.maps.Marker({
     		position	: latlng,
-    		map			: map
+    		map			  : map
     	});
      
     	// add to array
@@ -240,6 +197,5 @@ get_header(); ?>
      
     })(jQuery);
 </script>	
-
 
 <?php get_footer(); ?>

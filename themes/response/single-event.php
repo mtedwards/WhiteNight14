@@ -55,6 +55,13 @@
         <?php } else { ?>
           <p><a id="logged-out-my-planner">Sign in to add to my planner.</a></p>
         <?php } ?>
+        <h5>Genre:</h5>
+        <?php 
+          $term_list = wp_get_post_terms($post->ID, 'genre', array("fields" => "all"));
+          foreach($term_list as $term) {
+            echo '<a href="' . get_bloginfo('url') . '/genre/' . $term->slug . '">' . $term->name . '</a> ';
+          }
+         ?>
 
         
       </aside><!-- /#sidebar -->
