@@ -72,14 +72,18 @@ ol.commentlist {
 */
 
 // add some extra margin to ul
+/*
 ul {
 	margin-#{$default-float}: $list-side-margin;
 }
+*/
 
 // add some margin for images in post
+/*
 .container img {
 	margin-bottom: $paragraph-margin-bottom;
 }
+*/
 
 // adjust search button on top-bar
 input.prefix.button {

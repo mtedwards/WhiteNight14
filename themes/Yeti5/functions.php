@@ -16,6 +16,10 @@ function yeti_theme_support() {
         // rss thingy
         //add_theme_support('automatic-feed-links');
         
+        if(! is_admin()){
+          show_admin_bar(false);
+        }
+        
         // Add post formarts supports. http://codex.wordpress.org/Post_Formats
         add_theme_support('post-formats', array('gallery', 'link', 'image', 'video', 'audio'));
         
