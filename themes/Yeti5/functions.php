@@ -8,20 +8,22 @@ Add theme supports
 **********************/
 function yeti_theme_support() {
 
-        // Add post thumbnail supports.
-        add_theme_support('post-thumbnails');
-        add_image_size( 'homepage-thumb', 220, 180, true ); // 220 pixels wide by 180 pixels tall, hard crop mode
-        // set_post_thumbnail_size(150, 150, false);
-        
-        // rss thingy
-        //add_theme_support('automatic-feed-links');
+      	// Add post thumbnail supports. http://codex.wordpress.org/Post_Thumbnails
+      	add_theme_support('post-thumbnails');
+      	add_image_size( 'event-thumb', 200, 200, true); // 200 by 200 hard cropped image
+        add_image_size( 'event-small', 400, 9999 ); // Resize width 400 auto height
+        add_image_size( 'event-medium', 750, 9999 ); // Resize width 750 auto height
+        add_image_size( 'event-large', 1000, 9999 ); // Resize width 1000 auto height
+      
+      	// rss thingy
+      	add_theme_support('automatic-feed-links');
         
         if(! is_admin()){
           show_admin_bar(false);
         }
         
         // Add post formarts supports. http://codex.wordpress.org/Post_Formats
-        add_theme_support('post-formats', array('gallery', 'link', 'image', 'video', 'audio'));
+        //add_theme_support('post-formats', array('gallery', 'link', 'image', 'video', 'audio'));
         
         // Add menu supports. http://codex.wordpress.org/Function_Reference/register_nav_menus
         add_theme_support('menus');
@@ -48,4 +50,23 @@ function yeti_entry_meta() {
         echo '<p class="byline"><time class="updated" datetime="'. get_the_time('c') .'" pubdate>'. sprintf(__('Posted on %s at %s.', 'yeti'), get_the_time('l, F jS, Y'), get_the_time()) .'</time></p>';
         //echo '<p class="byline author">'. __('Written by', 'reverie') .' <a href="'. get_author_posts_url(get_the_author_meta('ID')) .'" rel="author" class="fn">'. get_the_author() .'</a></p>';
 }
-?>
+
+// THE FOLLOWING CONTENT SHOULD BE MOVED OUT TO A MUST USE PLUGIN
+
+
+function remove_event_taxonomy_boxes() {
+	remove_meta_box( 'tagsdiv-precinct' , 'event' , 'normal' );
+	remove_meta_box( 'tagsdiv-venue' , 'event' , 'normal' );
+	remove_meta_box( 'tagsdiv-genre' , 'event' , 'normal' );
+	remove_meta_box( 'tagsdiv-accessibility' , 'event' , 'normal' );
+}
+add_action( 'admin_menu' , 'remove_event_taxonomy_boxes' );
+
+function remove_media_button_from_event() {	
+	global $post;
+  if( $post->post_type == 'event' ) {
+    remove_action( 'media_buttons', 'media_buttons' );
+  }
+}
+
+add_action('admin_head','remove_media_button_from_event');

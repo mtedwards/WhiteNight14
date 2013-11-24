@@ -1,8 +1,30 @@
 <ul data-orbit data-options="bullets:false; stack_on_small: false;">
   <li>
-    <img data-interchange="[http://foundation.zurb.com/docs/assets/img/examples/space-small.jpg, (small)], [http://foundation.zurb.com/docs/assets/img/examples/space-medium.jpg, (medium)], [http://foundation.zurb.com/docs/assets/img/examples/space-large.jpg, (large)]">
+    <div class="row">
+      <div class="small-12 columns">
+        <div class="flex-video widescreen">
+                <?php 
+                  $vid = 'http://youtu.be/cW_o5GSg9Ig'; 
+                  $vid = preg_replace('/\s+/', '', $vid);   
+                  $vid = wp_oembed_get($vid);
+                  echo $vid;
+                ?>
+        </div>
+      </div>
+    </div>
   </li>
-    <li>
-    <img data-interchange="[http://foundation.zurb.com/docs/assets/img/examples/space-small.jpg, (small)], [http://foundation.zurb.com/docs/assets/img/examples/space-medium.jpg, (medium)], [http://foundation.zurb.com/docs/assets/img/examples/space-large.jpg, (large)]">
+  <li>
+    <div class="row">
+      <div class="small-12 columns">
+        <div class="flex-video widescreen">
+                <?php 
+                  $vid = 'http://youtu.be/B1Lj93zI_Do'; 
+                  $vid = preg_replace('/\s+/', '', $vid);   
+                  $vid = wp_oembed_get($vid);
+                  echo $vid;
+                ?>
+        </div>
+      </div>
+    </div>
   </li>
 </ul>

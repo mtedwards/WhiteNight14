@@ -16,10 +16,18 @@
 */
 
 
-// @codekit-prepend "foundation/foundation.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js", "foundation/foundation.orbit.js"
+// @codekit-prepend "foundation/foundation.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js", "foundation/foundation.orbit.js","jquery.countdown.js"
 
 (function($) {
   $(document).ready(function(){
       $(document).foundation();
+      
+      // Countdown
+      
+      var newYear = new Date(); 
+      newYear = new Date(new Date(2014, 2-1, 22, 19)); 
+      $('#countdown').countdown({until: newYear, format: 'dHM'});
+      
+      
   });
 })(jQuery);

@@ -88,6 +88,7 @@ function reverie_scripts_and_styles() {
     wp_enqueue_style( 'jquery' );
     wp_enqueue_script( 'foundation' );
     wp_enqueue_script( 'html5shiv' );
+    
 
   }
 }
