@@ -1,6 +1,9 @@
 // Make sure the charset is set appropriately
 @charset "UTF-8";
 
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/290852");
+
 // This includes all of the foundation global elements that are needed to work with any of the other files.
 @import "foundation/settings";
 
@@ -22,7 +25,6 @@
   "foundation/components/flex-video",
   "foundation/components/forms",
   "foundation/components/grid",
-  "foundation/components/global",
   "foundation/components/inline-lists",
   //"foundation/components/joyride",
   //"foundation/components/keystrokes",
@@ -46,4 +48,5 @@
   "foundation/components/top-bar",
   "foundation/components/type",
   "foundation/components/visibility",
-  "wordpress";
+  "wordpress",
+  "wn-defaults";

@@ -4,6 +4,21 @@
 
 // Uncomment to use rem-calc() in your settings
  @import "foundation/functions";
+ 
+ @font-face { 
+      font-family: 'AvenirLTStd-Book';
+      src: url('../fonts/290852_0_0.eot');
+      src: url('../fonts/290852_0_0.eot?#iefix') format('embedded-opentype'),
+           url('../fonts/290852_0_0.woff') format('woff'),
+           url('../fonts/290852_0_0.ttf') format('truetype');}
+ 
+  
+ @font-face {
+      font-family: 'AvenirLTStd-Black';
+      src: url('../fonts/290852_1_0.eot');
+      src: url('../fonts/290852_1_0.eot?#iefix') format('embedded-opentype'),
+           url('../fonts/290852_1_0.woff') format('woff'),
+           url('../fonts/290852_1_0.ttf') format('truetype');}
 
 // $experimental: true;
 
@@ -35,9 +50,9 @@
 // $total-columns: 12;
 
 // We use these to control various global styles
-// $body-bg: #fff;
+ $body-bg: #000;
 // $body-font-color: #222;
-// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+ $body-font-family: AvenirLTStd-Book, "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: normal;
 // $body-font-style: normal;
 

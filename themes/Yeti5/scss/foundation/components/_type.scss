@@ -3,10 +3,10 @@
 $include-html-type-classes: $include-html-classes !default;
 
 // We use these to control header font styles
-$header-font-family: join("Open Sans", $body-font-family) !default;
-$header-font-weight: 300 !default;
+$header-font-family: join("AvenirLTStd-Black", $body-font-family) !default;
+$header-font-weight: 600 !default;
 $header-font-style: normal !default;
-$header-font-color: #222 !default;
+$header-font-color: #000 !default;
 $header-line-height: 1.4 !default;
 $header-top-margin: .2rem !default;
 $header-bottom-margin: .5rem !default;
@@ -179,7 +179,7 @@ $microformat-abbr-font-decoration: none !default;
     }
 
     /* Default header styles */
-    h1, h2, h3, h4, h5, h6 {
+    h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
       font-family: $header-font-family;
       font-weight: $header-font-weight;
       font-style: $header-font-style;
@@ -196,12 +196,12 @@ $microformat-abbr-font-decoration: none !default;
       }
     }
 
-    h1 { font-size: $h1-font-size - rem-calc(10); }
-    h2 { font-size: $h2-font-size - rem-calc(10); }
-    h3 { font-size: $h3-font-size - rem-calc(5); }
-    h4 { font-size: $h4-font-size - rem-calc(5); }
-    h5 { font-size: $h5-font-size; }
-    h6 { font-size: $h6-font-size; }
+    h1, .h1 { font-size: $h1-font-size - rem-calc(10); }
+    h2, .h2 { font-size: $h2-font-size - rem-calc(10); }
+    h3, .h3 { font-size: $h3-font-size - rem-calc(5); }
+    h4, .h4 { font-size: $h4-font-size - rem-calc(5); }
+    h5, .h5 { font-size: $h5-font-size; }
+    h6, .h6 { font-size: $h6-font-size; }
 
     .subheader { @extend %subheader; }
 
