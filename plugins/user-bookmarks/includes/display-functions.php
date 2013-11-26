@@ -3,7 +3,7 @@
 // this file contains all display functions
 
 // will show the add/remove links
-function upb_bookmark_controls($add_text = 'Save to My Planner', $delete_text = 'Remove from My Planner', $wrapper = true) {
+function upb_bookmark_controls($add_text = 'Add to My Night', $delete_text = 'Remove from My Planner', $wrapper = true) {
 	if(is_user_logged_in()) {
 		$post_id = get_the_ID();
 		
