@@ -1,9 +1,10 @@
+$wn-blue: #01A4E1;
+
 html {
   background: #000;
 }
 
 .main-content-section {
-  padding: 0.9375rem 0;
   background: #fff;
 }
 
@@ -20,3 +21,84 @@ header h1 {
 .centered-text {
   text-align: center;
 }
+
+.acf-map {
+	width: 100%;
+	height: 400px;
+	border: #ccc solid 1px;
+	margin: 20px 0;
+}
+
+.front-map {
+  width: 600px;
+	height: 400px;
+	border: #ccc solid 1px;
+	margin: 20px 0;
+}
+
+.gm-style img { max-width: none; }
+.gm-style label { width: auto; display: inline; }
+
+#map-canvas *, #map-canvas *:before, #map-canvas *:after {
+    -moz-box-sizing: content-box!important;
+    -webkit-box-sizing: content-box!important;
+    box-sizing: content-box!important;  
+  }
+  #map-canvas img {
+      max-width: none;
+  }
+  #map-canvas label {
+      width: auto;
+      display: inline;
+  }
+  
+.wn-infoWindow {
+  min-width: 300px;
+  h4 {
+    display:inline;
+  }
+  img {
+    max-width: 100px;
+    height: auto;
+  }
+}
+
+.main-content-blue {
+  background: $wn-blue;
+}
+
+
+//measuring classes
+.margin-top {
+  margin-top:0.5rem;
+}
+
+.margin-bottom {
+  margin-bottom: 0.5rem;
+}
+
+.padding-top {
+  padding-top: 0.5rem;
+}
+
+.padding-bottom {
+  padding-bottom: 0.5rem;
+}
+
+
+//Precint Colors:
+
+$pre-1-feature: #ef3925;
+$pre-2-feature: #fcee23;
+$pre-3-feature: #c1afd5;
+$pre-4-feature: #0baa4e;
+$pre-5-feature: #2154a4;
+$pre-6-feature: #e0268f;
+$pre-7-feature: #f58320;
+$pre-8-feature: #606a72;
+$pre-9-feature: #824fa0;
+$pre-10-feature: #64cbe8;
+$pre-11-feature: #b4707d;
+
+
+

@@ -1,4 +1,6 @@
 .featured-info {
+  background: #efefef;
+    padding: 0.9375rem 0;
   .date-text {
     h2 {
       font-size: 26px;
@@ -11,6 +13,12 @@
       font-size: 18px;
       font-weight: 300;
     }
+  }
+  
+  .white-bg {
+    background: white;
+    padding:5px 2px;
+    margin-bottom: 0.9375rem;
   }
   
   ul.small-block-grid-4.genre-list {
@@ -32,7 +40,7 @@
   }  
   
   .countdown {
-    min-height: 80px;
+    min-height: 90px;
   }
   
   .social {

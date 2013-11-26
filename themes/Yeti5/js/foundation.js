@@ -31,3 +31,7 @@
       
   });
 })(jQuery);
+
+// @codekit-append "boxes.js"
+// @codekit-append "mymaps.js"
+

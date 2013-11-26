@@ -85,7 +85,7 @@ function reverie_scripts_and_styles() {
     // enqueue styles and scripts
     wp_enqueue_style( 'main-stylesheet' );
     wp_enqueue_style( 'modernizr' );
-    wp_enqueue_style( 'jquery' );
+    wp_enqueue_script( 'jquery' );
     wp_enqueue_script( 'foundation' );
     wp_enqueue_script( 'html5shiv' );
     
