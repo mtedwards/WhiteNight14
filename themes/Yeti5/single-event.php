@@ -11,8 +11,8 @@
   	$precinct = get_the_terms( $post->ID, 'precinct' );
   	foreach($precinct as $pre) {
     	$precinctClass = 'precinct_' . $pre->term_id;
-    	$precinctName  = 'precinct_' . $pre->name;
-    	$precinctSlug  = 'precinct_' . $pre->slug;
+    	$precinctName  = $pre->name;
+    	$precinctSlug  = $pre->slug;
   	}
   	
   	// TIME
@@ -34,13 +34,14 @@
     
     $accessibilities = get_the_terms( $post->ID, 'accessibility' );
     
-    $accessList = "<b>ACCESSIBILITY</b> ";
-    
-    foreach($accessibilities as $accessibility) {
-      $accessLink = '<a href="/accessibility/'. $accessibility->slug .'">' . $accessibility->slug . '</a> ';
-      $accessList .= $accessLink;
-    } 
-    
+    if($accessibilities) {
+      $accessList = "<b>ACCESSIBILITY</b> ";
+      
+      foreach($accessibilities as $accessibility) {
+        $accessLink = '<a href="/accessibility/'. $accessibility->slug .'">' . $accessibility->slug . '</a> ';
+        $accessList .= $accessLink;
+      } 
+    }      
     //Price
     
     if(get_field('paid_event')){
@@ -77,35 +78,32 @@
     
     $presentedBy = get_field('presented_by');
     $creativeCredit = get_field('creative_credit');
-    
     ?>
 		<article <?php post_class($precinctClass) ?> id="post-<?php the_ID(); ?>">
-		  <div class="row">
-  		  <div class="small-12 columns centered-text title-box precinct-color">
-  		    <div class="color-bar"></div>
-    		   <h1 class="h2 no-bottom"><?php the_title(); ?></h1>
-           <h3 class="subheader"><?php the_field('sub_title'); ?></h3>
-  		  </div>
+		  <div class="centered-text margin-top margin-bottom title-box precinct-color">
+		    <div class="color-bar"></div>
+  		   <h1 class="h2 no-bottom"><?php the_title(); ?></h1>
+         <h3 class="subheader no-top"><?php the_field('sub_title'); ?></h3>
 		  </div>
       <div class="row">
         <div class="small-12 medium-12 large-8 columns">
         <?php 
 				  if($event_img) { 
-  				  $small_url = $event_img['sizes']['event-small'];
-  				  $med_url = $event_img['sizes']['event-medium'];
-  				  $large_url = $event_img['sizes']['event-large'];
+  				  $event_feat = $event_img['sizes']['event-feature'];
 				  ?>
 				    <figure class="aligncenter">
-    				  <img src="<?php echo $small_url; ?>" data-interchange="
-    				    [<?php echo $small_url; ?>, (only screen and (min-width: 1px))],
-    				    [<?php echo $med_url; ?>, (only screen and (min-width: 450px))],
-    				    [<?php echo $large_url; ?>, (only screen and (min-width: 750px))]"
-    				  >
+    				  <img src="<?php echo $event_feat; ?>">
               <figcaption><?php echo $event_img['caption']; ?></figcaption>
             </figure>
             <?php } ?>
           <div class="show-for-medium-down">
             <?php include(locate_template('event-details.php')); ?>
+          </div>
+          <div class="show-for-medium-down">
+            <?php the_excerpt(); ?>
+          </div>
+          <div class="show-for-large-up">
+            <?php the_content(); ?>
           </div>
         </div>
         <div class="small-12 medium-12 large-4 columns">
@@ -119,5 +117,5 @@
 
 	</div>
 
-		
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <?php get_footer(); ?>

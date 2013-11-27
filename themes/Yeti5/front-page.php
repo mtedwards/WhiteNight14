@@ -40,18 +40,23 @@
 	  <div class="centered-text date-text show-for-medium-down white-bg">
       <h2>Explore the Precincts</h2>
     </div>
-	    <?php $precincts = get_terms('precinct');
+	    <?php 
+            $args = array(
+              'orderby' => 'slug',
+              'order'   => 'ASC'
+            );
+	          $precincts = get_terms('precinct', $args);
             foreach ( $precincts as $precinct ) {
                 $precinctClass = 'precinct_' . $precinct->term_id;
-                $image = get_field('main_image', $precinctID );
+                $image = get_field('main_image', $precinctClass );
                 $name = $precinct->name;
-                $description = get_field('location_description', $precinctID );
+                $description = get_field('location_description', $precinctClass );
               ?>              
               <article class="<?php echo $precinctClass; ?>">
                 <a href="#">
                   <h3><?php echo $name ?></h3>
                   <img src="<?php echo $image['sizes']['event-small']; ?>">
-                  <!-- <p><?php echo $description; ?></p>  -->
+                  <p><?php echo $description; ?></p>
                 </a>
                 <div class="precinct-content">
                   <div class="row">

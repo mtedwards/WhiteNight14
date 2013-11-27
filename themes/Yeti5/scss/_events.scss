@@ -22,3 +22,21 @@ article.event.list {
     }
   }
 }
+
+figure {
+  width:100%;
+  position: relative;
+  margin-bottom: 0.5rem;
+  figcaption {
+    font-family: $header-font-family;
+    text-transform: uppercase;
+    width:100%;
+    position: absolute;
+    bottom:0;
+    text-align: center;
+    line-height: 1.5em;
+    color: white;
+    padding: 5px 10px;
+    background: rgba(black,0.8);
+  }
+}

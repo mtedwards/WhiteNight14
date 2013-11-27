@@ -10,6 +10,18 @@ html {
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   text-transform: uppercase;
+  &.no-bottom {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    line-height: 1.5rem;
+  }
+  
+  &.no-top {
+    padding-top: 0;
+    margin-top: 0;
+    line-height: 1.5rem;
+  }
+  
 }
 
 header h1 {
@@ -24,7 +36,8 @@ header h1 {
 
 .acf-map {
 	width: 100%;
-	height: 400px;
+	height: 0;
+	padding-bottom: 50%;
 	border: #ccc solid 1px;
 	margin: 20px 0;
 }
@@ -100,6 +113,90 @@ $pre-9-feature: #824fa0;
 $pre-10-feature: #64cbe8;
 $pre-11-feature: #b4707d;
 
+.title-box {
+  background: #efefef;
+}
+
+.color-bar {
+  height: 3px;
+  margin-bottom: 5px;
+    .precinct_18 & {
+      background: $pre-1-feature;
+    }
+    
+    .precinct_19 & {
+      background: $pre-2-feature;
+    }
+    
+    .precinct_20 & {
+      background: $pre-3-feature;
+    }
+    
+    .precinct_21 & {
+      background: $pre-4-feature;
+    }
+    
+    .precinct_22 & {
+      background: $pre-5-feature;
+    }
+    
+    .precinct_23 & {
+      background: $pre-6-feature;
+    }
+    
+    .precinct_24 & {
+      background: $pre-7-feature;
+    }
+    
+    .precinct_25 & {
+      background: $pre-8-feature;
+    }
+    
+    .precinct_26 & {
+      background: $pre-9-feature;
+    }
+    
+    .precinct_27 & {
+      background: $pre-10-feature;
+    }
+    
+    .precinct_31 & {
+      background: $pre-11-feature;
+    }
+}
+
+.upb_bookmark_control {
+  background: $wn-blue;
+  display: block;
+  width:100%;
+  padding:12px 5px 8px 5px;
+  text-align: center;
+  color: white;
+  font-family: $header-font-family;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  &:hover {
+    background:darken($wn-blue,5%);
+    color:white;
+  }
+}
+
+p b {
+  font-family: $header-font-family;
+  font-weight: bold;
+  color: #000;
+}
+
+.button {
+  margin: 0.5rem 0;
+  padding:12px 5px 8px 5px;
+  font-family: $header-font-family;
+  background: #000;
+}
 
 
-
+form select {
+  margin-top: 7px;
+  border-radius: 20px;
+}

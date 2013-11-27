@@ -93,7 +93,7 @@
     	{
     		// set center of map
     	    map.setCenter( bounds.getCenter() );
-    	    map.setZoom( 16 );
+    	    map.setZoom( 8 );
     	}
     	else
     	{
@@ -103,8 +103,16 @@
      
     }
     
+/*
   if($('#full-map').length) {  
   	$('#full-map').each(function(){
+  		render_map( $(this), '.marker' );
+  	});
+  }
+*/
+  
+  if($('.acf-map').length) {  
+  	$('.acf-map').each(function(){
   		render_map( $(this), '.marker' );
   	});
   }
