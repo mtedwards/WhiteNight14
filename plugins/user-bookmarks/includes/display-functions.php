@@ -3,7 +3,7 @@
 // this file contains all display functions
 
 // will show the add/remove links
-function upb_bookmark_controls($add_text = 'Add to My Night', $delete_text = 'Remove from My Planner', $wrapper = true) {
+function upb_bookmark_controls($add_text = '+Add to My Night', $delete_text = 'X Remove from My Night', $wrapper = true) {
 	if(is_user_logged_in()) {
 		$post_id = get_the_ID();
 		
@@ -17,10 +17,10 @@ function upb_bookmark_controls($add_text = 'Add to My Night', $delete_text = 'Re
 		
 		if(upb_check_post_is_read($post_id, upb_get_user_id())) {
 			$link .= '<a href="#" rel="' . $post_id . '" class="upb_del_bookmark upb_bookmark_control upb_bookmark_control_' . $post_id . '">' . $delete_text . '</a>';
-			$link .= '<a href="#" rel="' . $post_id . '" class="upb_add_bookmark upb_bookmark_control upb_bookmark_control_' . $post_id . '" style="display:none;">' . $add_text . ' (' . upb_get_bookmark_count($post_id) . ')</a>';
+			$link .= '<a href="#" rel="' . $post_id . '" class="upb_add_bookmark upb_bookmark_control upb_bookmark_control_' . $post_id . '" style="display:none;">' . $add_text . '</a>';
 		} else {
 			$link .= '<a href="#" rel="' . $post_id . '" class="upb_del_bookmark upb_bookmark_control upb_bookmark_control_' . $post_id . '" style="display:none;">' . $delete_text . '</a>';
-			$link .= '<a href="#" rel="' . $post_id . '" class="upb_add_bookmark upb_bookmark_control upb_bookmark_control_' . $post_id . '">' . $add_text . ' (' . upb_get_bookmark_count($post_id) . ')</a>';
+			$link .= '<a href="#" rel="' . $post_id . '" class="upb_add_bookmark upb_bookmark_control upb_bookmark_control_' . $post_id . '">' . $add_text . '</a>';
 		}
 		if($wrapper == true) {	
 			$link .= '</div>';

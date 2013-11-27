@@ -42,12 +42,12 @@
     </div>
 	    <?php $precincts = get_terms('precinct');
             foreach ( $precincts as $precinct ) {
-                $precinctID = 'precinct_' . $precinct->term_id;
+                $precinctClass = 'precinct_' . $precinct->term_id;
                 $image = get_field('main_image', $precinctID );
                 $name = $precinct->name;
                 $description = get_field('location_description', $precinctID );
               ?>              
-              <article class="<?php echo $precinctID; ?>">
+              <article class="<?php echo $precinctClass; ?>">
                 <a href="#">
                   <h3><?php echo $name ?></h3>
                   <img src="<?php echo $image['sizes']['event-small']; ?>">
