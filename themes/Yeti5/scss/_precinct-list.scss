@@ -2,69 +2,21 @@
   padding: 0.9375rem 0;
   article {
     position: relative;
-    border-top: 3px solid tomato;
     border: 1px solid #000;
+    border-top: none;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     background: white;
     width: 100%;
     display: inline-block;
-    //float: left;
-    &:before {
-      position: absolute;
-      width: 100.5%;
-      height: 3px;
-      background: orange;
-      top:-3px;
-      left:-1px;
+    
+    p.locationDescription {
+      min-height: 28px;
+      line-height: 1.2em;
+      @include clearfix;
     }
     
-    &.precinct_18:before {
-      background: $pre-1-feature;
-    }
-    
-    &.precinct_19:before {
-      background: $pre-2-feature;
-    }
-    
-    &.precinct_20:before {
-      background: $pre-3-feature;
-    }
-    
-    &.precinct_21:before {
-      background: $pre-4-feature;
-    }
-    
-    &.precinct_22:before {
-      background: $pre-5-feature;
-    }
-    
-    &.precinct_23:before {
-      background: $pre-6-feature;
-    }
-    
-    &.precinct_24:before {
-      background: $pre-7-feature;
-    }
-    
-    &.precinct_25:before {
-      background: $pre-8-feature;
-    }
-    
-    &.precinct_26:before {
-      background: $pre-9-feature;
-    }
-    
-    &.precinct_27:before {
-      background: $pre-10-feature;
-    }
-    
-    &.precinct_31:before {
-      background: $pre-11-feature;
-    }
-    
-    @include clearfix;
     > a {
       width: 100%;
       text-decoration: none;
@@ -131,6 +83,8 @@
   }
   .content {
     margin: 0.5rem 0;
+    @include clearfix;
+    width: 100%;
   }
   
   .content.current {

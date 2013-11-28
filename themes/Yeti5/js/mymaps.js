@@ -12,7 +12,7 @@
       
     	// vars
     	var args = {
-    		zoom		: 16,
+    		zoom		: 14,
     		center		: new google.maps.LatLng(0, 0),
     		mapTypeId	: google.maps.MapTypeId.ROADMAP
     	};
@@ -88,12 +88,13 @@
      
     	});
      
+      console.log(map.markers.length);
     	// only 1 marker?
-    	if( map.markers.length == 1 )
+    	if( map.markers.length <= 2 )
     	{
     		// set center of map
     	    map.setCenter( bounds.getCenter() );
-    	    map.setZoom( 8 );
+    	    map.setZoom( 14 );
     	}
     	else
     	{
@@ -103,17 +104,10 @@
      
     }
     
-/*
-  if($('#full-map').length) {  
-  	$('#full-map').each(function(){
-  		render_map( $(this), '.marker' );
-  	});
-  }
-*/
   
   if($('.acf-map').length) {  
   	$('.acf-map').each(function(){
-  		render_map( $(this), '.marker' );
+  		render_map($(this),'.marker');
   	});
   }
   

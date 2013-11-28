@@ -28,6 +28,14 @@
       newYear = new Date(new Date(2014, 2-1, 22, 19)); 
       $('#countdown').countdown({until: newYear, format: 'dHM'});
       
+      // Replace Content on Event Read More
+      
+      $('.excerpt-text').on('click','#read-more', function(e){
+        e.preventDefault();
+        var newContent = $('.full-text').html();
+        $('.excerpt-text').html(newContent);
+      });
+      
       
       //EnQuire
       
@@ -45,6 +53,8 @@
         }  
     
     });
+    
+    
       
       
   });

@@ -18,22 +18,7 @@
           </ul>
         </div>
         <div class="small-12 large-4 columns">
-          <div class="centered-text date-text hide-for-medium-down white-bg">
-  	        <h2>22 February 2014</h2>
-  	        <h3>7PM TO 7 AM</h3>
-  	      </div>
-  	      <div class="centered-text countdown hide-for-medium-down white-bg">
-  	        <h6>Countdown to White Night Melbourne</h6>
-  	        <div id="countdown"></div>
-  	      </div>
-  	      <div class="social centered-text white-bg">
-            <a href="https://www.facebook.com/WhiteNightMelbourne" class="social-icon facebook" target="_blank">Like us on Facebook</a>
-            <a href="https://twitter.com/whitenightmelb" class="social-icon twitter" target="_blank">Follow us on Twitter</a>
-            <a href="http://instagram.com/whitenightmelb/" class="social-icon instagram" target="_blank">Follow us on Instagram</a>
-            <a href="https://www.youtube.com/user/WhiteNightMelbourne" class="social-icon youtube" target="_blank">Join our YouTUbe Channel</a>
-            <a href="" class="social-icon gplus" target="_blank">Join us on Google +</a>
-  	        <h2>#WHITENIGHTMELB</h2>
-  	      </div>
+          <?php include(locate_template('partials/sidebar-details.php')); ?>
         </div>
 	  </div>
 	  <div class="precinct-list">
@@ -50,18 +35,20 @@
                 $precinctClass = 'precinct_' . $precinct->term_id;
                 $image = get_field('main_image', $precinctClass );
                 $name = $precinct->name;
+                $slug = $precinct->slug;
                 $description = get_field('location_description', $precinctClass );
               ?>              
               <article class="<?php echo $precinctClass; ?>">
+                <div class="color-bar"></div>
                 <a href="#">
                   <h3><?php echo $name ?></h3>
                   <img src="<?php echo $image['sizes']['event-small']; ?>">
-                  <p><?php echo $description; ?></p>
+                  <p class="locationDescription"><?php echo $description; ?></p>
                 </a>
                 <div class="precinct-content">
                   <div class="row">
                     <div class="columns small-12 medium-6">
-                      <div class="acf-map" id="<?php echo 'map-' . $precinctID; ?>"></div>
+                      <img src="<?php bloginfo('template_url'); ?>/img/precinct-map-holder.gif">
                     </div>
                     <div class="columns small-12 medium-6 <?php echo 'markers-' . $precinctID; ?>">
                       <?php
@@ -70,24 +57,26 @@
                           'posts_per_page' => -1,                
                           'order' => 'ASC',
                           'orderby' => 'title',
-                          'precinct' => $name
+                          'precinct' => $slug
                           );
                       
                       $the_query = new WP_Query( $args );
                       
                       // The Loop
-                      if ( $the_query->have_posts() ) :
-                      while ( $the_query->have_posts() ) : $the_query->the_post();?>
-                      <?php the_title(); ?><br>
-              			 <?php
-                      endwhile;
-                      endif;
+                      if ( $the_query->have_posts() ) : ?>
+                      <ul>
+                      <?php
+                        while ( $the_query->have_posts() ) : $the_query->the_post();?>
+                        <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+              			 <?php endwhile; ?>
+                      </br>
+                     <?php endif;
                       
                       // Reset Post Data
                       wp_reset_postdata();
                       
                       ?>
-                      <a class="button black small" href="/precinct/<?php echo $precinct->slug ?>">MORE ></a>
+                      <a class="button black small" href="<?php bloginfo('url'); ?>/precinct/<?php echo $precinct->slug ?>">MORE ></a>
                     </div>
                   </div>
                 </div>

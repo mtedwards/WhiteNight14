@@ -71,3 +71,13 @@ function remove_media_button_from_event() {
 }
 
 add_action('admin_head','remove_media_button_from_event');
+
+
+// Custom Excerpt
+
+// Replaces the excerpt "more" text by a link
+function new_excerpt_more($more) {
+  global $post;
+	return '  <a href="#" id="read-more"><b>Read More...</b></a>';
+}
+add_filter('excerpt_more', 'new_excerpt_more');

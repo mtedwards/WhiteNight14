@@ -1,5 +1,13 @@
 $wn-blue: #01A4E1;
 
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
 html {
   background: #000;
 }

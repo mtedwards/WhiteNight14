@@ -97,18 +97,18 @@
             </figure>
             <?php } ?>
           <div class="show-for-medium-down">
-            <?php include(locate_template('event-details.php')); ?>
+            <?php include(locate_template('partials/event-details.php')); ?>
           </div>
-          <div class="show-for-medium-down">
+          <div class="show-for-medium-down excerpt-text">
             <?php the_excerpt(); ?>
           </div>
-          <div class="show-for-large-up">
+          <div class="show-for-large-up full-text">
             <?php the_content(); ?>
           </div>
         </div>
         <div class="small-12 medium-12 large-4 columns">
           <div class="show-for-large-up">
-            <?php include(locate_template('event-details.php')); ?>
+            <?php include(locate_template('partials/event-details.php')); ?>
           </div>
         </div>
       </div>
