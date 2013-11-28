@@ -89,7 +89,7 @@ function upb_list_bookmarks( $delete_link = true, $delete_text = 'Remove Event' 
 		$display .= 'You must be logged in to view your bookmarks.';
 	}
 	
-	return $display;
+	return $bookmarks;
 }
 
 function upb_most_bookmarked($number = 5, $count = true) {

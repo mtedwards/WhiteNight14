@@ -5211,47 +5211,50 @@ form select {
     padding: 0;
     background: white;
     width: 100%;
-    display: inline-block; }
-    /* line 14, ../scss/_precinct-list.scss */
-    .precinct-list article p.locationDescription {
-      min-height: 28px;
-      line-height: 1.2em; }
-      /* line 4, ../scss/_wn-defaults.scss */
-      .precinct-list article p.locationDescription:after {
-        content: "";
-        display: table;
-        clear: both; }
-    /* line 20, ../scss/_precinct-list.scss */
+    display: block;
+    float: left; }
+    /* line 4, ../scss/_wn-defaults.scss */
+    .precinct-list article:after {
+      content: "";
+      display: table;
+      clear: both; }
+    /* line 16, ../scss/_precinct-list.scss */
+    .precinct-list article .locationDescription p {
+      margin: 0;
+      line-height: 1.2em;
+      display: block;
+      min-height: 30px; }
+    /* line 24, ../scss/_precinct-list.scss */
     .precinct-list article > a {
       width: 100%;
       text-decoration: none; }
-      /* line 23, ../scss/_precinct-list.scss */
+      /* line 27, ../scss/_precinct-list.scss */
       .precinct-list article > a h3 {
         margin: 0 0 0 0.5rem;
         line-height: 1.5em;
         padding: 0;
         text-decoration: none; }
-      /* line 29, ../scss/_precinct-list.scss */
+      /* line 33, ../scss/_precinct-list.scss */
       .precinct-list article > a img {
         margin-bottom: 0;
         width: 100%; }
-      /* line 33, ../scss/_precinct-list.scss */
+      /* line 37, ../scss/_precinct-list.scss */
       .precinct-list article > a p {
         margin: 0.25rem 0 0.25rem 0.5rem;
         line-height: 2em; }
-      /* line 38, ../scss/_precinct-list.scss */
+      /* line 42, ../scss/_precinct-list.scss */
       .precinct-list article > a div {
         padding: 0.6em 10px 0.5em; }
-      /* line 44, ../scss/_precinct-list.scss */
+      /* line 48, ../scss/_precinct-list.scss */
       .precinct-list article > a:hover img {
         opacity: 0.6; }
-    /* line 50, ../scss/_precinct-list.scss */
+    /* line 54, ../scss/_precinct-list.scss */
     .precinct-list article.open {
       background: #fff;
       padding-bottom: 10px;
       border-bottom: 0;
       z-index: 200; }
-      /* line 55, ../scss/_precinct-list.scss */
+      /* line 59, ../scss/_precinct-list.scss */
       .precinct-list article.open > a h1 {
         color: white; }
     @media only screen and (min-width: 540px) {
@@ -5259,7 +5262,7 @@ form select {
       .precinct-list article {
         width: 48.7%;
         margin-right: 1%; }
-        /* line 63, ../scss/_precinct-list.scss */
+        /* line 67, ../scss/_precinct-list.scss */
         .precinct-list article:nth-of-type(2n) {
           margin-right: 0; } }
     @media only screen and (min-width: 790px) {
@@ -5267,16 +5270,16 @@ form select {
       .precinct-list article {
         width: 31.9%;
         margin-right: 1%; }
-        /* line 71, ../scss/_precinct-list.scss */
+        /* line 75, ../scss/_precinct-list.scss */
         .precinct-list article:nth-of-type(2n) {
           margin-right: 1%; }
-        /* line 74, ../scss/_precinct-list.scss */
+        /* line 78, ../scss/_precinct-list.scss */
         .precinct-list article:nth-of-type(3n) {
           margin-right: 0; } }
-    /* line 80, ../scss/_precinct-list.scss */
+    /* line 84, ../scss/_precinct-list.scss */
     .precinct-list article div.precinct-content {
       display: none; }
-  /* line 84, ../scss/_precinct-list.scss */
+  /* line 88, ../scss/_precinct-list.scss */
   .precinct-list .content {
     margin: 0.5rem 0;
     width: 100%; }
@@ -5285,7 +5288,7 @@ form select {
       content: "";
       display: table;
       clear: both; }
-  /* line 90, ../scss/_precinct-list.scss */
+  /* line 93, ../scss/_precinct-list.scss */
   .precinct-list .content.current {
     position: relative;
     top: -1px;
@@ -5293,6 +5296,11 @@ form select {
     padding: 0.5rem;
     border: 1px solid #000;
     z-index: 100; }
+    /* line 4, ../scss/_wn-defaults.scss */
+    .precinct-list .content.current:after {
+      content: "";
+      display: table;
+      clear: both; }
 
 /* line 1, ../scss/_events.scss */
 article.event.list {
@@ -5340,4 +5348,18 @@ figure {
   background: white; }
   /* line 6, ../scss/_page.scss */
   .page .featured-info.is-single-page .white-bg {
-    background: #efefef; }
+    background: #efefef;
+    margin: 0.5rem; }
+
+/* line 1, ../scss/_mynight.scss */
+figure .upb_bookmark_control {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  text-align: center; }
+
+/* line 9, ../scss/_mynight.scss */
+.event-box-list article {
+  border: 1px solid #000;
+  border-top: none; }

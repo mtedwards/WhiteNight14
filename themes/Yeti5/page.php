@@ -12,9 +12,7 @@
   	<?php endwhile; // End the loop ?>
 	</div>
   <div class="small-12 medium-4 large-4 columns is-single-page featured-info">
-    <div class="row">
       <?php include(locate_template('partials/sidebar-details.php')); ?>
-    </div>
   </div>
 		
 <?php get_footer(); ?>

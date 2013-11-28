@@ -7,6 +7,8 @@
 	<?php while (have_posts()) : the_post(); 
   	//Lets set up ALL the variables first
   	$event_img = get_field('event_img');
+  	$event_feat = $event_img['sizes']['event-feature'];
+  	
   	
   	$precinct = get_the_terms( $post->ID, 'precinct' );
   	foreach($precinct as $pre) {
@@ -88,9 +90,7 @@
       <div class="row">
         <div class="small-12 medium-12 large-8 columns">
         <?php 
-				  if($event_img) { 
-  				  $event_feat = $event_img['sizes']['event-feature'];
-				  ?>
+				  if($event_img) { ?>
 				    <figure class="aligncenter">
     				  <img src="<?php echo $event_feat; ?>">
               <figcaption><?php echo $event_img['caption']; ?></figcaption>

@@ -9,12 +9,16 @@
     padding: 0;
     background: white;
     width: 100%;
-    display: inline-block;
-    
-    p.locationDescription {
-      min-height: 28px;
-      line-height: 1.2em;
-      @include clearfix;
+    display: block;
+    float: left;
+    @include clearfix;
+    .locationDescription {
+      p {
+        margin: 0;
+        line-height: 1.2em;
+        display: block;
+        min-height: 30px;
+      }
     }
     
     > a {
@@ -85,9 +89,9 @@
     margin: 0.5rem 0;
     @include clearfix;
     width: 100%;
-  }
-  
+  }  
   .content.current {
+   @include clearfix;
     position: relative;
     top:-1px;
     margin: 0 0.5rem 0.5rem 0;

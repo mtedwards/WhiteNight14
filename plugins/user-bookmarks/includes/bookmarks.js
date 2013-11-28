@@ -35,6 +35,9 @@ jQuery(document).ready( function($) {
 			$.post(upb_vars.ajaxurl, data, function(response) {
 				$('.bookmark-'+post_id).fadeOut();
 				$('.upb_bookmark_control_'+post_id).toggle();
+				if($('.my-night').length) {
+				  window.location.reload(true);
+				}
 			});
 		}
 	 	return false;

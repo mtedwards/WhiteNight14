@@ -43,7 +43,7 @@
                 <a href="#">
                   <h3><?php echo $name ?></h3>
                   <img src="<?php echo $image['sizes']['event-small']; ?>">
-                  <p class="locationDescription"><?php echo $description; ?></p>
+                  <div class="locationDescription"><p><?php echo $description; ?></p></div>
                 </a>
                 <div class="precinct-content">
                   <div class="row">
