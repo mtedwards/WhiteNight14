@@ -83,8 +83,47 @@
                 <?php } else { ?>
                   <a id="menu-full-my-night" class="menu-button dropdown" href="#"><span class="blue">+</span>My Night
                       <span class="small">Login Create</span></a>
-                  <div class="sub-menu">
-                    <h2>Create a My Night Account</h2>
+                  <div class="sub-menu my-night-dropdown">
+                    <h4>Create a My Night Account</h4>
+                    <div class="row">
+                      <div class="small-6 columns">
+                        <b>Create a My Night Account so you can:</b>
+                        <ul>
+                          <li>Save your favourite events.</li>
+                          <li>Invite your friends and family to join you</li>
+                          <li>Stay up-to-date with White Night Melbourne News</li>
+                        </ul>
+                      </div>
+                      <div class="small-6 columns">
+                          <form action="" method="post"> 
+                            <div class="row">
+                              <div class="small-12 columns">
+                                <input type="text" name="" placeholder="Username" id="" class="input"/>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="small-12 columns">
+                                <input type="text" name="" placeholder="email" id="" class="input" /> 
+                              </div>
+                            </div>
+                             <div class="row">
+                              <div class="small-12 columns">
+                                <input class="button" type="submit" value="Register" id="register" />
+                              </div>
+                            </div>
+                          </form>
+                             <div class="row">
+                              <div class="small-12 columns">
+                                <p><small>A password will be emailed to you.</small></p>
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="small-12 columns">
+                        <a href="#" class="button expand">Login to My Night</a>
+                      </div>
+                    </div>
                   </div>
                 <?php } ?>
               </li>
@@ -98,12 +137,12 @@
                       <li><a href="#">Getting Here</a></li>
                       <li><a href="#">Getting Around</a></li>
                       <li><a href="#">Map</a></li>
-                      <li><a href="#">Where to Eat & Rest</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/where-to-eat-rest/">Where to Eat & Rest</a></li>
                       <li><a href="#">Getting Home</a></li>
                     </ul>
                     <b>About Us</b>
                     <ul>
-                      <li><a href="#">Contact Us</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/contact-us/">Contact Us</a></li>
                     </ul>
                     
                   </div>
