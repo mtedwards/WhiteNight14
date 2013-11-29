@@ -6,7 +6,6 @@
 		$push_checked = ( $this->settings['allow_push'] ? ' checked="checked"' : '' );
 		$verify_ssl_checked = ( $this->settings['verify_ssl'] ? ' checked="checked"' : '' );
 
-		$licence_email = ( isset( $this->settings['licence_email'] ) && ! empty( $this->settings['licence_email'] ) ? 'Registered To: ' . $this->settings['licence_email'] : '' );
 		$licence = $this->get_licence_key();
 	?>
 
@@ -66,10 +65,15 @@
 			<?php _e( 'The license key is currently defined in wp-config.php.', 'wp-migrate-db-pro' ); ?>
 		</p>
 		<?php else : ?>
-		<div class="licence-information"><?php echo $licence_email; ?></div>
-		<input type="text" class="licence-input" autocomplete="off" value="<?php echo esc_attr( $licence ); ?>" />
-		<button class="button register-licence" type="submit">Activate License</button>
-		<p class="licence-status"></p>
+			<?php if( ! empty( $licence ) ) :
+				echo $this->get_formatted_masked_licence();
+			else : ?>
+			<div class="licence-not-entered">
+				<input type="text" class="licence-input" autocomplete="off" />
+				<button class="button register-licence" type="submit">Activate License</button>
+				<p class="licence-status"></p>
+			</div>
+			<?php endif; ?>
 		<?php endif; ?>
 	</form>
 

@@ -16,7 +16,7 @@
 */
 
 
-// @codekit-prepend "foundation/foundation.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js", "foundation/foundation.orbit.js","jquery.countdown.js", "enquire.js"
+// @codekit-prepend "foundation/foundation.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js", "foundation/foundation.orbit.js","jquery.countdown.js", "enquire.js","menu.js"
 
 (function($) {
   $(document).ready(function(){

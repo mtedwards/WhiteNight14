@@ -1,3 +1,7 @@
+#wpmdb-main {
+  width: 742px;
+}
+
 .wpmdb {
   /* =============================================================================
      Common & Global
@@ -21,9 +25,15 @@
   /* =============================================================================
      Help Tab
      ========================================================================== */
+  /* =============================================================================
+     Addons Tab
+     ========================================================================== */
 }
 .wpmdb > .warning {
-  max-width: 750px;
+  max-width: 742px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .wpmdb a {
   text-decoration: none;
@@ -44,6 +54,10 @@
 .wpmdb input[type=text],
 .wpmdb input[type=password] {
   padding: 5px;
+}
+.wpmdb label.disabled {
+  color: #888;
+  cursor: default;
 }
 .wpmdb .option-section {
   border-bottom: 1px solid #ccc;
@@ -69,7 +83,7 @@
   display: none;
 }
 .wpmdb .indent-wrap {
-  margin-left: 25px;
+  margin-left: 24px;
 }
 .wpmdb .expandable-content {
   display: none;
@@ -123,6 +137,7 @@
 }
 .wpmdb .register-licence {
   float: left;
+  outline: none;
 }
 .wpmdb .licence-status {
   color: #A21B1B;
@@ -133,9 +148,6 @@
 }
 .wpmdb .licence-status.success {
   color: #333;
-}
-.wpmdb .licence-information {
-  margin-bottom: 5px;
 }
 .wpmdb .register-licence-ajax-spinner {
   margin: 4px 0 0 8px;
@@ -150,7 +162,7 @@
 .wpmdb h2.nav-tab-wrapper {
   margin-top: 10px;
   margin-bottom: 20px;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 .wpmdb h2.nav-tab-wrapper a {
   margin-right: 4px;
@@ -162,10 +174,6 @@
 .wpmdb label {
   display: inline-block;
   clear: both;
-}
-.wpmdb .saved-migration-profile-label {
-  font-weight: bold;
-  font-size: 14px;
 }
 .wpmdb .migration-profile-options li {
   position: relative;
@@ -222,9 +230,14 @@
   color: #999;
   font-style: italic;
 }
-.wpmdb .option-heading {
+.wpmdb .option-heading, .wpmdb .checkbox-label {
   font-size: 14px;
   font-weight: bold;
+}
+.wpmdb .checkbox-label input[type=checkbox] {
+  margin-right: 7px;
+  position: relative;
+  top: -1px;
 }
 .wpmdb .expand-collapse-arrow {
   margin-right: 9px;
@@ -371,11 +384,11 @@
 .wpmdb .select-deselect-divider {
   margin: 0 6px;
 }
-.wpmdb .select-tables-wrap {
+.wpmdb .select-wrap {
   display: none;
   margin-top: 12px;
 }
-.wpmdb #select-tables {
+.wpmdb .multiselect {
   min-width: 420px;
   min-height: 180px;
   margin-bottom: 10px;
@@ -431,6 +444,19 @@
   left: 140px;
   top: -10px;
 }
+.wpmdb .inline-message {
+  padding: 10px;
+  border-radius: 3px;
+  margin-top: 5px;
+}
+.wpmdb .inline-message.error {
+  border: 1px solid #CC0000;
+  background-color: #FFEBE8;
+}
+.wpmdb .inline-message.warning {
+  background-color: #FFFFE0;
+  border: 1px solid #E6DB55;
+}
 .wpmdb .helper-message:after {
   content: '';
   border-bottom: 7px solid transparent;
@@ -458,26 +484,25 @@
 .wpmdb .label-disabled {
   color: #888;
 }
-.wpmdb .prefix-notice, .wpmdb .ssl-notice, .wpmdb .different-plugin-version-notice, .wpmdb .mysqli-notice {
+.wpmdb .prefix-notice, .wpmdb .ssl-notice, .wpmdb .different-plugin-version-notice, .wpmdb .mysqli-notice, .wpmdb .directory-permission-notice {
   background-color: #FFFFE0;
   border: 1px solid #E6DB55;
   padding: 15px;
   border-radius: 3px;
   margin-bottom: 15px;
   display: none;
-  width: 710px;
 }
-.wpmdb .prefix-notice p, .wpmdb .ssl-notice p, .wpmdb .different-plugin-version-notice p, .wpmdb .mysqli-notice p {
+.wpmdb .prefix-notice p, .wpmdb .ssl-notice p, .wpmdb .different-plugin-version-notice p, .wpmdb .mysqli-notice p, .wpmdb .directory-permission-notice p {
   margin-top: 0px;
 }
-.wpmdb .prefix-notice p:last-child, .wpmdb .ssl-notice p:last-child, .wpmdb .different-plugin-version-notice p:last-child, .wpmdb .mysqli-notice p:last-child {
+.wpmdb .prefix-notice p:last-child, .wpmdb .ssl-notice p:last-child, .wpmdb .different-plugin-version-notice p:last-child, .wpmdb .mysqli-notice p:last-child, .wpmdb .directory-permission-notice p:last-child {
   margin: 0px;
 }
-.wpmdb .different-plugin-version-notice, .wpmdb .mysqli-notice {
+.wpmdb .different-plugin-version-notice, .wpmdb .mysqli-notice, .wpmdb .directory-permission-notice {
   background-color: #FFEBE8;
   border-color: #CC0000;
 }
-.wpmdb .different-plugin-version-notice a, .wpmdb .mysqli-notice a {
+.wpmdb .different-plugin-version-notice a, .wpmdb .mysqli-notice a, .wpmdb .directory-permission-notice a {
   color: #CC0000;
   text-decoration: underline;
 }
@@ -487,10 +512,6 @@
 .wpmdb .ssl-notice {
   margin-bottom: 0;
   margin-top: 15px;
-}
-.wpmdb .save-migration-profile {
-  font-size: 14px;
-  font-weight: bold;
 }
 .wpmdb .save-migration-profile-wrap li label {
   font-size: 12px;
@@ -674,6 +695,14 @@
   float: left;
   margin: 4px 7px;
 }
+.wpmdb .masked-licence {
+  margin-top: 0px;
+}
+.wpmdb .bull {
+  font-size: 22px;
+  position: relative;
+  top: 4px;
+}
 .wpmdb .help-tab {
   display: none;
 }
@@ -784,6 +813,63 @@
 .wpmdb .help-tab iframe {
   display: none;
 }
+.wpmdb .addons-tab {
+  display: none;
+}
+.wpmdb .addons-tab .addon {
+  position: relative;
+  width: 100%;
+  min-height: 138px;
+  padding: 25px 30px 30px 165px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #fff;
+}
+.wpmdb .addons-tab .addon .actions {
+  float: right;
+  font-size: 14px;
+}
+.wpmdb .addons-tab .addon .actions > * {
+  margin-right: 10px;
+}
+.wpmdb .addons-tab .addon .actions *:last-child {
+  margin-right: 0;
+}
+.wpmdb .addons-tab .addon .actions .action {
+  background-color: #fff;
+  font-weight: bold;
+  display: inline-block;
+  padding: 0.2em 0.4em;
+}
+.wpmdb .addons-tab .addon .actions .action:hover {
+  background-color: rgba(255, 255, 255, 0.92);
+}
+.wpmdb .addons-tab .addon .actions .status {
+  border-bottom: 2px solid #fff;
+  padding-bottom: 0.1em;
+}
+.wpmdb .addons-tab .addon h1 {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
+  font-weight: normal;
+  float: left;
+  margin: 0;
+  margin-top: 5px;
+}
+.wpmdb .addons-tab .addon p {
+  font-size: 16px;
+  line-height: 1.2em;
+  clear: both;
+  padding-top: 15px;
+  margin: 0;
+}
+.wpmdb .addons-tab .addon.wp-migrate-db-pro-media-files {
+  background: #3fab3f url(../img/icon-media-files.svg) no-repeat 30px 30px;
+  background-size: 110px 85px;
+}
+.wpmdb .addons-tab .addon.wp-migrate-db-pro-media-files .action {
+  color: #3fab3f;
+}
 
 /* Progress Information */
 /* Contain floats: h5bp.com/q */
@@ -857,6 +943,7 @@
 .progress-content .progress-text {
   clear: left;
   float: left;
+  width: 100%;
 }
 .progress-content .timer {
   float: right;
@@ -907,7 +994,7 @@
   position: relative;
   text-align: center;
 }
-.progress-content .progress-chunk span {
+.progress-content .progress-chunk > span {
   padding: 0px 3px;
   white-space: nowrap;
   text-overflow: ellipsis;

@@ -11,9 +11,8 @@ function yeti_theme_support() {
       	// Add post thumbnail supports. http://codex.wordpress.org/Post_Thumbnails
       	add_theme_support('post-thumbnails');
       	add_image_size( 'event-thumb', 200, 200, true); // 200 by 200 hard cropped image
-        add_image_size( 'event-small', 400, 9999 ); // Resize width 400 auto height
-        add_image_size( 'event-medium', 750, 9999 ); // Resize width 750 auto height
-        add_image_size( 'event-large', 1000, 9999 ); // Resize width 1000 auto height
+        add_image_size( 'event-small', 400, 225, true ); // Resize width 400 auto height
+        add_image_size( 'event-medium', 720, 405, true ); // Resize width 750 auto height
         add_image_size( 'event-feature', 960, 540, true ); // Resize width 960 auto height
       
       	// rss thingy

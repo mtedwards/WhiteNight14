@@ -28,8 +28,98 @@
 <body <?php body_class(); ?>>
 <div class="container" role="document">
   <header class="row">
-    <div class="small-12 columns">
-      <h1><a href="/"><img src="<?php bloginfo('template_url'); ?>/img/header_logo2.png"alt="White Night Melbourne logo"></a></h1>
-    </div>
+  <div class="small-12 columns">
+    <div class="main-menu contain-to-grid fixed">
+      <nav class="top-bar" data-topbar>
+        <div class="full-menu">
+          <div class="logo">
+            <a href="/"><img src="<?php bloginfo('template_url'); ?>/img/white-logo.png"alt="White Night Melbourne logo"></a>
+          </div>
+          <div class="menu-buttons">
+            <ul>
+              <li>
+                <a id="menu-full-explore" class="menu-button dropdown" href="#">EXPLORE</a>
+                <div class="sub-menu">
+                  <div class="left">
+                    <ul>
+                      <li><a href="<?php bloginfo('url'); ?>/events/"><b>FULL PROGRAM</b></a></li>
+                      <!-- <li><a href="#"><b>Journeys</b></a></li> -->
+                    </ul>
+                    <b>Precincts</b>
+                    <ul>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/01-northern-lights/">Northern Lights</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/02-lucky-dip/">Lucky Dip</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/03-jrb/">J+R&B</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/04-shadows/">Shadows</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/04-the-vortex/">The Vortex</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/05-rags-to-riches/">Rags to Riches</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/06-wonderland/">Wonderland</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/08-midden/">Midden</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/09-alex-and-the-engineer/">Alex and the engineer</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/10-tattooed-city/">Tattooed City</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/11-outer-limits/">Outer Limits</a></li>
+                    </ul>
+                    
+                  </div>
+                  <div class="right">
+                    <ul>
+                      <li><a href="<?php bloginfo('url'); ?>/events/?genre=art">Art</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/events/?genre=design">Design</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/events/?genre=family">Family</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/events/?genre=fashion">Fashion</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/events/?genre=film">Film</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/events/?genre=lighting">Lighting</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/events/?genre=music">Music</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/events/?genre=performance">Performance</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/events/?genre=sport">Sport</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <?php if(!is_user_logged_in()){ // REMOVE THE ! WHEN FINISHED TESTING!!!!! ?>
+                  <a  class="menu-button" href="<?php bloginfo('url'); ?>/my-night"><span class="blue">+</span>My Night</a>
+
+                <?php } else { ?>
+                  <a id="menu-full-my-night" class="menu-button dropdown" href="#"><span class="blue">+</span>My Night
+                      <span class="small">Login Create</span></a>
+                  <div class="sub-menu">
+                    <h2>Create a My Night Account</h2>
+                  </div>
+                <?php } ?>
+              </li>
+              <li>
+                <a id="menu-full-info" class="menu-button dropdown" href="#">Vistor Info</a>
+                 <div class="sub-menu">
+                  <div class="left">
+                    <b>VISITOR INFO</b>  
+                    <ul>
+                      <li><a href="#">Visting Melbourne</a></li>
+                      <li><a href="#">Getting Here</a></li>
+                      <li><a href="#">Getting Around</a></li>
+                      <li><a href="#">Map</a></li>
+                      <li><a href="#">Where to Eat & Rest</a></li>
+                      <li><a href="#">Getting Home</a></li>
+                    </ul>
+                    <b>About Us</b>
+                    <ul>
+                      <li><a href="#">Contact Us</a></li>
+                    </ul>
+                    
+                  </div>
+                  <div class="right">
+                  </div>
+
+              </li>
+            </ul>
+          </div>
+          <div class="search">
+          </div>
+        </div>
+        
+      </nav>
+    </div>  
+  </div>
+
   </header>
   <div class="row main-content-section">

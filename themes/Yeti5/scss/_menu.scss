@@ -1,0 +1,155 @@
+.contain-to-grid {
+  background: none;
+}
+
+nav.top-bar {
+
+}
+
+.full-menu {
+  display:table;
+  width:100%;
+  height: 100px;
+  
+  .logo, .menu-buttons, .search {
+    display:table-cell;
+    position: relative;
+    text-align: center;
+    font-size: 36px;
+    font-family: $header-font-family;
+    text-transform: uppercase;
+  }
+  
+  .logo, .search {
+    width:100px;
+    img {
+      padding: 0;
+      margin: 0;
+    }
+  }
+  
+  .logo {
+   // background: tomato;
+    a {
+      position: absolute;
+      top:0;
+      left:7px;
+      width: 88px;
+      height: 87px;
+    }
+  }
+  
+  .menu-buttons {
+   // background: skyblue;
+    > ul {
+      max-height: 100px;
+      margin: 0;
+      padding: 0;
+      > li {
+        width:33.3%;
+        float: left;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        > a {
+          text-decoration: none;
+          width: 100%;
+          display: inline-block;
+          color: white;
+          font-size: 36px;
+          font-family: $header-font-family;
+          padding: 23px 0 20px;
+          border-left: 1px solid #333;
+                  
+          &:hover, &.open {
+            background: white;
+            color: #000;
+            border-bottom: 1px solid #000;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+          }
+          .blue{
+              color: $wn-blue;
+            }
+          
+          &#menu-full-my-night {
+            padding: 30px 0 26px;
+            line-height: 1.8rem;
+            
+            .small {
+              font-size: 12px;
+              display: block;
+              line-height:1rem;
+            }
+            &.open {
+            }
+            
+          }
+          
+          @media(max-width:920px) {
+            padding: 28px 0 24px;
+            font-size: 30px;
+            &#menu-full-my-night {
+              padding: 32px 0 24px;
+            }
+          }
+          @media(max-width:800px) {
+            padding: 34px 0 28px;
+            font-size: 24px;
+            &#menu-full-my-night {
+              padding: 33px 0 23px;
+            }
+          }
+        }
+        .sub-menu {
+          display: none;
+          border: 1px solid #000;
+          border-top: none;
+          padding:10px;
+          position: absolute;
+          top: 100px;
+          left: 0;
+          background: white;
+          font-size: 12px;
+          @include clearfix;
+          min-width: 250px;
+          text-align: left;
+          ul {
+            font-size: 12px;
+            margin-left: 0;
+            margin-bottom: 5px;
+            li {
+              display: block;
+              margin: 0;
+              a {
+                font-family: $body-font-family;
+                font-size: 12px;
+                b {
+                  font-family: $header-font-family;
+                }
+              }
+            }
+          }
+          a {
+            color: #000;
+            font-size: 12px;
+          }
+          .left {
+            width: 60%;
+            float: left;
+          }
+          .right {
+            width: 40%;
+            float: left;
+          }
+
+        }
+      }
+    }
+  }
+  
+  .search {
+   // background: orange;
+  }
+
+}
