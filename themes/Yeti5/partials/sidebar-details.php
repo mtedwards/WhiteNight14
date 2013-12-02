@@ -14,3 +14,6 @@
   <a href="" class="social-icon gplus" target="_blank">Join us on Google +</a>
   <h2>#WHITENIGHTMELB</h2>
 </div>
+<div class="hide-for-medium-down">
+  <a href="#" id="openMyNight"><img src="<?php bloginfo('template_url'); ?>/img/planningMN.jpg"></a>
+</div>

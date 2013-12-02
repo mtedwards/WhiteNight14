@@ -13,4 +13,26 @@
     }
     
   });
+  
+  
+   $('body').on('click','#openMyNight',function(e){
+     e.preventDefault();
+     if($('#menu-full-my-night').hasClass('open')) {
+       $('.dropdown').removeClass('open');
+       $('.full-menu .sub-menu').slideUp(100);
+     } else {
+       $('.dropdown').removeClass('open');
+       $('.full-menu .sub-menu').slideUp(100);
+       $('#menu-full-my-night').addClass('open');
+       $('#menu-full-my-night').next('.sub-menu').slideDown(100);
+     }
+  });
+  
+  $('body').on('click','#switchtoMNlogin',function(e){
+    e.preventDefault();
+    $('#loginMN').toggle();  
+    $('#createMN').toggle();
+  });
+  
+  
 })(jQuery);

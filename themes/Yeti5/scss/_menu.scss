@@ -38,7 +38,11 @@ nav.top-bar {
       height: 87px;
     }
   }
-  
+
+.blue{
+  color: $wn-blue;
+}  
+
   .menu-buttons {
    // background: skyblue;
     > ul {
@@ -67,9 +71,7 @@ nav.top-bar {
             border-left: 1px solid #000;
             border-right: 1px solid #000;
           }
-          .blue{
-              color: $wn-blue;
-            }
+          
           
           &#menu-full-my-night {
             padding: 30px 0 26px;

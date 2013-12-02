@@ -15,7 +15,7 @@
             foreach( $post_objects as $post): 
               $id = $post;
               $mypost = get_post($id);
-              
+              $permalink = get_permalink( $id );
               //Lets set up ALL the variables first
             	$event_img = get_field('event_img',$id);
             	$event_feat = $event_img['sizes']['event-feature'];
@@ -66,11 +66,11 @@
               <article <?php post_class($precinctClass) ?> id="post-<?php the_ID(); ?>">
                 <div class="color-bar"></div>
                   <div class="padding">
-                    <h3><?php the_title(); ?></h3>
+                    <h3><a href="<?php echo $permalink; ?>"><?php the_title(); ?></a></h3>
                   </div>
                 
                 <figure class="aligncenter">
-        				  <img src="<?php echo $event_feat; ?>">
+        				  <a href="<?php echo $permalink; ?>"><img src="<?php echo $event_feat; ?>"></a>
         				  <a href="#" rel="<?php echo $id; ?>" class="upb_del_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>">X</a>
                 </figure>
                 <div class="event-details padding">

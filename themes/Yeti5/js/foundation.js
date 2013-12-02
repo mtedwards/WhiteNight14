@@ -69,6 +69,12 @@
     
     $('.event-list .upb_del_bookmark').html('X');
      $('.event-list .upb_add_bookmark').html('+'); 
+   
+   //Front Page Planning My Night Button
+   
+   
+
+   
       
   });
 })(jQuery);
