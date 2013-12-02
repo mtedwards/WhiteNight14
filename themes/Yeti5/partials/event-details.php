@@ -4,7 +4,17 @@
       echo upb_bookmark_controls();
     } else {
       echo '<a href="#" class="upb_bookmark_control" id="#myNightLoggedOut">+Add to My Night**</a>';  
-    }?>    
+    }?>
+    <div class="row">
+      <div class="small-12 columns share hide-for-medium-down">
+        <h3>SHARE:</h3><div class="fb-like" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+          <div class="row">
+              <div class="small-6 columns"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a></div>
+              <div class="small-6 columns"></div>
+                <div class="g-plus" data-action="share" data-annotation="none"></div>
+            </div>
+      </div>
+    </div>
     <h3>Event Details</h3>
     <p>
       <b>START TIME </b><?php echo $startTime; ?><br>

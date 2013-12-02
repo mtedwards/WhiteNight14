@@ -64,7 +64,6 @@ nav.top-bar {
           &:hover, &.open {
             background: white;
             color: #000;
-            border-bottom: 1px solid #000;
             border-left: 1px solid #000;
             border-right: 1px solid #000;
           }
@@ -86,14 +85,14 @@ nav.top-bar {
             
           }
           
-          @media(max-width:920px) {
+          @media(max-width:950px) {
             padding: 28px 0 24px;
             font-size: 30px;
             &#menu-full-my-night {
               padding: 32px 0 24px;
             }
           }
-          @media(max-width:800px) {
+          @media(max-width:825px) {
             padding: 34px 0 28px;
             font-size: 24px;
             &#menu-full-my-night {
@@ -112,7 +111,7 @@ nav.top-bar {
           background: white;
           font-size: 12px;
           @include clearfix;
-          min-width: 250px;
+          min-width: 267px;
           text-align: left;
           &.my-night-dropdown {
             width:400px;
@@ -140,6 +139,17 @@ nav.top-bar {
               }
             }
           }
+          
+          ul.small-menu {
+            font-family: $body-font-family;
+            text-transform: none;
+            margin-top: 10px;
+            li {
+              line-height: 1.1em;
+              margin-bottom: 5px;
+            }
+          }
+          
           a {
             color: #000;
             font-size: 12px;

@@ -40,7 +40,7 @@
       $accessList = "<b>ACCESSIBILITY</b> ";
       
       foreach($accessibilities as $accessibility) {
-        $accessLink = '<a href="/accessibility/'. $accessibility->slug .'">' . $accessibility->slug . '</a> ';
+        $accessLink = '<a href="'. site_url() .'/events/?accessibility='. $accessibility->term_taxonomy_id .'">' . $accessibility->slug . '</a> ';
         $accessList .= $accessLink;
       } 
     }      
@@ -104,6 +104,7 @@
           </div>
           <div class="show-for-large-up full-text">
             <?php the_content(); ?>
+            <div class="fb-comments" data-href="<?php the_permalink(); ?>" data-numposts="5" data-colorscheme="light"></div>
           </div>
         </div>
         <div class="small-12 medium-12 large-4 columns">

@@ -26,6 +26,15 @@
 </head>
 
 <body <?php body_class(); ?>>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=264434720373211";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 <div class="container" role="document">
   <header class="row">
   <div class="small-12 columns">
@@ -42,7 +51,7 @@
                 <div class="sub-menu">
                   <div class="left">
                     <ul>
-                      <li><a href="<?php bloginfo('url'); ?>/events/"><b>FULL PROGRAM</b></a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/events/"><b>FULL PROGRAMME</b></a></li>
                       <!-- <li><a href="#"><b>Journeys</b></a></li> -->
                     </ul>
                     <b>Precincts</b>
@@ -51,9 +60,9 @@
                       <li><a href="<?php bloginfo('url'); ?>/precinct/02-lucky-dip/">Lucky Dip</a></li>
                       <li><a href="<?php bloginfo('url'); ?>/precinct/03-jrb/">J+R&B</a></li>
                       <li><a href="<?php bloginfo('url'); ?>/precinct/04-shadows/">Shadows</a></li>
-                      <li><a href="<?php bloginfo('url'); ?>/precinct/04-the-vortex/">The Vortex</a></li>
                       <li><a href="<?php bloginfo('url'); ?>/precinct/05-rags-to-riches/">Rags to Riches</a></li>
                       <li><a href="<?php bloginfo('url'); ?>/precinct/06-wonderland/">Wonderland</a></li>
+                      <li><a href="<?php bloginfo('url'); ?>/precinct/07-the-vortex/">The Vortex</a></li>
                       <li><a href="<?php bloginfo('url'); ?>/precinct/08-midden/">Midden</a></li>
                       <li><a href="<?php bloginfo('url'); ?>/precinct/09-alex-and-the-engineer/">Alex and the engineer</a></li>
                       <li><a href="<?php bloginfo('url'); ?>/precinct/10-tattooed-city/">Tattooed City</a></li>
@@ -77,21 +86,21 @@
                 </div>
               </li>
               <li>
-                <?php if(is_user_logged_in()){ // REMOVE THE ! WHEN FINISHED TESTING!!!!! ?>
+                <?php if(!is_user_logged_in()){ // REMOVE THE ! WHEN FINISHED TESTING!!!!! ?>
                   <a  class="menu-button" href="<?php bloginfo('url'); ?>/my-night"><span class="blue">+</span>My Night</a>
 
                 <?php } else { ?>
                   <a id="menu-full-my-night" class="menu-button dropdown" href="#"><span class="blue">+</span>My Night
                       <span class="small">Login Create</span></a>
                   <div class="sub-menu my-night-dropdown">
-                    <h4>Create a My Night Account</h4>
+                    <h4>Create a <span class="blue">+</span>My Night Account</h4>
                     <div class="row">
                       <div class="small-6 columns">
                         <b>Create a My Night Account so you can:</b>
-                          <p>
-                            Save your favourite events.<br>
-                            Invite your friends and family to join you<br>
-                            Stay up-to-date with White Night Melbourne News
+                          <ul class="small-menu">
+                            <li>Save your favourite events.</li>
+                            <li>Invite your friends and family to join you</li>
+                            <li>Stay up-to-date with White Night Melbourne News</li>
                           </p>
                       </div>
                       <div class="small-6 columns">
@@ -118,7 +127,7 @@
                                 <p><small>A password will be emailed to you.</small></p>
                               </div>
                             </div>
-                      </div>
+                          </div>
                     </div>
                     <div class="row">
                       <div class="small-12 columns">
@@ -129,17 +138,17 @@
                 <?php } ?>
               </li>
               <li>
-                <a id="menu-full-info" class="menu-button dropdown" href="#">Vistor Info</a>
+                <a id="menu-full-info" class="menu-button dropdown" href="#">Visitor Info</a>
                  <div class="sub-menu">
                   <div class="left">
                     <b>VISITOR INFO</b>  
                     <ul>
-                      <li><a href="#">Visting Melbourne</a></li>
-                      <li><a href="#">Getting Here</a></li>
-                      <li><a href="#">Getting Around</a></li>
-                      <li><a href="#">Map</a></li>
-                      <li><a href="<?php bloginfo('url'); ?>/where-to-eat-rest/">Where to Eat & Rest</a></li>
-                      <li><a href="#">Getting Home</a></li>
+                      <li><a href="<?php site_url(); ?>/">Visting Melbourne</a></li>
+                      <li><a href="<?php site_url(); ?>/">Getting Here</a></li>
+                      <li><a href="<?php site_url(); ?>/">Getting Around</a></li>
+                      <li><a href="<?php site_url(); ?>/">Map</a></li>
+                      <li><a href="<?php site_url(); ?>/where-to-eat-rest/">Where to Eat & Rest</a></li>
+                      <li><a href="<?php site_url(); ?>/">Getting Home</a></li>
                     </ul>
                     <b>About Us</b>
                     <ul>

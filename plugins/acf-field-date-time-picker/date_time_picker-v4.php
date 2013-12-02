@@ -311,11 +311,10 @@ class acf_field_date_time_picker extends acf_field
 	}
 
 
-	function isValidTimeStamp($timestamp) { //from http://stackoverflow.com/a/2524761/1434155
-	    return ((string) (int) $timestamp === $timestamp)
-	        && ($timestamp <= PHP_INT_MAX)
-	        && ($timestamp >= ~PHP_INT_MAX);
+	function isValidTimeStamp($timestamp) {
+	    return ((string)(int)$timestamp === (string)$timestamp);
 	}
+	
 	/*
 	*  update_value()
 	*
@@ -332,15 +331,25 @@ class acf_field_date_time_picker extends acf_field
 	*  @return	$value - the modified value
 	*/
 
-	function update_value( $value, $post_id, $field ) {
-		$field = array_merge($this->defaults, $field);
-		if ($value != '' && $field['save_as_timestamp'] == 'true') {
-			$value = strtotime( $value );
-		}
-		return $value;
-	}
+	// function update_value( $value, $post_id, $field ) {
+	// 	$field = array_merge($this->defaults, $field);
+	// 	if ($value != '' && $field['save_as_timestamp'] == 'true') {
+	// 		$value = strtotime( $value );
+	// 	}
+	// 	return $value;
+	// }
 
+    function update_value( $value, $post_id, $field ) {
+        $field = array_merge($this->defaults, $field);
+        if ($value != '' && $field['save_as_timestamp'] == 'true') {
+            if (preg_match('/^dd?\//',$field['date_format'] )) { //if start with dd/ or d/ (not supported by strtotime())
+                $value = str_replace('/', '-', $value);
+            }
+            $value = strtotime( $value );
+        }
 
+        return $value;
+    }
 
 	/*
 	*  input_admin_enqueue_scripts()

@@ -1,7 +1,22 @@
 .event-list {
   article {
     border: 1px solid #000;
-    margin-bottom: 0.5rem;  
+    margin-bottom: 0.5rem;
+    .top-title {
+      min-height: 0;
+    }
+    @media screen and (min-width:600px) {
+      width:48%;
+      float: left;
+      margin-right: 2%;
+      .top-title {
+        min-height: 60px;
+      }
+    }
+     @media screen and (min-width:960px) {
+      width:100%;
+      float: none;
+    }
   }
   
   .color-bar {

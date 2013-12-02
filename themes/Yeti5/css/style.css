@@ -4956,60 +4956,69 @@ header h1 {
   margin-top: 0.5rem; }
 
 /* line 97, ../scss/_wn-defaults.scss */
+.margin-top2 {
+  margin-top: 1rem; }
+
+/* line 101, ../scss/_wn-defaults.scss */
 .margin-bottom {
   margin-bottom: 0.5rem; }
 
-/* line 101, ../scss/_wn-defaults.scss */
+/* line 105, ../scss/_wn-defaults.scss */
 .padding-top {
   padding-top: 0.5rem; }
 
-/* line 105, ../scss/_wn-defaults.scss */
+/* line 109, ../scss/_wn-defaults.scss */
 .padding-bottom {
   padding-bottom: 0.5rem; }
 
-/* line 124, ../scss/_wn-defaults.scss */
+/* line 113, ../scss/_wn-defaults.scss */
+.no-bottom {
+  margin-bottom: 0;
+  padding-bottom: 0; }
+
+/* line 133, ../scss/_wn-defaults.scss */
 .title-box {
   background: #efefef; }
 
-/* line 128, ../scss/_wn-defaults.scss */
+/* line 137, ../scss/_wn-defaults.scss */
 .color-bar {
   height: 3px;
   margin-bottom: 5px; }
-  /* line 131, ../scss/_wn-defaults.scss */
+  /* line 140, ../scss/_wn-defaults.scss */
   .precinct_18 .color-bar {
     background: #ef3925; }
-  /* line 135, ../scss/_wn-defaults.scss */
+  /* line 144, ../scss/_wn-defaults.scss */
   .precinct_19 .color-bar {
     background: #fcee23; }
-  /* line 139, ../scss/_wn-defaults.scss */
+  /* line 148, ../scss/_wn-defaults.scss */
   .precinct_20 .color-bar {
     background: #c1afd5; }
-  /* line 143, ../scss/_wn-defaults.scss */
+  /* line 152, ../scss/_wn-defaults.scss */
   .precinct_21 .color-bar {
     background: #0baa4e; }
-  /* line 147, ../scss/_wn-defaults.scss */
+  /* line 156, ../scss/_wn-defaults.scss */
   .precinct_22 .color-bar {
     background: #2154a4; }
-  /* line 151, ../scss/_wn-defaults.scss */
+  /* line 160, ../scss/_wn-defaults.scss */
   .precinct_23 .color-bar {
     background: #e0268f; }
-  /* line 155, ../scss/_wn-defaults.scss */
+  /* line 164, ../scss/_wn-defaults.scss */
   .precinct_24 .color-bar {
     background: #f58320; }
-  /* line 159, ../scss/_wn-defaults.scss */
+  /* line 168, ../scss/_wn-defaults.scss */
   .precinct_25 .color-bar {
     background: #606a72; }
-  /* line 163, ../scss/_wn-defaults.scss */
+  /* line 172, ../scss/_wn-defaults.scss */
   .precinct_26 .color-bar {
     background: #824fa0; }
-  /* line 167, ../scss/_wn-defaults.scss */
+  /* line 176, ../scss/_wn-defaults.scss */
   .precinct_27 .color-bar {
     background: #64cbe8; }
-  /* line 171, ../scss/_wn-defaults.scss */
+  /* line 180, ../scss/_wn-defaults.scss */
   .precinct_31 .color-bar {
     background: #b4707d; }
 
-/* line 176, ../scss/_wn-defaults.scss */
+/* line 185, ../scss/_wn-defaults.scss */
 .upb_bookmark_control {
   background: #01a4e1;
   display: block;
@@ -5021,18 +5030,18 @@ header h1 {
   text-decoration: none;
   margin-bottom: 0.5rem;
   text-transform: uppercase; }
-  /* line 187, ../scss/_wn-defaults.scss */
+  /* line 196, ../scss/_wn-defaults.scss */
   .upb_bookmark_control:hover {
     background: #0191c8;
     color: white; }
 
-/* line 193, ../scss/_wn-defaults.scss */
+/* line 202, ../scss/_wn-defaults.scss */
 p b {
   font-family: "AvenirLTStd-Black", AvenirLTStd-Book, "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: bold;
   color: #000; }
 
-/* line 199, ../scss/_wn-defaults.scss */
+/* line 208, ../scss/_wn-defaults.scss */
 .button {
   margin: 0.5rem 0;
   padding: 12px 5px 8px 5px;
@@ -5040,14 +5049,20 @@ p b {
   background: #000;
   color: white; }
 
-/* line 207, ../scss/_wn-defaults.scss */
+/* line 216, ../scss/_wn-defaults.scss */
 .button.blue {
   background: #01a4e1; }
 
-/* line 212, ../scss/_wn-defaults.scss */
+/* line 221, ../scss/_wn-defaults.scss */
 form select {
   margin-top: 7px;
   border-radius: 20px; }
+
+/* line 227, ../scss/_wn-defaults.scss */
+.white-box {
+  background: #fff;
+  padding: 1em;
+  margin: 0 0 1em 0; }
 
 /* line 1, ../scss/_menu.scss */
 .contain-to-grid {
@@ -5110,38 +5125,37 @@ nav.top-bar {
         .full-menu .menu-buttons > ul > li > a:hover, .full-menu .menu-buttons > ul > li > a.open {
           background: white;
           color: #000;
-          border-bottom: 1px solid #000;
           border-left: 1px solid #000;
           border-right: 1px solid #000; }
-        /* line 71, ../scss/_menu.scss */
+        /* line 70, ../scss/_menu.scss */
         .full-menu .menu-buttons > ul > li > a .blue {
           color: #01a4e1; }
-        /* line 75, ../scss/_menu.scss */
+        /* line 74, ../scss/_menu.scss */
         .full-menu .menu-buttons > ul > li > a#menu-full-my-night {
           padding: 30px 0 26px;
           line-height: 1.8rem; }
-          /* line 79, ../scss/_menu.scss */
+          /* line 78, ../scss/_menu.scss */
           .full-menu .menu-buttons > ul > li > a#menu-full-my-night .small {
             font-size: 12px;
             display: block;
             line-height: 1rem; }
-        @media (max-width: 920px) {
+        @media (max-width: 950px) {
           /* line 54, ../scss/_menu.scss */
           .full-menu .menu-buttons > ul > li > a {
             padding: 28px 0 24px;
             font-size: 30px; }
-            /* line 92, ../scss/_menu.scss */
+            /* line 91, ../scss/_menu.scss */
             .full-menu .menu-buttons > ul > li > a#menu-full-my-night {
               padding: 32px 0 24px; } }
-        @media (max-width: 800px) {
+        @media (max-width: 825px) {
           /* line 54, ../scss/_menu.scss */
           .full-menu .menu-buttons > ul > li > a {
             padding: 34px 0 28px;
             font-size: 24px; }
-            /* line 99, ../scss/_menu.scss */
+            /* line 98, ../scss/_menu.scss */
             .full-menu .menu-buttons > ul > li > a#menu-full-my-night {
               padding: 33px 0 23px; } }
-      /* line 104, ../scss/_menu.scss */
+      /* line 103, ../scss/_menu.scss */
       .full-menu .menu-buttons > ul > li .sub-menu {
         display: none;
         border: 1px solid #000;
@@ -5152,44 +5166,53 @@ nav.top-bar {
         left: 0;
         background: white;
         font-size: 12px;
-        min-width: 250px;
+        min-width: 267px;
         text-align: left; }
         /* line 4, ../scss/_wn-defaults.scss */
         .full-menu .menu-buttons > ul > li .sub-menu:after {
           content: "";
           display: table;
           clear: both; }
-        /* line 117, ../scss/_menu.scss */
+        /* line 116, ../scss/_menu.scss */
         .full-menu .menu-buttons > ul > li .sub-menu.my-night-dropdown {
           width: 400px; }
-          /* line 120, ../scss/_menu.scss */
+          /* line 119, ../scss/_menu.scss */
           .full-menu .menu-buttons > ul > li .sub-menu.my-night-dropdown input {
             margin-bottom: 5px; }
-        /* line 127, ../scss/_menu.scss */
+        /* line 126, ../scss/_menu.scss */
         .full-menu .menu-buttons > ul > li .sub-menu ul {
           font-size: 12px;
           margin-left: 0;
           margin-bottom: 5px; }
-          /* line 131, ../scss/_menu.scss */
+          /* line 130, ../scss/_menu.scss */
           .full-menu .menu-buttons > ul > li .sub-menu ul li {
             display: block;
             margin: 0; }
-            /* line 134, ../scss/_menu.scss */
+            /* line 133, ../scss/_menu.scss */
             .full-menu .menu-buttons > ul > li .sub-menu ul li a {
               font-family: AvenirLTStd-Book, "Helvetica", Helvetica, Arial, sans-serif;
               font-size: 12px; }
-              /* line 137, ../scss/_menu.scss */
+              /* line 136, ../scss/_menu.scss */
               .full-menu .menu-buttons > ul > li .sub-menu ul li a b {
                 font-family: "AvenirLTStd-Black", AvenirLTStd-Book, "Helvetica", Helvetica, Arial, sans-serif; }
         /* line 143, ../scss/_menu.scss */
+        .full-menu .menu-buttons > ul > li .sub-menu ul.small-menu {
+          font-family: AvenirLTStd-Book, "Helvetica", Helvetica, Arial, sans-serif;
+          text-transform: none;
+          margin-top: 10px; }
+          /* line 147, ../scss/_menu.scss */
+          .full-menu .menu-buttons > ul > li .sub-menu ul.small-menu li {
+            line-height: 1.1em;
+            margin-bottom: 5px; }
+        /* line 153, ../scss/_menu.scss */
         .full-menu .menu-buttons > ul > li .sub-menu a {
           color: #000;
           font-size: 12px; }
-        /* line 147, ../scss/_menu.scss */
+        /* line 157, ../scss/_menu.scss */
         .full-menu .menu-buttons > ul > li .sub-menu .left {
           width: 60%;
           float: left; }
-        /* line 151, ../scss/_menu.scss */
+        /* line 161, ../scss/_menu.scss */
         .full-menu .menu-buttons > ul > li .sub-menu .right {
           width: 40%;
           float: left; }
@@ -5300,10 +5323,10 @@ nav.top-bar {
         /* line 36, ../scss/_frontpage.scss */
         .featured-info ul.small-block-grid-4.genre-list > li a {
           font-size: 16px; } }
-  /* line 44, ../scss/_frontpage.scss */
+  /* line 45, ../scss/_frontpage.scss */
   .featured-info .social {
     padding-top: 1em; }
-    /* line 46, ../scss/_frontpage.scss */
+    /* line 47, ../scss/_frontpage.scss */
     .featured-info .social a.social-icon {
       position: relative;
       width: 47px;
@@ -5312,26 +5335,26 @@ nav.top-bar {
       overflow: hidden;
       text-indent: -9999px;
       margin-right: 3px; }
-      /* line 54, ../scss/_frontpage.scss */
+      /* line 55, ../scss/_frontpage.scss */
       .featured-info .social a.social-icon.facebook {
         background: url("../img/social-icons.png") no-repeat 0 0; }
-      /* line 58, ../scss/_frontpage.scss */
+      /* line 59, ../scss/_frontpage.scss */
       .featured-info .social a.social-icon.twitter {
         background: url("../img/social-icons.png") no-repeat -58px 0; }
-      /* line 62, ../scss/_frontpage.scss */
+      /* line 63, ../scss/_frontpage.scss */
       .featured-info .social a.social-icon.instagram {
         background: url("../img/social-icons.png") no-repeat -116px 0; }
-      /* line 66, ../scss/_frontpage.scss */
+      /* line 67, ../scss/_frontpage.scss */
       .featured-info .social a.social-icon.youtube {
         background: url("../img/social-icons.png") no-repeat -174px 0; }
-      /* line 70, ../scss/_frontpage.scss */
+      /* line 71, ../scss/_frontpage.scss */
       .featured-info .social a.social-icon.gplus {
         background: url("../img/social-icons.png") no-repeat -232px 0; }
-      /* line 73, ../scss/_frontpage.scss */
+      /* line 74, ../scss/_frontpage.scss */
       .featured-info .social a.social-icon:hover, .featured-info .social a.social-icon:focus {
         top: 1px; }
 
-/* line 81, ../scss/_frontpage.scss */
+/* line 82, ../scss/_frontpage.scss */
 #countdown {
   display: block; }
   /* line 4, ../scss/_wn-defaults.scss */
@@ -5340,7 +5363,7 @@ nav.top-bar {
     display: table;
     clear: both; }
 
-/* line 86, ../scss/_frontpage.scss */
+/* line 87, ../scss/_frontpage.scss */
 .countdown_amount {
   display: inline-block;
   background: #01a4e1;
@@ -5475,30 +5498,47 @@ nav.top-bar {
 .event-list article {
   border: 1px solid #000;
   margin-bottom: 0.5rem; }
-/* line 7, ../scss/_events.scss */
+  /* line 5, ../scss/_events.scss */
+  .event-list article .top-title {
+    min-height: 0; }
+  @media screen and (min-width: 600px) {
+    /* line 2, ../scss/_events.scss */
+    .event-list article {
+      width: 48%;
+      float: left;
+      margin-right: 2%; }
+      /* line 12, ../scss/_events.scss */
+      .event-list article .top-title {
+        min-height: 60px; } }
+  @media screen and (min-width: 960px) {
+    /* line 2, ../scss/_events.scss */
+    .event-list article {
+      width: 100%;
+      float: none; } }
+/* line 22, ../scss/_events.scss */
 .event-list .color-bar {
   margin-bottom: 0; }
-/* line 11, ../scss/_events.scss */
+/* line 26, ../scss/_events.scss */
 .event-list h3 {
   margin-bottom: 0;
   padding-bottom: 0; }
-  /* line 12, ../scss/_events.scss */
+  /* line 27, ../scss/_events.scss */
   .event-list h3 a {
     text-decoration: none;
     line-height: 1.1em;
     color: #000; }
-/* line 21, ../scss/_events.scss */
+/* line 36, ../scss/_events.scss */
 .event-list h4 {
   margin: 0;
   padding: 0; }
-/* line 26, ../scss/_events.scss */
+/* line 41, ../scss/_events.scss */
 .event-list p {
   line-height: 1.2em;
   margin-bottom: 0.5em; }
-/* line 31, ../scss/_events.scss */
+/* line 46, ../scss/_events.scss */
 .event-list figure {
   margin-bottom: 0; }
-/* line 35, ../scss/_events.scss */
+/* line 50, ../scss/_events.scss */
 .event-list figure .upb_bookmark_control {
   position: absolute;
   top: 0;
@@ -5506,32 +5546,32 @@ nav.top-bar {
   width: 36px;
   text-align: center; }
 
-/* line 46, ../scss/_events.scss */
+/* line 61, ../scss/_events.scss */
 .padding {
   padding: 0.3em 1.3em 0 1.3em; }
   @media screen and (min-width: 960px) {
-    /* line 46, ../scss/_events.scss */
+    /* line 61, ../scss/_events.scss */
     .padding {
       padding: 0em 1.35em 0.2em 0; } }
 
-/* line 54, ../scss/_events.scss */
+/* line 69, ../scss/_events.scss */
 .main-content-blue {
   text-align: center; }
-  /* line 56, ../scss/_events.scss */
+  /* line 71, ../scss/_events.scss */
   .main-content-blue h3 {
     color: white; }
-  /* line 60, ../scss/_events.scss */
+  /* line 75, ../scss/_events.scss */
   .main-content-blue form button.small {
     padding-top: 0.8rem;
     padding-bottom: 0.4rem;
     background: #000; }
 
-/* line 68, ../scss/_events.scss */
+/* line 83, ../scss/_events.scss */
 figure {
   width: 100%;
   position: relative;
   margin-bottom: 0.5rem; }
-  /* line 72, ../scss/_events.scss */
+  /* line 87, ../scss/_events.scss */
   figure figcaption {
     font-family: "AvenirLTStd-Black", AvenirLTStd-Book, "Helvetica", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
@@ -5544,11 +5584,11 @@ figure {
     padding: 5px 10px;
     background: rgba(0, 0, 0, 0.8); }
 
-/* line 86, ../scss/_events.scss */
+/* line 101, ../scss/_events.scss */
 .event-details {
   text-transform: uppercase; }
 
-/* line 90, ../scss/_events.scss */
+/* line 105, ../scss/_events.scss */
 #toggleFilter h3 {
   padding: 0.2em; }
 
@@ -5572,3 +5612,122 @@ figure .upb_bookmark_control {
 .event-box-list article {
   border: 1px solid #000;
   border-top: none; }
+
+/*footer style sheet*/
+/*logos menu*/
+/* line 3, ../scss/_footer.scss */
+.logos {
+  text-align: left; }
+
+/* line 7, ../scss/_footer.scss */
+.logosPlace {
+  float: left !important;
+  margin-left: 10px; }
+
+/* line 13, ../scss/_footer.scss */
+.logosNav ul li a {
+  font-size: 0.9em;
+  color: #ccc;
+  text-transform: uppercase;
+  padding-left: 16px;
+  text-decoration: none; }
+
+/*explore*/
+/* line 24, ../scss/_footer.scss */
+.explore {
+  text-align: left;
+  padding: 0 5px 0 5px;
+  /*background-color:#666;*/ }
+
+/*background-color:#666;*/
+/* line 35, ../scss/_footer.scss */
+.explore left {
+  float: left !important; }
+
+/* line 39, ../scss/_footer.scss */
+.footerMenuTitle {
+  font-size: 0.9em;
+  color: #ccc;
+  text-transform: uppercase;
+  padding-left: 16px; }
+
+/* line 47, ../scss/_footer.scss */
+.explore right {
+  float: right !important; }
+
+/* my night menu */
+/* line 52, ../scss/_footer.scss */
+.myNight {
+  text-align: left;
+  padding: 0 5px 0 5px; }
+
+/* Visitor / subsrcribe menus */
+/* line 62, ../scss/_footer.scss */
+.visitorInfo {
+  text-align: left;
+  padding: 0 5px 0 5px;
+  background-color: #666; }
+
+/* line 69, ../scss/_footer.scss */
+.search {
+  text-align: left;
+  padding: 0 5px 0 5px; }
+
+/* line 74, ../scss/_footer.scss */
+.socialBox {
+  display: block;
+  padding: 5px 5px 5px 10px;
+  margin: 10px 0 10px 0;
+  background-color: #FFF;
+  font-size: 1.5em;
+  color: #000;
+  text-transform: uppercase; }
+
+/* line 83, ../scss/_footer.scss */
+.socialFooterIcons {
+  float: right;
+  display: block;
+  padding: 0px 0px 0px 0px;
+  margin-top: 10px;
+  background-color: #FFF; }
+
+/* line 92, ../scss/_footer.scss */
+.footerWhite {
+  background-color: #FFF; }
+
+/* line 95, ../scss/_footer.scss */
+.footerBlack {
+  margin-top: 15px;
+  background-color: #000; }
+
+/* line 100, ../scss/_footer.scss */
+.footerSubscribe {
+  float: left;
+  padding: 5px 0 0 8px;
+  font-size: 1.0em;
+  color: #fff;
+  text-transform: uppercase; }
+
+/* line 109, ../scss/_footer.scss */
+.footerForm {
+  float: right;
+  background-color: #fff; }
+
+/* Footer very bottom */
+/* line 116, ../scss/_footer.scss */
+.footerCopyrights {
+  float: left;
+  font-size: 0.6em;
+  color: #ccc; }
+
+/* line 122, ../scss/_footer.scss */
+footerPrivacy {
+  float: right;
+  font-size: 0.6em;
+  color: #ccc; }
+
+/* line 127, ../scss/_footer.scss */
+footerPrivacy a {
+  float: right;
+  font-size: 0.6em;
+  color: #ccc; }

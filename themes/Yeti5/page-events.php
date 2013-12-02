@@ -1,8 +1,9 @@
 <?php get_header(); ?>
 
 <!-- Row for main content area -->
-	<div class="small-12 columns" role="main">
-  	<h1 class="entry-title"><?php the_title(); ?></h1>
+	<div class="small-12 columns title-box" role="main">
+  	<h1 class="entry-title centered-text no-bottom margin-top2"><?php the_title(); ?></h1>
+  	<p class="no-bottom hide-for-medium-down"><a href="<?php site_url(); ?>/events/">Explore</a> / <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></p>
   	<div class="row">
     	<div class="small-12 columns">
       	<div class="acf-map" id="full-map"></div>
@@ -179,7 +180,7 @@
     <article <?php post_class($precinctClass) ?> id="post-<?php the_ID(); ?>">
       <div class="color-bar"></div>
 			<div class="entry-content row">
-  			<div class="small-12 medium-12 large-8 hide-for-large-up columns padding">
+  			<div class="small-12 medium-12 large-8 hide-for-large-up columns padding top-title">
     			  <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
   			</div>
   			<?php 
@@ -187,7 +188,7 @@
 				  if($event_img) { 
 				  ?>
   		    <figure class="small-12 medium-12 large-4 columns">
-  				  <img src="<?php echo $event_img['sizes']['event-medium']; ?>">
+  				  <a href="<?php the_permalink(); ?>"><img src="<?php echo $event_img['sizes']['event-medium']; ?>"></a>
   				<?php if ( is_user_logged_in() ) { 
               echo upb_bookmark_controls();
             } else {
