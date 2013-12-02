@@ -11,13 +11,15 @@
 	</div>
 </div>
 <div class="row main-content-blue">
-  <div class="small-12 columns">
-  <h3>Filter</h3>
-	<?php 
-	  $cur_precinct = $_GET['precinct'];
-  	$cur_genre = $_GET['genre'];
-  	$cur_accessibility = $_GET['accessibility'];
-	?>
+  <div class="small-12 columns show-for-medium-down">
+    <a href="#" class="button blue expand" id="toggleFilter"><h3>Filter...</h3></a>
+  </div>
+  <div class="small-12 columns filter-box">
+  	<?php 
+  	  $cur_precinct = $_GET['precinct'];
+    	$cur_genre = $_GET['genre'];
+    	$cur_accessibility = $_GET['accessibility'];
+  	?>
    <form class="padding-top padding-bottom" name="filter" action="" method="GET">
     <div class="row">
       <div class="small-12 medium-6 large-3 columns">
@@ -60,14 +62,14 @@
         </select>
       </div>
       <div class="small-12 medium-6 large-3 columns">
-        <button type="submit" class="button small expand">FILTER</button>
+        <button type="submit" class="button small expand">UPDATE RESULTS</button>
       </div>
     </div>
   </form>
 	</div>
 </div>
 <div class="row main-content-section padding-top">
-  <div class="small-12 columns">
+  <div class="small-12 columns event-list">
   <?php
   
   $tax = array();
@@ -118,54 +120,110 @@
   // The Loop
   if ( $the_query->have_posts() ) :
   while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-    <article <?php post_class('list') ?> id="post-<?php the_ID(); ?>">
-			<div class="entry-content row">
-			<div class="small-12 medium-4 large-4 columns">
-  			<?php 
-				  $event_img = get_field('event_img');
-				  $terms = get_the_terms( $post->ID, 'on-draught' );
-				  if($event_img) { 
-				  ?>
-  		    <figure>
-  				  <img src="<?php echo $event_img['sizes']['event-medium']; ?>">
-          </figure>
-          <?php } //end if event_img ?>
-			</div>
-			<div class="small-12 medium-8 large-8 columns">
-  			<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-  			<h4 class="subheader"><?php the_field('sub_title'); ?></h3>
-				<?php the_content(); ?>
-				<p><br></p>
-				<?php $startTime = get_field('start_time');
-				  if($startTime) {
-  				  echo '<p><b>START TIME</b> ' . $startTime .'</p>';
+  
+    <?php /* Lets get all the variables first */ 
+        //StartTime
+        $startTime = get_field('start_time');
+        $startTimeText = '<b>START TIME</b> ' . $startTime .'<br>';
+        
+        	$duration = get_field('duration');
+          if($duration == 720){
+            if (get_field('all_night_details')){
+              $durationMsg = '<b>DURATION</b> ' . get_field('all_night_details') . '<br>';
+            }
+          } else {
+            $duration = $duration . ' minutes';
             $time = strtotime($startTime);
-  				  $duration = get_field('duration');
-  				  
-  				  if($duration == '720') {
-    				  echo '<p>' . get_field('all_night_details') . '</p>';
-  				  } else {
-    				  $duration = $duration . 'minutes';
-    				  $endTime = date("g:i a ", strtotime($duration, $time));
-    				  echo '<p><b>END TIME</b> ' . $endTime .'</p>';
-  				  }// end if all night
-				  } //end if startTime
-				 ?>
-			</div>
-		</div>
-		 <?php if(get_field('existing_venue')) {
+      			$end = date("g:i a ", strtotime($duration, $time));
+            $durationMsg = '<b>END TIME</b> ' . $end. '<br>';
+          }
+
+        
+        $subtitle = get_field('sub_title');
+        
+        //Precinct
+        
+        $precinct = get_the_terms( $post->ID, 'precinct' );
+        	foreach($precinct as $pre) {
+          	$precinctClass = 'precinct_' . $pre->term_id;
+          	$precinctName  = $pre->name;
+          	$precinctSlug  = $pre->slug;
+        	}
+        	
+        	$precinctMsg = '<b>PRECINCT </b><a href="/precinct/'. $precinctSlug.'">' .$precinctName .'</a><br>';
+        	
+        	 //Genres out put is $genreList
+    
+          $genres = get_the_terms( $post->ID, 'genre' );
+          
+          $genreList = "";
+          
+          foreach($genres as $genre) {
+            $genreLink = '<a href="/accessibility/'. $genre->slug .'">' . $genre->slug . '</a> ';
+            $genreList .= $genreLink;
+          } 
+          
+          
+          
+        
+        //location
+        
+        if(get_field('existing_venue')) {
   			  $venue = get_field('venue');
   			  $location = get_field('location', 'venue_' . $venue[0]->term_id ); 
 			  } else {
   			  $location = get_field('location');
 			  } ?>
-  			<div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
-  			  <div class="wn-infoWindow">
-      			  <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>">
-      			  	<h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
-                <?php echo '<p><b>START TIME</b> ' . $startTime .'</p>'; ?>
-  			  </div>
-        </div>
+    
+    
+    <article <?php post_class($precinctClass) ?> id="post-<?php the_ID(); ?>">
+      <div class="color-bar"></div>
+			<div class="entry-content row">
+  			<div class="small-12 medium-12 large-8 hide-for-large-up columns padding">
+    			  <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+  			</div>
+  			<?php 
+				  $event_img = get_field('event_img');
+				  if($event_img) { 
+				  ?>
+  		    <figure class="small-12 medium-12 large-4 columns">
+  				  <img src="<?php echo $event_img['sizes']['event-medium']; ?>">
+  				<?php if ( is_user_logged_in() ) { 
+              echo upb_bookmark_controls();
+            } else {
+              echo '<a href="#" class="upb_bookmark_control" id="#myNightLoggedOut">+</a>';  
+            }?>
+          </figure>
+          <?php } //end if event_img ?>
+    		<div class="small-12 medium-12 large-8 columns padding">
+    		  <div class="show-for-large-up">
+    			  <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+    			  <?php if($subtitle ){ ?>
+    			    <h4><?php echo $subtitle; ?></h3>
+    			  <?php } ?>
+          </div>
+          <div class="show-for-large-up">
+            <?php the_excerpt(); ?>
+          </div>
+            <p>
+              <?php 
+                echo $startTimeText;
+                echo $durationMsg;
+                echo $precinctMsg;
+                echo $genreList;    //Genres out put is $genreList
+              ?>
+            </p>
+  			</div>
+		</div>
+
+		<div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
+		  <div class="wn-infoWindow">
+  			  <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>">
+  			  	<h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
+            <?php echo '<p><b>START TIME</b> ' . $startTime .'</p>'; ?>
+		  </div>
+    </div>
+        
 		</article>
   <?php
   endwhile;
@@ -179,7 +237,7 @@
   
   ?>
 
-	</div>
+</div>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
 <?php get_footer(); ?>

@@ -65,12 +65,15 @@
               <li class="my-event">
               <article <?php post_class($precinctClass) ?> id="post-<?php the_ID(); ?>">
                 <div class="color-bar"></div>
-                <h3><?php the_title(); ?></h3>
+                  <div class="padding">
+                    <h3><?php the_title(); ?></h3>
+                  </div>
+                
                 <figure class="aligncenter">
         				  <img src="<?php echo $event_feat; ?>">
         				  <a href="#" rel="<?php echo $id; ?>" class="upb_del_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>">X</a>
                 </figure>
-                <div class="event-details">
+                <div class="event-details padding">
                   <p>
                     <b>Start Time</b> <?php echo $startTime; ?><br>
                     <?php echo $durationMsg; ?>

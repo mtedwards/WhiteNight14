@@ -77,7 +77,7 @@
                 </div>
               </li>
               <li>
-                <?php if(!is_user_logged_in()){ // REMOVE THE ! WHEN FINISHED TESTING!!!!! ?>
+                <?php if(is_user_logged_in()){ // REMOVE THE ! WHEN FINISHED TESTING!!!!! ?>
                   <a  class="menu-button" href="<?php bloginfo('url'); ?>/my-night"><span class="blue">+</span>My Night</a>
 
                 <?php } else { ?>
@@ -88,26 +88,27 @@
                     <div class="row">
                       <div class="small-6 columns">
                         <b>Create a My Night Account so you can:</b>
-                        <ul>
-                          <li>Save your favourite events.</li>
-                          <li>Invite your friends and family to join you</li>
-                          <li>Stay up-to-date with White Night Melbourne News</li>
-                        </ul>
+                          <p>
+                            Save your favourite events.<br>
+                            Invite your friends and family to join you<br>
+                            Stay up-to-date with White Night Melbourne News
+                          </p>
                       </div>
                       <div class="small-6 columns">
-                          <form action="" method="post"> 
+                          <form action="<?php echo site_url('wp-login.php?action=register', 'login_post') ?>" method="post">   
                             <div class="row">
                               <div class="small-12 columns">
-                                <input type="text" name="" placeholder="Username" id="" class="input"/>
+                                <input type="text" name="user_login" placeholder="Username" id="" class="input"/>
                               </div>
                             </div>
                             <div class="row">
                               <div class="small-12 columns">
-                                <input type="text" name="" placeholder="email" id="" class="input" /> 
+                                <input type="text" name="user_email" placeholder="Email" id="" class="input" /> 
                               </div>
                             </div>
                              <div class="row">
                               <div class="small-12 columns">
+                                <?php do_action('register_form'); ?> 
                                 <input class="button" type="submit" value="Register" id="register" />
                               </div>
                             </div>
@@ -121,7 +122,7 @@
                     </div>
                     <div class="row">
                       <div class="small-12 columns">
-                        <a href="#" class="button expand">Login to My Night</a>
+                        <a href="#" class="button expand black">Login to My Night</a>
                       </div>
                     </div>
                   </div>
@@ -148,7 +149,7 @@
                   </div>
                   <div class="right">
                   </div>
-
+                 </div><?php //end submenu ?>
               </li>
             </ul>
           </div>
