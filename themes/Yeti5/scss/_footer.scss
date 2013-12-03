@@ -1,131 +1,45 @@
-/*footer style sheet*/
-/*logos menu*/
-.logos {
-	text-align:left;
+footer.main-footer {
+  font-family: $body-font-family;
+  padding: 2em 0;
+  color:#efefef;
+  h5, h4 {
+    font-family: $header-font-family;
+    color: #efefef;
+    line-height: 1em;
+    margin: 0 0 5px 0;
+    padding: 0;
+  }
+  
+  .footerWhite {
+    background: white;
+    color: #000;
+    padding: 1em;
+    margin: 1em 0;
+    h4 {
+      color: #000;
+    }
+  }
+  
+  
+  ul {
+    margin-left: 0;
+    li {
+      a {
+        color: #efefef;
+        &:hover {
+          color:#ccc;
+        }
+      }
+    }
+  }
+  
+  .fb-share-button {
+    margin-bottom: 5px;
+  }
+
+  .right {
+    text-align: right;
+  }
+  
 }
 
-.logosPlace{
-	
-	float: left !important;
-	margin-left: 10px;
-}
-
-.logosNav ul li a {
-	font-size: 0.9em;
-	color:#ccc;
-	text-transform:uppercase;
-	padding-left:16px;
-	text-decoration:none;
-}
-
-
-
-/*explore*/
-.explore {
-	text-align:left;
-	padding: 0 5px 0 5px;
-	
-	/*background-color:#666;*/	
-}
-
-	
-	
-	/*background-color:#666;*/	
-
-.explore left{
-	float: left !important;
-}
-
-.footerMenuTitle {
-	font-size: 0.9em;
-	color:#ccc;
-	text-transform:uppercase;
-	padding-left:16px;
-	
-}
-
-.explore right{
-	float: right !important;
-	
-}
-/* my night menu */	
-.myNight {
-	text-align:left;
-	padding: 0 5px 0 5px;
-	
-	
-}
-
-
-/* Visitor / subsrcribe menus */
-
-.visitorInfo {
-	text-align:left;
-	padding: 0 5px 0 5px;
-	background-color:#666;
-	
-}
-
-.search {
-	text-align:left;
-	padding: 0 5px 0 5px;
-	
-}
-.socialBox {
-	display:block;
-	padding: 5px 5px 5px 10px;
-	margin: 10px 0 10px 0;
-	background-color:#FFF;
-	font-size: 1.5em;
-	color:#000;
-	text-transform:uppercase;
-}
-.socialFooterIcons {
-	float:right;
-	display:block;
-	padding: 0px 0px 0px 0px;
-	margin-top: 10px;
-	background-color:#FFF;
-	
-}
-
-.footerWhite {
-	background-color:#FFF;
-}
-.footerBlack {
-	margin-top:15px;
-	background-color:#000;
-}
-
-.footerSubscribe {
-	float:left;
-	padding: 5px 0 0 8px;
-	font-size: 1.0em;
-	color:#fff;
-	text-transform:uppercase;
-	
-}
-
-.footerForm {
-	float:right;
-	background-color:#fff;
-	
-}
-
-/* Footer very bottom */
-.footerCopyrights{
-	float:left;
-	font-size: 0.6em;
-	color:#ccc;
-	
-}
-footerPrivacy {
-	float:right;
-	font-size: 0.6em;
-	color:#ccc;
-}
-footerPrivacy a {
-	float:right;
-	font-size: 0.6em;
-	color:#ccc;
-}

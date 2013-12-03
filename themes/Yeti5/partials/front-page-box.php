@@ -1,6 +1,6 @@
 <article class="<?php echo $precinctClass; ?>">
   <div class="color-bar"></div>
-      <a href="#">
+      <a href="#" onclick="_gaq.push(['_trackEvent', 'click', 'precinct', 'expand'])">
         <div class="precinctTitle">
           <h3><?php echo $name ?></h3>
         </div>
@@ -40,8 +40,8 @@
               </ul>
              <?php endif;
               
-              // Reset Post Data
-              wp_reset_postdata();
+                // Reset Post Data
+                wp_reset_postdata();
               
               ?>
               <a class="button black small" href="<?php bloginfo('url'); ?>/precinct/<?php echo $precinct->slug ?>">MORE ></a>

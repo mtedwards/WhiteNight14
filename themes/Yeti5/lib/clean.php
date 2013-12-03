@@ -70,13 +70,13 @@ Enqueue CSS and Scripts
 function reverie_scripts_and_styles() {
   if (!is_admin()) {
     // Register the main style
-    wp_register_style( 'main-stylesheet', get_template_directory_uri() . '/css/style.css', array(), '201308151507', 'all' );
+    wp_register_style( 'main-stylesheet', get_template_directory_uri() . '/css/style.css', array(), '201312031649', 'all' );
     	
     // modernizr (without media query polyfill)
     wp_register_script( 'modernizr', get_template_directory_uri() . '/js/vendor/custom.modernizr.js', array(), '2.6.2', false );
     
     // adding Foundation scripts file in the footer
-    wp_register_script( 'foundation', get_template_directory_uri() . '/js/foundation-ck.js', array( 'jquery' ), '201311051313', true );
+    wp_register_script( 'foundation', get_template_directory_uri() . '/js/foundation-ck.js', array( 'jquery' ), '201312031649', true );
     
     if ($is_IE) {
        wp_register_script ( 'html5shiv', "http://html5shiv.googlecode.com/svn/trunk/html5.js" , false, true);

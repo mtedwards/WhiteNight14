@@ -1,9 +1,9 @@
-<?php get_header(); the_post();?>
+<?php get_header(); ?>
 
 <!-- Row for main content area -->
 	<div class="small-12 columns title-box" role="main">
-  	<h1 class="entry-title centered-text no-bottom margin-top2"><?php the_title(); ?></h1>
-  	<p class="no-bottom hide-for-medium-down"><a href="<?php site_url(); ?>/events/">Explore</a> / <a href="<?php site_url(); ?>/precincts/">Precincts</a> / <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></p>
+  	<h1 class="entry-title centered-text no-bottom margin-top2"><?php $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) ); echo $term->name; ?></h1>
+  	<p class="no-bottom hide-for-medium-down"><a href="<?php site_url(); ?>/events/">Explore</a> / <a href="<?php site_url(); ?>/precincts/">Precincts</a> / <a href="#"><?php echo $term->name; ?></a></p>
   	<div class="row">
     	<div class="small-12 columns">
       	<div class="acf-map" id="full-map"></div>
@@ -47,7 +47,7 @@
         	$duration = get_field('duration');
           if($duration == 720){
             if (get_field('all_night_details')){
-              $durationMsg = '<b>DURATION</b> ' . get_field('all_night_details') . '<br>';
+              $durationMsg = get_field('all_night_details') . '<br>';
             }
           } else {
             $duration = $duration . ' minutes';
@@ -77,7 +77,7 @@
           $genreList = "";
           
           foreach($genres as $genre) {
-            $genreLink = '<a href="/accessibility/'. $genre->slug .'">' . $genre->slug . '</a> ';
+            $genreLink = '<a href="'. site_url() .'/events/?genre='. $genre->slug .'">' . $genre->slug . '</a> ';
             $genreList .= $genreLink;
           } 
           
@@ -109,7 +109,7 @@
   				<?php if ( is_user_logged_in() ) { 
               echo upb_bookmark_controls();
             } else {
-              echo '<a href="#" class="upb_bookmark_control" id="#myNightLoggedOut">+</a>';  
+              echo '<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+</a>';  
             }?>
           </figure>
           <?php } //end if event_img ?>
@@ -117,7 +117,7 @@
     		  <div class="show-for-large-up">
     			  <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
     			  <?php if($subtitle ){ ?>
-    			    <h4><?php echo $subtitle; ?></h3>
+    			    <h5><?php echo $subtitle; ?></h5>
     			  <?php } ?>
           </div>
           <div class="show-for-large-up">

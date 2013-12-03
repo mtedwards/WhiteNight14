@@ -130,7 +130,7 @@
         	$duration = get_field('duration');
           if($duration == 720){
             if (get_field('all_night_details')){
-              $durationMsg = '<b>DURATION</b> ' . get_field('all_night_details') . '<br>';
+              $durationMsg = get_field('all_night_details') . '<br>';
             }
           } else {
             $duration = $duration . ' minutes';
@@ -160,11 +160,9 @@
           $genreList = "";
           
           foreach($genres as $genre) {
-            $genreLink = '<a href="/accessibility/'. $genre->slug .'">' . $genre->slug . '</a> ';
+            $genreLink = '<a href="'. site_url() .'/events/?genre='. $genre->slug .'">' . $genre->slug . '</a> ';
             $genreList .= $genreLink;
           } 
-          
-          
           
         
         //location
@@ -192,7 +190,7 @@
   				<?php if ( is_user_logged_in() ) { 
               echo upb_bookmark_controls();
             } else {
-              echo '<a href="#" class="upb_bookmark_control" id="#myNightLoggedOut">+</a>';  
+              echo '<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+</a>';  
             }?>
           </figure>
           <?php } //end if event_img ?>
@@ -200,7 +198,7 @@
     		  <div class="show-for-large-up">
     			  <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
     			  <?php if($subtitle ){ ?>
-    			    <h4><?php echo $subtitle; ?></h3>
+    			    <h5 class="no-top no-bottom"><?php echo $subtitle; ?></h5>
     			  <?php } ?>
           </div>
           <div class="show-for-large-up">

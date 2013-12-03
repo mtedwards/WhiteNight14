@@ -1,17 +1,25 @@
 <?php get_header(); ?>
     <div class="small-12 columns">
-      	<div class="acf-map" id="full-map"></div>
+      <?php $post_objects = upb_list_bookmarks(); 
+        if($post_objects) {?>
+      	  <div class="acf-map" id="full-map"></div>
+        <?php } ?>
     	</div>
     	
 <!-- Row for main content area -->
 	<div class="small-12 medium-8 large-8 columns my-night" role="main">
   	<?php while (have_posts()) : the_post(); ?>
   		<article <?php post_class('padding-top') ?> id="post-<?php the_ID(); ?>">
+  		  <?php 
+          if( $post_objects ){ ?>
   				<h1 class="entry-title h2">Events I've Added To <span class="blue">+</span>My Night</h1>
+          <?php } ?>
   			<div class="entry-content event-box-list">
+  			<?php 
+          if( $post_objects ){ ?>
   			<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2 ">
-        <?php $post_objects = upb_list_bookmarks();
-          if( $post_objects ): 
+  			
+        <?php
             foreach( $post_objects as $post): 
               $id = $post;
               $mypost = get_post($id);
@@ -32,7 +40,7 @@
               if($duration == 720){
                 $msg = get_field('all_night_details',$id);
                 if($msg){
-                  $durationMsg = '<b>DURATION</b> ' . get_field('all_night_details',$id) .'<br>';
+                  $durationMsg = get_field('all_night_details',$id) .'<br>';
                 }
               } else {
                 $duration = $duration . ' minutes';
@@ -45,7 +53,7 @@
               $genres = get_the_terms( $id, 'genre' );              
               $genreList = "";              
               foreach($genres as $genre) {
-                $genreLink = '<a href="/accessibility/'. $genre->slug .'">' . $genre->slug . '</a> ';
+                $genreLink = '<a href="'. site_url() .'/events/?genre='. $genre->slug .'">' . $genre->slug . '</a> ';
                 $genreList .= $genreLink;
               }
               
@@ -97,7 +105,47 @@
             </ul>
             <?php
             wp_reset_postdata();
-          endif; 
+          } else { ?>
+          <div class="row">
+            <div class="small-12 columns">
+              <h2>Planning your night is easy!</h2>
+              <h4>Click the blue <span class="blue">plus +</span> on any event to add it to your night.</h4>
+          
+              <p>Explore the <a href="<?php bloginfo('url'); ?>/events">full programme</a> or browse the <a href="<?php bloginfo('url'); ?>/precincts">precincts</a> to find events that appeal to you.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-12 medium-6 columns">
+              <h5>Precincts</h5>
+              <ul>
+                <li><a href="<?php echo $url; ?>/precinct/01-northern-lights/">Northern Lights</a></li>
+                <li><a href="<?php echo $url; ?>/precinct/02-lucky-dip/">Lucky Dip</a></li>
+                <li><a href="<?php echo $url; ?>/precinct/03-jrb/">J+R&B</a></li>
+                <li><a href="<?php echo $url; ?>/precinct/04-shadows/">Shadows</a></li>
+                <li><a href="<?php echo $url; ?>/precinct/05-rags-to-riches/">Rags to Riches</a></li>
+                <li><a href="<?php echo $url; ?>/precinct/06-wonderland/">Wonderland</a></li>
+                <li><a href="<?php echo $url; ?>/precinct/07-the-vortex/">The Vortex</a></li>
+                <li><a href="<?php echo $url; ?>/precinct/08-midden/">Midden</a></li>
+                <li><a href="<?php echo $url; ?>/precinct/09-alex-and-the-engineer/">Alex and the engineer</a></li>
+                <li><a href="<?php echo $url; ?>/precinct/10-tattooed-city/">Tattooed City</a></li>
+                <li><a href="<?php echo $url; ?>/precinct/11-outer-limits/">Outer Limits</a></li>
+              </ul>
+            </div>
+            <div class="small-12 medium-6 columns">
+              <ul>
+                <li><a href="<?php echo $url; ?>/events/?genre=art">Art</a></li>
+                <li><a href="<?php echo $url; ?>/events/?genre=design">Design</a></li>
+                <li><a href="<?php echo $url; ?>/events/?genre=family">Family</a></li>
+                <li><a href="<?php echo $url; ?>/events/?genre=fashion">Fashion</a></li>
+                <li><a href="<?php echo $url; ?>/events/?genre=film">Film</a></li>
+                <li><a href="<?php echo $url; ?>/events/?genre=lighting">Lighting</a></li>
+                <li><a href="<?php echo $url; ?>/events/?genre=music">Music</a></li>
+                <li><a href="<?php echo $url; ?>/events/?genre=performance">Performance</a></li>
+                <li><a href="<?php echo $url; ?>/events/?genre=sport">Sport</a></li>
+              </ul>
+            </div>
+          </div>          
+         <?php } //endif; 
           ?>  				
   			</div>
   		</article>

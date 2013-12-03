@@ -4,6 +4,8 @@ jQuery(document).ready( function($) {
 	var delete_message = upb_vars.delete_message;
 
 	$(".upb_add_bookmark").click( function() {
+	  addBookBar();
+	  _gaq.push(['_trackEvent', 'click', 'my night', 'add event']);
 		var post_id = $(this).attr('rel');
 		var data = {
 			action: 'bookmark_post',
@@ -26,6 +28,7 @@ jQuery(document).ready( function($) {
 	 	return false;
 	});
 	$(".upb_del_bookmark").click( function() {
+	  _gaq.push(['_trackEvent', 'click', 'my night', 'minus event']);
 		if(confirm(delete_message)) {
 			var post_id = $(this).attr('rel');
 			var data = {
@@ -42,4 +45,8 @@ jQuery(document).ready( function($) {
 		}
 	 	return false;
 	});
+	
+	function addBookBar(){
+    $('.added-event').slideDown(100).delay(10000).slideUp(100);
+	}
 });

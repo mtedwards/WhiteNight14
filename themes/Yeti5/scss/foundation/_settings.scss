@@ -5,6 +5,54 @@
 // Uncomment to use rem-calc() in your settings
  @import "foundation/functions";
  
+ @font-face {
+	font-family: 'wn';
+	src:url('../fonts/wn.eot');
+	src:url('../fonts/wn.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/wn.ttf') format('truetype'),
+		url('../fonts/wn.woff') format('woff'),
+		url('../fonts/wn.svg#wn') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+  [class^="icon-"], [class*=" icon-"] {
+  	font-family: 'wn';
+  	speak: none;
+  	font-style: normal;
+  	font-weight: normal;
+  	font-variant: normal;
+  	text-transform: none;
+  	line-height: 1;
+  
+  	/* Better Font Rendering =========== */
+  	-webkit-font-smoothing: antialiased;
+  	-moz-osx-font-smoothing: grayscale;
+  }
+  
+  .icon-search:before {
+  	content: "\e600";
+  }
+  .icon-cross:before {
+  	content: "\e601";
+  }
+  .icon-plus:before {
+  	content: "\e602";
+  }
+  .icon-list:before {
+  	content: "\e603";
+  }
+  .icon-arrow-down:before {
+  	content: "\e604";
+  }
+  .icon-arrow-up:before {
+  	content: "\e605";
+  }
+  .icon-arrow-right:before {
+  	content: "\e606";
+  }
+ 
+ 
  @font-face { 
       font-family: 'AvenirLTStd-Book';
       src: url('../fonts/290852_0_0.eot');
@@ -82,8 +130,8 @@
 // $shiny-edge-active-color: rgba(#000, .2);
 
 // Media Query Ranges
- $small-range: (0em, 30em);
- $medium-range: (30.063em, 60em);
+ $small-range: (0em, 46em);
+ $medium-range: (46.063em, 60em);
  $large-range: (60.063em, 90em);
 // $xlarge-range: (90.063em, 120em);
 // $xxlarge-range: (120.063em);

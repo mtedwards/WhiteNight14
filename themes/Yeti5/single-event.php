@@ -24,7 +24,7 @@
   	// duration is either a message or an end time. output it always $durationMsg
   	$duration = get_field('duration');
     if($duration == 720){
-      $durationMsg = '<b>DURATION</b> ' . get_field('all_night_details');
+      $durationMsg = get_field('all_night_details');
     } else {
       $duration = $duration . ' minutes';
       $time = strtotime($startTime);
@@ -60,7 +60,7 @@
     $genreList = "";
     
     foreach($genres as $genre) {
-      $genreLink = '<a href="/accessibility/'. $genre->slug .'">' . $genre->slug . '</a> ';
+      $genreLink = '<a href="'. site_url() .'/events/?genre='. $genre->slug .'">' . $genre->slug . '</a> ';
       $genreList .= $genreLink;
     } 
     

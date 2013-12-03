@@ -3,7 +3,7 @@
     <?php if ( is_user_logged_in() ) { 
       echo upb_bookmark_controls();
     } else {
-      echo '<a href="#" class="upb_bookmark_control" id="#myNightLoggedOut">+Add to My Night**</a>';  
+      echo '<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+Add to My Night</a>';  
     }?>
     <div class="row">
       <div class="small-12 columns share hide-for-medium-down">
@@ -23,7 +23,7 @@
       <?php echo $accessList; ?><br>
       <?php if(get_field('paid_event')){ ?>
         <?php echo $price; ?>
-        <a href="<?php echo $ticketLink ?>" class="button expand" target="_blank">BOOK NOW</a>
+        <a onclick="_gaq.push(['_trackEvent', 'click', 'book now', '<?php the_title(); ?>'])" href="<?php echo $ticketLink ?>" class="button expand" target="_blank">BOOK NOW</a>
       <?php }//end if paid event ?>
       <?php echo $genreList ?>
     </p>

@@ -15,8 +15,8 @@
   foundation/foundation.orbit.js
 */
 
-
-// @codekit-prepend "vendor/placeholder.js", "foundation/foundation.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js", "foundation/foundation.orbit.js","jquery.countdown.js", "enquire.js","menu.js"
+// @codekit-prepend "respond.js", "rem.js"
+// @codekit-prepend  "foundation/foundation.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js", "foundation/foundation.orbit.js", "jquery.countdown.js", "enquire.js", "menu.js"
 
 (function($) {
   $(document).ready(function(){
@@ -37,22 +37,37 @@
       });
       
       
+/*
       //EnQuire
-      
-    enquire.register("screen and (min-width: 30em)", {
-
+      //MENU CHUNK
+    enquire.register("screen and (min-width: 730px)", {
         deferSetup : true,
         setup : function() {
-            $( '#eventDetails' ).load( "/chunk/event-single-details", function() {});
+            $( '#header-menu' ).load( "/whitenight/partial/full-menu/", function() {});
         },
         match : function() {
-            $( '#eventDetails' ).show();
+            $( '#header-menu' ).load( "/whitenight/partial/full-menu/", function() {});
         },
         unmatch : function() {
-            $( '#eventDetails' ).hide();
+            $( '#header-menu' ).load( "/whitenight/partial/mobile-menu/", function() {});
         }  
-    
     });
+    
+*/
+
+    enquire.register("screen and (min-width: 730px)", {
+        deferSetup : true,
+        setup : function() {
+            $( '#header-menu' ).load( "/partial/full-menu/", function() {});
+        },
+        match : function() {
+            $( '#header-menu' ).load( "/partial/full-menu/", function() {});
+        },
+        unmatch : function() {
+            $( '#header-menu' ).load( "/partial/mobile-menu/", function() {});
+        }  
+    });
+
     
     // Filter open and close box
     
@@ -68,17 +83,15 @@
     });
     
     $('.event-list .upb_del_bookmark').html('X');
-     $('.event-list .upb_add_bookmark').html('+'); 
+    $('.event-list .upb_add_bookmark').html('+'); 
    
    //Front Page Planning My Night Button
-   
-   
-
-   
+  
       
   });
 })(jQuery);
 
 // @codekit-append "boxes.js"
 // @codekit-append "mymaps.js"
-
+// @codekit-append "vendor/placeholder.js"
+// @codekit-append "vendor/placeholder.js"

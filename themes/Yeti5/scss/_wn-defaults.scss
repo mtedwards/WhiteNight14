@@ -118,6 +118,10 @@ header h1 {
   padding-bottom: 0;
 }
 
+.no-margin {
+ margin: 0 0 0 0 !important; 
+}
+
 
 //Precint Colors:
 
@@ -216,8 +220,26 @@ p b {
   color: white;
 }
 
-.button.blue {
+#wp-submit {
+  margin: 0;
+  padding: 8px 15px;
+  font-family: $header-font-family;
+  background: #000;
+  color: white;
+}
+
+#loginform {
+  input {
+    top:0;
+  }
+  label {
+    margin-bottom: 0;
+  }
+}
+
+.button.blue, button.blue {
   background: $wn-blue;
+  color: white;
 }
 
 
@@ -231,4 +253,8 @@ form select {
   background: #fff;
   padding: 1em 0.5em;
   margin: 0 0 1em 0;
+}
+
+p.larger {
+  font-size: 16px;
 }

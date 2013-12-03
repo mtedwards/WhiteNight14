@@ -80,3 +80,14 @@ function new_excerpt_more($more) {
 	return '  <a href="' . get_permalink() . '" id="read-more"><b>Read More...</b></a>';
 }
 add_filter('excerpt_more', 'new_excerpt_more');
+
+
+// Auto Login after Registration
+function auto_login_new_user( $user_id ) {
+  wp_set_current_user($user_id);
+  wp_set_auth_cookie($user_id);
+  
+  wp_redirect( home_url() . '/my-night' );
+  exit;
+}
+add_action( 'user_register', 'auto_login_new_user' );

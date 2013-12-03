@@ -7,13 +7,13 @@
   <div id="countdown"></div>
 </div>
 <div class="social centered-text white-bg">
-  <a href="https://www.facebook.com/WhiteNightMelbourne" class="social-icon facebook" target="_blank">Like us on Facebook</a>
-  <a href="https://twitter.com/whitenightmelb" class="social-icon twitter" target="_blank">Follow us on Twitter</a>
-  <a href="http://instagram.com/whitenightmelb/" class="social-icon instagram" target="_blank">Follow us on Instagram</a>
-  <a href="https://www.youtube.com/user/WhiteNightMelbourne" class="social-icon youtube" target="_blank">Join our YouTUbe Channel</a>
-  <a href="" class="social-icon gplus" target="_blank">Join us on Google +</a>
+  <a href="https://www.facebook.com/WhiteNightMelbourne" class="social-icon facebook" target="_blank" onclick="_gaq.push(['_trackEvent', 'click', 'social', 'facebook'])" >Like us on Facebook</a>
+  <a href="https://twitter.com/whitenightmelb" class="social-icon twitter" target="_blank" onclick="_gaq.push(['_trackEvent', 'click', 'social', 'twitter'])">Follow us on Twitter</a>
+  <a href="http://instagram.com/whitenightmelb/" class="social-icon instagram" target="_blank" onclick="_gaq.push(['_trackEvent', 'click', 'social', 'instagram'])">Follow us on Instagram</a>
+  <a href="https://www.youtube.com/user/WhiteNightMelbourne" class="social-icon youtube" target="_blank" onclick="_gaq.push(['_trackEvent', 'click', 'social', 'youtube'])">Join our YouTUbe Channel</a>
+  <a href="https://plus.google.com/109173756154545584645" class="social-icon gplus" target="_blank" onclick="_gaq.push(['_trackEvent', 'click', 'social', 'gplus'])">Join us on Google +</a>
   <h2>#WHITENIGHTMELB</h2>
 </div>
-<div class="hide-for-medium-down">
-  <a href="#" id="openMyNight"><img src="<?php bloginfo('template_url'); ?>/img/planningMN.jpg"></a>
+<div class="hide-for-medium-down centered-text">
+  <a href="#" class="openMyNight"><img src="<?php bloginfo('template_url'); ?>/img/planningMN.jpg"></a>
 </div>

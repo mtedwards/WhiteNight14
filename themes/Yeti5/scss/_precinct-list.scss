@@ -13,7 +13,7 @@
     background: white;
     position: relative;
     @include clearfix;
-    z-index: 10000 !important;
+    z-index: 10 !important;
     > a {
       width: 100%;
       text-decoration: none !important;
@@ -75,6 +75,7 @@
       }
     }
     
+/*
     @media only screen and (min-width: 1020px) {
       width: 24.5%;
       margin-right: 0.5%;
@@ -88,6 +89,7 @@
         margin-right: 0;
       }
     }
+*/
     
     div.precinct-content {
       display: none;
@@ -108,7 +110,7 @@
     position: relative;
     top:-1px;
     padding: 20px;
-    z-index: 1000;
+    z-index: 5;
     img {
       margin-bottom: 0;
     }
