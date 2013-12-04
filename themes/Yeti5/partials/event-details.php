@@ -31,7 +31,9 @@
   <div class="small-12 medium-6 large-12 columns">
     <p>
       <b>VENUE</b> <?php echo $venueName; ?><br>
-      <b>STREET ADDRESS</b> <?php echo $location['address']; ?>
+      
+    <?php if(!$venueName == 'To Be Announced') { ?>
+        <b>STREET ADDRESS</b> <?php echo $location['address']; ?>
     </p>
     <div class="single marker" style="display:none;" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
       <div class="wn-infoWindow">
@@ -41,5 +43,6 @@
       </div>
     </div>
     <div class="acf-map" id="single-map"></div>
+    <?php } else { echo '</p>';} ?>
   </div>
 </div>

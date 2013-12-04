@@ -82,7 +82,7 @@
                              <div class="row">
                               <div class="small-12 columns">
                                 <?php do_action('register_form'); ?> 
-                                <input class="button" type="submit" value="Register" id="register" />
+                                <input class="button" type="submit" value="Register" id="register" onclick="_gaq.push(['_trackEvent', 'click', 'my night', 'register'])" />
                               </div>
                             </div>
                           </form>
