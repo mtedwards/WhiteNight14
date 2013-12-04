@@ -1,8 +1,19 @@
 <?php get_header(); ?>
-
+  	<?php 
+  	  $cur_precinct = $_GET['precinct'];
+    	$cur_genre = $_GET['genre'];
+    	$cur_accessibility = $_GET['accessibility'];
+  	?>
 <!-- Row for main content area -->
 	<div class="small-12 columns title-box" role="main">
   	<h1 class="entry-title centered-text no-bottom margin-top2"><?php the_title(); ?></h1>
+  	<?php if($cur_precinct||$cur_genre||$cur_accessibility){ ?>
+  	  <h4 class="centered-text no-bottom margin-top">FILTERED Results<br>
+    	  <?php if($cur_precinct){echo 'PRECINCT: '. get_term_by('slug', $cur_precinct, 'precinct')->name.'.';} ?>
+    	  <?php if($cur_genre){echo 'TYPE: '.$cur_genre.'.';} ?>
+    	  <?php if($cur_accessibility){echo 'ACCESSIBILITY: '.get_term_by('term_taxonomy_id', $cur_accessibility, 'accessibility')->name.'.';} ?>
+  	  </h4>
+  	<?php } ?>
   	<p class="no-bottom hide-for-medium-down"><a href="<?php site_url(); ?>/events/">Explore</a> / <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></p>
   	<div class="row">
     	<div class="small-12 columns">
@@ -16,11 +27,6 @@
     <a href="#" class="button blue expand" id="toggleFilter"><h3>Filter...</h3></a>
   </div>
   <div class="small-12 columns filter-box">
-  	<?php 
-  	  $cur_precinct = $_GET['precinct'];
-    	$cur_genre = $_GET['genre'];
-    	$cur_accessibility = $_GET['accessibility'];
-  	?>
    <form class="padding-top padding-bottom" name="filter" action="" method="GET">
     <div class="row">
       <div class="small-12 medium-6 large-3 columns">
