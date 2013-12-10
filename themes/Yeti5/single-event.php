@@ -93,7 +93,9 @@
 				  if($event_img) { ?>
 				    <figure class="aligncenter">
     				  <img src="<?php echo $event_feat; ?>">
-              <figcaption><?php echo $event_img['caption']; ?></figcaption>
+    				  <?php if($event_img['caption']){ ?>
+                <figcaption>Image: <?php echo $event_img['caption']; ?></figcaption>
+              <?php } ?>
             </figure>
             <?php } ?>
           <div class="show-for-medium-down">

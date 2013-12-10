@@ -75,8 +75,16 @@ function reverie_scripts_and_styles() {
     // modernizr (without media query polyfill)
     wp_register_script( 'modernizr', get_template_directory_uri() . '/js/vendor/custom.modernizr.js', array(), '2.6.2', false );
     
+    // deregister WordPress built in jQuery
+    wp_deregister_script('jquery');
+    // register Google jQuery
+    wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", false, null, false);
+    
     // adding Foundation scripts file in the footer
     wp_register_script( 'foundation', get_template_directory_uri() . '/js/foundation-ck.js', array( 'jquery' ), '201312041100', true );
+    
+    // adding Foundation scripts file in the footer
+    wp_register_script( 'enquire', get_template_directory_uri() . '/js/enquire-ck.js', array( 'jquery' ), '201312041100', false );
     
     if ($is_IE) {
        wp_register_script ( 'html5shiv', "http://html5shiv.googlecode.com/svn/trunk/html5.js" , false, true);
@@ -86,6 +94,7 @@ function reverie_scripts_and_styles() {
     wp_enqueue_style( 'main-stylesheet' );
     wp_enqueue_style( 'modernizr' );
     wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'enquire' );
     wp_enqueue_script( 'foundation' );
     wp_enqueue_script( 'html5shiv' );
     

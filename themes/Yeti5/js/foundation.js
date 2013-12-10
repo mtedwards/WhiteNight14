@@ -16,7 +16,7 @@
 */
 
 // @codekit-prepend "respond.js", "rem.js"
-// @codekit-prepend  "foundation/foundation.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js", "foundation/foundation.orbit.js", "jquery.countdown.js", "enquire.js", "menu.js"
+// @codekit-prepend  "foundation/foundation.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js", "foundation/foundation.orbit.js", "jquery.countdown.js", "menu.js"
 
 (function($) {
   $(document).ready(function(){
@@ -55,7 +55,8 @@
     
 */
 
-    enquire.register("screen and (min-width: 730px)", {
+   /*
+ enquire.register("screen and (min-width: 730px)", {
         deferSetup : true,
         setup : function() {
             $( '#header-menu' ).load( "/partial/full-menu/", function() {});
@@ -67,6 +68,7 @@
             $( '#header-menu' ).load( "/partial/mobile-menu/", function() {});
         }  
     });
+*/
 
     
     // Filter open and close box
