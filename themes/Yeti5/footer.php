@@ -7,7 +7,11 @@
       <div class="row">
         <div class="small-6 columns">
           <img src="<?php bloginfo('template_url') ?>/img/MEL_VA_REV_87.png" alt="Melbourne"><br><br>
-          <img src="<?php bloginfo('template_url') ?>/img/Insignia-portrait_WHT_87.png" alt="Victoria"> </div>
+          <img src="<?php bloginfo('template_url') ?>/img/Insignia-portrait_WHT_87.png" alt="Victoria"><br><br>
+          <?php if ( is_user_logged_in() ) { ?>
+            <a href="<?php echo wp_logout_url( get_permalink() ); ?>" title="Logout">Logout</a>
+          <?php } ?>
+        </div>  
         <div class="small-6 columns">
           <ul>
                <li><a href="<?php echo $siteURL ?>/events"><h5>full programme</h5></a></li>               
@@ -75,9 +79,10 @@
           <h5>about us</h5>
                <ul>
                   <li><a href="<?php echo $siteURL ?>/about-white-night-melbourne/">About White Night</a></li>
+                  <li><a href="<?php echo $siteURL ?>/history-of-white-night/">History</a></li>
                   <li><a href="<?php echo $siteURL ?>/contact-us/">Contact Us</a></li>
                    <!--
-                   <li><a href="#">History</a></li>
+                   
                    <li><a href="#">International Events</a></li>
                    -->
                    <li><a href="<?php echo $siteURL ?>/the-team/">The Team</a></li>
@@ -162,9 +167,10 @@
     <div class="small-6 columns right">
       <img src="<?php bloginfo('template_url') ?>/img/Insignia-portrait_WHT_87.png" alt="Victoria"> </div>
     </div>
+    <?php if (current_user_can( 'manage_options' )) {
+        edit_post_link();
+      } ?>
   </div>
-  
-  
 </footer> 
 
 </div><!-- Container End -->

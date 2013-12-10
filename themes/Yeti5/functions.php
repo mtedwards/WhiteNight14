@@ -87,7 +87,35 @@ function auto_login_new_user( $user_id ) {
   wp_set_current_user($user_id);
   wp_set_auth_cookie($user_id);
   
-  wp_redirect( home_url() . '/my-night' );
+  wp_redirect( home_url() . '/my-night/' );
   exit;
 }
 add_action( 'user_register', 'auto_login_new_user' );
+
+
+// Hide publisher box from certain users:
+
+function wn_hide_publish_button() {
+	wp_enqueue_script('custom-js', get_template_directory_uri() . '/js/hide-admin-block.js', array( 'jquery' ), '201312041100', false );
+}
+
+$user_id = get_current_user_id();
+if ($user_id == 3) {
+  add_action('admin_init', 'wn_hide_publish_button');
+}
+
+// Send email when a draft has been saved
+
+add_action('draft_post', 'send_my_mail_on_draft' );
+
+function send_my_mail_on_draft( $post_id,$post){
+   $post_title = get_the_title( $post_id );
+   $post_url = get_permalink( $post_id );
+   $subject = 'White Night: A new draft has been saved';
+
+   $message = "The following content was updated on White Night Melbourne:\n\n";
+   $message .= "" .$post_title. "\n\n";
+
+   //send email to admin
+   wp_mail( 'matt@acmn.com.au', $subject, $message );
+}

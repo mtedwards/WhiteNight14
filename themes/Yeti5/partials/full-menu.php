@@ -150,6 +150,7 @@
                     <h5>About Us</h5>
                     <ul>
                       <li><a href="<?php echo $url; ?>/about-white-night-melbourne/">About White Night</a></li>
+                      <li><a href="<?php echo $url; ?>/history-of-white-night/">History</a></li>
                       <li><a href="<?php echo $url; ?>/contact-us/">Contact Us</a></li>
                      <!--
                      <li><a href="#">History</a></li>

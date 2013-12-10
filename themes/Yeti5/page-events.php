@@ -1,5 +1,9 @@
 <?php get_header(); ?>
-
+  	<?php 
+  	  $cur_precinct = $_GET['precinct'];
+    	$cur_genre = $_GET['genre'];
+    	$cur_accessibility = $_GET['accessibility'];
+  	?>
 <!-- Row for main content area -->
 	<div class="small-12 columns title-box" role="main">
   	<h1 class="entry-title centered-text no-bottom margin-top2"><?php the_title(); ?></h1>
@@ -16,11 +20,6 @@
     <a href="#" class="button blue expand" id="toggleFilter"><h3>Filter...</h3></a>
   </div>
   <div class="small-12 columns filter-box">
-  	<?php 
-  	  $cur_precinct = $_GET['precinct'];
-    	$cur_genre = $_GET['genre'];
-    	$cur_accessibility = $_GET['accessibility'];
-  	?>
    <form class="padding-top padding-bottom" name="filter" action="" method="GET">
     <div class="row">
       <div class="small-12 medium-6 large-3 columns">

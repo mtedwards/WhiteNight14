@@ -23,8 +23,8 @@
 	<link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/devices/reverie-icon.png" />
 
 <?php wp_head(); ?>
-<script type="text/javascript">
 
+<script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36772153-1']);
   _gaq.push(['_setDomainName', 'whitenightmelbourne.com.au']);
@@ -51,6 +51,7 @@ fb_param.currency = 'AUD';
 })();
 </script>
 <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6012541085286&amp;value=0&amp;currency=AUD" /></noscript>
+<meta property="fb:app_id" content="264434720373211"/>
 </head>
 
 <body <?php body_class(); ?>>
@@ -70,6 +71,20 @@ fb_param.currency = 'AUD';
       <nav class="top-bar" id="header-menu" data-topbar>
         <?php include(locate_template('partials/mobile-menu.php')); ?>
       </nav>
+      <script type="text/javascript">           
+        enquire.register("screen and (min-width: 730px)", {
+              deferSetup : true,
+              setup : function() {
+                  $( '#header-menu' ).load( "/partial/full-menu/", function() {});
+              },
+              match : function() {
+                  $( '#header-menu' ).load( "/partial/full-menu/", function() {});
+              },
+              unmatch : function() {
+                  $( '#header-menu' ).load( "/partial/mobile-menu/", function() {});
+              }  
+          });
+      </script>
       <div class="added-event">
         Added to +My Night <a href="<?php ?>">View +My Night Now</a>
       </div>
