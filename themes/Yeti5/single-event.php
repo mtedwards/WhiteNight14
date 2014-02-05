@@ -123,6 +123,9 @@
 		</article>
 
 	</div>
-
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <?php get_footer(); ?>
+
+    <script type="text/javascript">
+      $('#bookmark-control').hide();   
+  </script>

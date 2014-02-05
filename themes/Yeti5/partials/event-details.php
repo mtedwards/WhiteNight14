@@ -1,10 +1,8 @@
 <div class="row event-details">
   <div class="small-12 medium-6 large-12 columns">
-    <?php if ( is_user_logged_in() ) { 
-      echo upb_bookmark_controls();
-    } else {
-      echo '<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+Add to My Night</a>';  
-    }?>
+    <div id="bookmark-control">
+      <?php echo upb_bookmark_controls(); ?>
+    </div>
     <div class="row">
       <div class="small-12 columns share hide-for-medium-down">
         <h3>SHARE:</h3><div class="fb-like" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
