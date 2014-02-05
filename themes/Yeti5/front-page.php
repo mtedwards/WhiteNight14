@@ -45,8 +45,7 @@
 	  </div><?php // end .precinct-list ?>
 	  <div class="row">
   	  <div class="small-12 columns">
-    	  <h2>DON'T MISS OUT!</h2>
-        <p>New programming information will be added to the site. Make sure you keep up-to-date by creating your own <a href="#" class="openMyNight">My Night Account</a>, following us on <a href="https://www.facebook.com/WhiteNightMelbourne" target="_blank">Facebook</a> and <a href="https://twitter.com/whitenightmelb" target="_blank">Twitter</a> or check back regularly before you head out on a night like no other.</p>
+    	  <?php the_content(); ?>
   	  </div>
 	  </div>
 	</div><?php //end role main ?>

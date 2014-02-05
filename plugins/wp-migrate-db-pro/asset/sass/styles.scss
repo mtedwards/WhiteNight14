@@ -4,12 +4,17 @@
 	width: 742px;
 }
 
+#overlay {
+	background-color: rgba(255,255,255,0.9);
+}
+
 .wpmdb{
-	> .warning {
+	> div.updated.warning {
 		max-width: 742px;
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
+		margin: 10px 0;
 	}
 
 	/* =============================================================================
@@ -133,7 +138,7 @@
 	.licence-input {
 		clear: both;
 		display: block;
-		font-family: "Courier New",Courier,monospace;
+		font-family: Consolas, Monaco, monospace;
 		font-size: 14px;
 		margin-bottom: 7px;
 		padding: 10px;
@@ -182,7 +187,7 @@
 		margin-top: 10px;
 		margin-bottom: 20px;
 		padding-left: 5px;
-		
+
 		a {
 			margin-right: 4px;
 		}
@@ -305,7 +310,7 @@
 		width: 418px;
 		height: 65px;
 	    color: #333;
-	    font-family: "Courier New",Courier,monospace;
+	    font-family: Consolas, Monaco, monospace;
 	    font-size: 15px;
 	    line-height: 21px;
 	    padding: 10px;
@@ -337,7 +342,7 @@
 	.temp-disabled {
 		background-color: #EEEEEE;
 		color: #888888;
-		font-family: "Courier New",Courier,monospace;
+		font-family: Consolas, Monaco, monospace;
 		text-shadow: 0 1px 0 #FFFFFF;
 	}
 	
@@ -534,16 +539,6 @@
 		box-shadow: 0px 0px 5px #ccc;
 	}
 
-	.ssl-verify-message {
-		left: 182px;
-		top: -10px;
-	}
-
-	.replace-guids-info {
-		left: 140px;
-		top: -10px;
-	}
-
 	.inline-message {
 		padding: 10px;
 		border-radius: 3px;
@@ -590,7 +585,7 @@
 		color: #888;
 	}
 
-	.prefix-notice, .ssl-notice, .different-plugin-version-notice, .mysqli-notice, .directory-permission-notice {
+	.prefix-notice, .ssl-notice, .different-plugin-version-notice, .directory-permission-notice {
 		background-color: #FFFFE0;
 		border: 1px solid #E6DB55;
 		padding: 15px;
@@ -605,17 +600,13 @@
 		}
 	}
 
-	.different-plugin-version-notice, .mysqli-notice, .directory-permission-notice {
+	.different-plugin-version-notice, .directory-permission-notice {
 		background-color: #FFEBE8;
 		border-color: #CC0000;
 		a {
 			color: #CC0000;
 			text-decoration: underline;
 		}
-	}
-
-	.mysqli-notice {
-		display: block;
 	}
 
 	.ssl-notice {
@@ -732,11 +723,6 @@
 			float: left;
 		}
 
-		.slider-message {
-			top: -11px;
-			left: 164px;
-		}
-
 		.slider-spinner {
 			position: absolute;
 			right: -35px;
@@ -832,11 +818,9 @@
 	
 	.connection-info{
 		clear: both;
-		background-color: #eee;
-		color: #888;
 		font-size: 15px;
 		line-height: 21px;
-		font-family: "Courier New", Courier, monospace;
+		font-family: Consolas, Monaco, monospace;
 		padding: 10px 10px;
 		height: 67px;
 		text-shadow: 0px 1px 0px #fff;
@@ -987,7 +971,7 @@
 			textarea{
 				width: 100%;
 				min-height: 200px;
-				font-family: "Courier New",Courier,monospace;
+				font-family: Consolas, Monaco, monospace;
 				margin-bottom: 5px;
 			}
 		}
@@ -1218,7 +1202,7 @@
 		border: 1px solid #ccc;
 		border-radius: 3px;
 		background-color: #fff;
-		font-family: "Courier New",Courier,monospace;
+		font-family: Consolas, Monaco, monospace;
 		font-size: 12px;
 		display: inline-block;
 		top: -35px;
@@ -1288,3 +1272,5 @@
 	}
 
 }
+
+@import "mp6";

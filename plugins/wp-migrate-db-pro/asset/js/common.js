@@ -2,6 +2,7 @@
 var hooks = [];
 var call_stack = [];
 var non_fatal_errors = '';
+var migration_error = false;
 
 function wpmdb_call_next_hook() {
 	if( ! call_stack.length ) {
@@ -13,7 +14,7 @@ function wpmdb_call_next_hook() {
 	window[func](); // Uses the string from the array to call the function of the same name
 }
 
-function add_commas( number_string ) {
+function wpmdb_add_commas( number_string ) {
 	number_string += '';
 	x = number_string.split('.');
 	x1 = x[0];
@@ -23,6 +24,17 @@ function add_commas( number_string ) {
 		x1 = x1.replace(rgx, '$1' + ',' + '$2');
 	}
 	return x1 + x2;
+}
+
+function wpmdb_parse_json( maybe_json ) {
+	try {
+		var json_object = jQuery.parseJSON( maybe_json );
+	}
+	catch(e){
+		// we simply return false here because the json data itself will never just contain a value of "false"
+		return false; 
+	}
+	return json_object;
 }
 
 (function($) {

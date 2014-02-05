@@ -2,9 +2,6 @@
 var migration_complete;
 var migration_complete_events;
 
-// global vars
-var table_migration_error = false;
-
 (function($) {
 
 	var connection_established = false;
@@ -62,16 +59,6 @@ var table_migration_error = false;
 	function is_int(n) {
 		n = parseInt(n);
 		return typeof n === 'number' && n % 1 == 0;
-	}
-
-	function is_json( maybe_json ) {
-		try {
-			var json_object = jQuery.parseJSON( maybe_json );
-		}
-		catch(e){ 
-			return false; 
-		}
-		return true;
 	}
 
 	function setup_counter() { 
@@ -183,7 +170,7 @@ var table_migration_error = false;
 			max: 	wpmdb_bottleneck / 1024,
 			step:  512,
 			slide: function( event, ui ) {
-				$('.amount').html( add_commas( ui.value ) + ' kB' );
+				$('.amount').html( wpmdb_add_commas( ui.value ) + ' kB' );
 			},
 			change: function( event, ui ) {
 				$('.amount').after( '<img src="' + spinner_url + '" alt="" class="slider-spinner general-spinner" />' );
@@ -213,7 +200,7 @@ var table_migration_error = false;
 				});
 			}
 		});
-		$('.amount').html( add_commas( $('.slider').slider('value') ) + ' kB' );
+		$('.amount').html( wpmdb_add_commas( $('.slider').slider('value') ) + ' kB' );
 
 		var progress_content_original = $('.progress-content').clone();
 		$('.progress-content').remove();
@@ -647,7 +634,6 @@ var table_migration_error = false;
 				'position': 'fixed',
 				'top': 0,
 				'left': 0,
-				'background-color': 'rgba(255,255,255,0.9)',
 				'width': '100%',
 				'z-index': 99999,
 				'display': 'none',
@@ -872,8 +858,9 @@ var table_migration_error = false;
 
 							}
 							else {
-								hooks = $.wpmdb.apply_filters( 'wpmdb_migration_complete_hooks', hooks );
 								hooks.push( 'migration_complete' );
+								hooks = $.wpmdb.apply_filters( 'wpmdb_migration_complete_hooks', hooks );
+								hooks.push( 'migration_complete_events' );
 								wpmdb_call_next_hook();
 								return;
 							}
@@ -934,22 +921,21 @@ var table_migration_error = false;
 								console.log( jqXHR );
 								console.log( textStatus );
 								console.log( errorThrown );
-								table_migration_error = true;
+								migration_error = true;
 								migration_complete_events();
 								return;
 							},
 							success: function(data){
 								data = $.trim( data );
-								if( ! is_json( data ) ){
+								row_information = wpmdb_parse_json( data );
+								if( false == row_information ){
 									$('.progress-title').html('Migration failed');
 									$('.progress-text').html(data);
 									$('.progress-text').addClass('migration-error');
-									table_migration_error = true;
+									migration_error = true;
 									migration_complete_events();
 									return;
 								}
-
-								row_information = $.parseJSON( data );
 
 								if( row_information.current_row == '-1' ) {
 									progress_size -= overall_table_progress;
@@ -985,6 +971,18 @@ var table_migration_error = false;
 		});
 
 		migration_complete_events = function() {
+			if( false == migration_error ) {
+				if( non_fatal_errors == '' ) {
+					$('.progress-text').html('Migration complete');
+					$('.progress-title').html(completed_msg);
+				}
+				else {
+					$('.progress-text').html(non_fatal_errors);
+					$('.progress-text').addClass('migration-error');
+					$('.progress-title').html('Migration completed with some errors');
+				}
+			}
+
 			migration_completed = true;
 			$('.progress-label').remove();
 			$('.migration-progress-ajax-spinner').remove();
@@ -992,6 +990,7 @@ var table_migration_error = false;
 			$('#overlay').css('cursor','pointer');
 			clearInterval( elapsed_interval );
 			currently_migrating = false;
+			non_fatal_errors = '';
 		}
 
 		migration_complete = function() {
@@ -1009,7 +1008,7 @@ var table_migration_error = false;
 					migrate_complete_text = 'Migration complete, your backup is located at: <a href="' + dump_url + '">' + dump_url + '</a>.';
 				}
 
-				if( table_migration_error == false ){
+				if( migration_error == false ){
 					$('.progress-text').html(migrate_complete_text);
 					migration_complete_events();
 					$('.progress-title').html(completed_msg);
@@ -1038,30 +1037,22 @@ var table_migration_error = false;
 						$('.progress-text').html('A problem occurred when finalizing the backup. (#132)');
 						$('.progress-text').addClass('migration-error');
 						alert( jqXHR + ' : ' + textStatus + ' : ' + errorThrown );
-						table_migration_error = true;
+						migration_error = true;
+						migration_complete_events();
+						return;
 					},
 					success: function(data){
 						if( $.trim( data ) != '' ){
 							$('.progress-title').html('Migration failed');
 							$('.progress-text').html(data);
 							$('.progress-text').addClass('migration-error');
-							table_migration_error = true;
+							migration_error = true;
 							migration_complete_events();
 							return;
 						}
-
-						if( non_fatal_errors == '' ) {
-							$('.progress-text').html('Migration complete');
-							$('.progress-title').html(completed_msg);
-						}
-						else {
-							$('.progress-text').html(non_fatal_errors);
-							$('.progress-text').addClass('migration-error');
-							$('.progress-title').html('Migration completed with some errors');
-						}
+						wpmdb_call_next_hook();
 					}
 				});
-				migration_complete_events();
 			}
 
 		}
@@ -1345,7 +1336,19 @@ var table_migration_error = false;
 		
 		// show / hide GUID helper description
 		$('.general-helper').click(function(){
-			$(this).next().toggle();
+			var $icon = $(this),
+				$bubble = $(this).next();
+
+			// Close any that are already open
+			$('.helper-message').not($bubble).hide();
+
+			var position = $icon.position();
+			$bubble.css({
+				'left': (position.left + $icon.width() + 8) + 'px',
+				'top': (position.top + $icon.height()/2 - 18) + 'px'
+			});
+
+			$bubble.toggle();
 		});
 		
 		$('body').click(function(){

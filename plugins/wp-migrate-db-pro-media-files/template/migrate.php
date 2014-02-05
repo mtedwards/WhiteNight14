@@ -1,8 +1,8 @@
 <?php global $loaded_profile; ?>
 <div class="option-section media-files-options">
 
-	<label class="migrate-files checkbox-label" for="migrate-files">
-		<input type="checkbox" name="migrate_files" value="1" data-available="1" id="migrate-files"<?php echo ( isset( $loaded_profile['migrate_files'] ) ? ' checked="checked"' : '' ); ?> />
+	<label class="media-files checkbox-label" for="media-files">
+		<input type="checkbox" name="media_files" value="1" data-available="1" id="media-files"<?php echo ( isset( $loaded_profile['media_files'] ) ? ' checked="checked"' : '' ); ?> />
 		Media Files
 	</label>
 	

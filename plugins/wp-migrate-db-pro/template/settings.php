@@ -32,7 +32,7 @@
 					</label>
 					<a href="#" class="general-helper replace-guid-helper js-action-link"></a>
 					<div class="ssl-verify-message helper-message">
-						We disable SSL verification by default because a lot of people's environments are not setup for it to work. For example, with XAMPP, you have to manually enable OpenSSL by editing the php.ini. Without SSL verification, an HTTPS connection is vulnerable to a man-in-the-middle attack, so we do recommend you configure your environment and enable this.
+						We disable SSL verification by default because a lot of people's environments are not setup for it to work. For example, with XAMPP, you have to manually enable OpenSSL by editing the php.ini. Without SSL verification, an HTTPS connection is vulnerable to a man-in-the-middle attack, so we do recommend you configure your environment and enable&nbsp;this.
 					</div>
 				</li>
 			</ul>
@@ -44,10 +44,10 @@
 
 		<div class="option-section slider-outer-wrapper">
 			<div class="clearfix slider-label-wrapper">
-				<div class="slider-label">Maximum Request Size 
+				<div class="slider-label"><span>Maximum Request Size</span>
 					<a class="general-helper slider-helper js-action-link" href="#"></a>
 					<div class="slider-message helper-message">
-						We've detected that your server supports requests up to <?php echo size_format( $this->get_bottleneck( 'max' ) ); ?>, but it's possible that your server has limitations that we could not detect. To be on the safe side, we set the default to 1&nbsp;MB, but you can try throttling it up to get better performance. If you're getting a 413 error or having trouble with time outs, try throttling this setting down.
+						We've detected that your server supports requests up to <?php echo size_format( $this->get_bottleneck( 'max' ) ); ?>, but it's possible that your server has limitations that we could not detect. To be on the safe side, we set the default to 1&nbsp;MB, but you can try throttling it up to get better performance. If you're getting a 413 error or having trouble with time outs, try throttling this setting&nbsp;down.
 					</div>
 				</div>
 				<div class="amount"></div>

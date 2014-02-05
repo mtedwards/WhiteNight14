@@ -53,6 +53,14 @@ function yeti_entry_meta() {
 
 // THE FOLLOWING CONTENT SHOULD BE MOVED OUT TO A MUST USE PLUGIN
 
+// Customise Log in page
+
+function my_login_stylesheet() { ?>
+    <link rel="stylesheet" id="custom_wp_admin_css"  href="<?php echo get_bloginfo('template_url') . '/css/style-login.css'; ?>" type="text/css" media="all" />
+<?php }
+add_action( 'login_enqueue_scripts', 'my_login_stylesheet' );
+
+//Clean up Events backend page
 
 function remove_event_taxonomy_boxes() {
 	remove_meta_box( 'tagsdiv-precinct' , 'event' , 'normal' );
@@ -69,8 +77,8 @@ function remove_media_button_from_event() {
   }
 }
 
-add_action('admin_head','remove_media_button_from_event');
-
+//temporarily adding images to some events
+// add_action('admin_head','remove_media_button_from_event');
 
 // Custom Excerpt
 
@@ -99,23 +107,27 @@ function wn_hide_publish_button() {
 	wp_enqueue_script('custom-js', get_template_directory_uri() . '/js/hide-admin-block.js', array( 'jquery' ), '201312041100', false );
 }
 
+function wn_hide_side_menu() {
+	wp_enqueue_script('custom-js', get_template_directory_uri() . '/js/hide-side-menu-block.js', array( 'jquery' ), '201312041100', false );
+}
+
+
 $user_id = get_current_user_id();
 if ($user_id == 3) {
   add_action('admin_init', 'wn_hide_publish_button');
+} elseif ($user_id == 122) {
+  add_action('admin_init', 'wn_hide_side_menu');
 }
 
-// Send email when a draft has been saved
 
-add_action('draft_post', 'send_my_mail_on_draft' );
+// Allow the Editors Access to Gravity Forms
 
-function send_my_mail_on_draft( $post_id,$post){
-   $post_title = get_the_title( $post_id );
-   $post_url = get_permalink( $post_id );
-   $subject = 'White Night: A new draft has been saved';
+$editor = get_role( 'editor' );
+$editor->add_cap( 'gravityforms_view_entries' );
+$editor->add_cap( 'gravityforms_edit_entries' );
+$editor->add_cap( 'gravityforms_delete_entries' );
+$editor->add_cap( 'gravityforms_export_entries' );
+$editor->add_cap( 'gravityforms_view_entry_notes' );
+$editor->add_cap( 'gravityforms_edit_entry_notes' );
 
-   $message = "The following content was updated on White Night Melbourne:\n\n";
-   $message .= "" .$post_title. "\n\n";
 
-   //send email to admin
-   wp_mail( 'matt@acmn.com.au', $subject, $message );
-}

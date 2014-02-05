@@ -23,10 +23,10 @@ var remote_connection_data;
 		});
 
 		var disable_media_files_option = function() {
-			$('#migrate-files').attr('data-available', '0');
-			$('#migrate-files').prop('checked',false);
-			$('#migrate-files').attr('disabled','disabled');
-			$('.migrate-files').addClass('disabled');
+			$('#media-files').attr('data-available', '0');
+			$('#media-files').prop('checked',false);
+			$('#media-files').attr('disabled','disabled');
+			$('.media-files').addClass('disabled');
 		};
 
 		var hide_show_options = function( unavailable ) {
@@ -67,9 +67,9 @@ var remote_connection_data;
 			$('.media-files-options ul').show();
 			$('.media-migration-unavailable').hide();
 			$('.media-files-different-plugin-version-notice').hide();
-			$('#migrate-files').removeAttr('disabled');
-			$('.migrate-files').removeClass('disabled');
-			$('#migrate-files').attr('data-available', '1');
+			$('#media-files').removeAttr('disabled');
+			$('.media-files').removeClass('disabled');
+			$('#media-files').attr('data-available', '1');
 		};
 
 		$.wpmdb.add_action( 'move_connection_info_box', function() { 
@@ -101,7 +101,7 @@ var remote_connection_data;
 			$.ajax({
 				url: 		ajaxurl,
 				type: 		'POST',
-				dataType:	'json',
+				dataType:	'text',
 				cache: 	false,
 				data: {
 					action: 			'wpmdbmf_determine_media_to_migrate',
@@ -122,11 +122,26 @@ var remote_connection_data;
 					return;
 				},
 				success: function(data){
+					original_data = data;
+					data = wpmdb_parse_json( $.trim( data ) );
+					if( false == data ) {
+						migration_failed( original_data );
+						return;
+					}
+
 					media_successfully_determined( data );
 				}
 
 			});
 
+		}
+
+		function migration_failed( data ) {
+			$('.progress-title').html('Migration failed');
+			$('.progress-text').html(data);
+			$('.progress-text').addClass('migration-error');
+			table_migration_error = true;
+			migration_complete_events();
 		}
 
 		function media_successfully_determined( data ) {
@@ -152,7 +167,7 @@ var remote_connection_data;
 			$('.progress-tables').empty();
 			$('.progress-tables-hover-boxes').empty();
 
-			$('.progress-tables').prepend('<div title="Media Files" style="width: 100%;" class="progress-chunk media_files"><span>Media Files (<span class="media-migration-current-image">0</span> / ' + add_commas( Object.size( args.files_to_migrate ) ) + ')</span></div>');
+			$('.progress-tables').prepend('<div title="Media Files" style="width: 100%;" class="progress-chunk media_files"><span>Media Files (<span class="media-migration-current-image">0</span> / ' + wpmdb_add_commas( Object.size( args.files_to_migrate ) ) + ')</span></div>');
 
 			migrate_media_files_recursive( args );
 		}
@@ -189,7 +204,7 @@ var remote_connection_data;
 			$.ajax({
 				url: 		ajaxurl,
 				type: 		'POST',
-				dataType:	'json',
+				dataType:	'text',
 				cache: 	false,
 				data: {
 					action: 			'wpmdbmf_migrate_media',
@@ -208,6 +223,13 @@ var remote_connection_data;
 					return;
 				},
 				success: function(data){
+					original_data = data;
+					data = wpmdb_parse_json( $.trim( data ) );
+					if( false == data ) {
+						migration_failed( original_data );
+						return;
+					}
+
 					if( typeof data.wpmdb_error != 'undefined' && data.wpmdb_error == 1 ){
 						non_fatal_errors += data.body;
 					}
@@ -219,7 +241,7 @@ var remote_connection_data;
 					overall_percent = Math.floor(percent);
 
 					$('.progress-text').html(overall_percent + '% - Migrating media files');
-					$('.media-migration-current-image').html( add_commas( args.media_progress_image_number ) );
+					$('.media-migration-current-image').html( wpmdb_add_commas( args.media_progress_image_number ) );
 
 					migrate_media_files_recursive( args );
 				}
@@ -229,7 +251,7 @@ var remote_connection_data;
 		}
 
 		function is_media_migration() {
-			return $('#migrate-files').attr('data-available') == '1' && $('#migrate-files').is(':checked') ? true : false;
+			return $('#media-files').attr('data-available') == '1' && $('#media-files').is(':checked') ? true : false;
 		}
 
 		function migration_type() {

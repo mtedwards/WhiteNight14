@@ -16,7 +16,7 @@
  */
 
 // Defines the global Placeholders object along with various utility methods
-(function (global) {
+(function(global) {
 
     "use strict";
 

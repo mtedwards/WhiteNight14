@@ -1,0 +1,48 @@
+body.login {
+  background:#000;
+}
+body.login div#login {}
+body.login div#login h1 {}
+body.login div#login h1 a {
+  height: 72px;
+}
+body.login div#login form {
+  background: #333;
+  box-shadow: none;
+  border: 1px solid #999;
+}
+
+body.login div#login form p {
+ color:white;  
+}
+
+body.login div#login form p label {
+  color:white;
+}
+
+body.login div#login form#loginform input {}
+body.login div#login form#loginform input#user_login {}
+body.login div#login form#loginform input#user_pass {}
+body.login div#login form#loginform p.forgetmenot {}
+body.login div#login form#loginform p.forgetmenot input#rememberme {}
+body.login div#login form#loginform p.submit {}
+body.login div#login form#loginform p.submit input#wp-submit {}
+body.login div#login p#nav {
+    text-shadow: none;
+}
+
+body.login div#login p.message {
+  border: 1px solid #999;
+  background: #01a4e1;
+  color:white;
+  text-transform: uppercase;
+}
+
+
+body.login div#login p#nav a {
+  text-shadow: none;
+}
+body.login div#login p#backtoblog {}
+body.login div#login p#backtoblog a {
+    text-shadow: none;
+}

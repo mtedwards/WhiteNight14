@@ -99,7 +99,7 @@ if( false == $is_default_profile ) {
 				<input class="button connect-button" type="submit" value="Connect" name="Connect" autocomplete="off" />
 			</div>
 
-			<div class="ssl-notice">
+			<div class="notification-message warning-notice ssl-notice">
 				<p><strong>SSL Disabled</strong> &mdash; We couldn't connect over SSL but regular http (no SSL) appears to be working so we've switched to that. If you run a push or pull, your data will be transmitted unencrypted. Most people are fine with this, but just a heads up.</p>
 			</div>
 		
@@ -111,17 +111,17 @@ if( false == $is_default_profile ) {
 
 		<p class="connection-status">Please enter the connection information above to continue.</p>
 
-		<div class="different-plugin-version-notice" style="display: none;">
+		<div class="notification-message error-notice different-plugin-version-notice" style="display: none;">
 			<?php
 			$plugin_info = get_plugin_data( $this->plugin_file_path );
 			?>
 			<p><b>Version Mismatch</b> &mdash; We've detected you have version <span class="remote-version"></span> of WP Migrate DB Pro at <span class="remote-location"></span> but are using <?php echo $plugin_info['Version']; ?> here. Please go to the <a href="<?php echo network_admin_url( 'plugins.php' ); ?>">Plugins page</a> on both installs and check for updates.</p>
 		</div>
 
-		<div class="directory-permission-notice" style="margin: 10px 0 0 0; display: none;">
+		<div class="notification-message error-notice directory-permission-notice" style="display: none;">
 			<p>
 				<strong>Cannot Access Uploads Directory</strong> &mdash;
-				We require write permissions to the standard WordPress uploads directory. Without this permission exports are unavailable. Please grant 755 permissions on the following directory:<br /><?php echo $this->get_upload_info( 'path' ); ?>
+				We require write permissions to the standard WordPress uploads directory. Without this permission exports are unavailable. Please grant 755 permissions on the following directory: <?php echo $this->get_upload_info( 'path' ); ?>
 			</p>
 		</div>
 		
@@ -328,7 +328,7 @@ if( false == $is_default_profile ) {
 								that GUIDs should not be changed, this is limited to sites that are already live.
 								If the site has never been live, I recommend replacing the GUIDs. For example, you may be
 								developing a new site locally at dev.somedomain.com and want to 
-								migrate the site live to somedomain.com.
+								migrate the site live to&nbsp;somedomain.com.
 							</div>
 						</li>
 						<li>
@@ -387,7 +387,9 @@ if( false == $is_default_profile ) {
 				</div>
 			</div>
 
-			<div class="prefix-notice pull">
+			<div class="notification-message warning-notice prefix-notice pull">
+				<h4>Warning: Different Table Prefixes</h4>
+
 				<p>Whoa! We've detected that the database table prefix differs between installations. Clicking the Migrate DB button below will create new database tables in your local database with prefix "<span class="remote-prefix"></span>".</p>
 
 				<p>However, your local install is configured to use table prefix "<?php echo $wpdb->prefix; ?>" and will ignore the migrated tables. So, <b>AFTER</b> migration is complete, you will need to edit your local install's wp-config.php and change the "<?php echo $wpdb->prefix; ?>" variable to "<span class="remote-prefix"></span>".</p>
@@ -395,7 +397,9 @@ if( false == $is_default_profile ) {
 				<p>This will allow your local install the use the migrated tables. Once you do this, you shouldn't have to do it again.</p>
 			</div>
 
-			<div class="prefix-notice push">
+			<div class="notification-message warning-notice prefix-notice push">
+				<h4>Warning: Different Table Prefixes</h4>
+
 				<p>Whoa! We've detected that the database table prefix differs between installations. Clicking the Migrate DB button below will create new database tables in the remote database with prefix "<?php echo $wpdb->prefix; ?>".</p>
 
 				<p>However, your remote install is configured to use table prefix "<span class="remote-prefix"></span>" and will ignore the migrated tables. So, <b>AFTER</b> migration is complete, you will need to edit your remote install's wp-config.php and change the "<span class="remote-prefix"></span>" variable to "<?php echo $wpdb->prefix; ?>".</p>

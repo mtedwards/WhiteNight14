@@ -1,4 +1,4 @@
-/*
+  /*
   Other Elements:
   foundation/foundation.abide.js
   foundation/foundation.accordion.js
@@ -18,7 +18,7 @@
 // @codekit-prepend "respond.js", "rem.js"
 // @codekit-prepend  "foundation/foundation.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js", "foundation/foundation.orbit.js", "jquery.countdown.js", "menu.js"
 
-(function($) {
+(function ($) {
   $(document).ready(function(){
       $(document).foundation();
       
@@ -35,42 +35,7 @@
         var newContent = $('.full-text').html();
         $('.excerpt-text').html(newContent);
       });
-      
-      
-/*
-      //EnQuire
-      //MENU CHUNK
-    enquire.register("screen and (min-width: 730px)", {
-        deferSetup : true,
-        setup : function() {
-            $( '#header-menu' ).load( "/whitenight/partial/full-menu/", function() {});
-        },
-        match : function() {
-            $( '#header-menu' ).load( "/whitenight/partial/full-menu/", function() {});
-        },
-        unmatch : function() {
-            $( '#header-menu' ).load( "/whitenight/partial/mobile-menu/", function() {});
-        }  
-    });
-    
-*/
-
-   /*
- enquire.register("screen and (min-width: 730px)", {
-        deferSetup : true,
-        setup : function() {
-            $( '#header-menu' ).load( "/partial/full-menu/", function() {});
-        },
-        match : function() {
-            $( '#header-menu' ).load( "/partial/full-menu/", function() {});
-        },
-        unmatch : function() {
-            $( '#header-menu' ).load( "/partial/mobile-menu/", function() {});
-        }  
-    });
-*/
-
-    
+   
     // Filter open and close box
     
     var filterWidth = +$('.filter-box').width();
@@ -89,11 +54,10 @@
    
    //Front Page Planning My Night Button
   
-      
+  
   });
-})(jQuery);
-
+}(jQuery));
+// @codekit-append "maptabs.js"
 // @codekit-append "boxes.js"
 // @codekit-append "mymaps.js"
-// @codekit-append "vendor/placeholder.js"
 // @codekit-append "vendor/placeholder.js"

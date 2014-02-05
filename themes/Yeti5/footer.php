@@ -27,12 +27,13 @@
                  <ul>
                      <li><a href="<?php echo $siteURL ?>/precinct/01-northern-lights/">Northern Lights</a></li>
                      <li><a href="<?php echo $siteURL ?>/precinct/02-lucky-dip/">Lucky Dip</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/03-jrb/">J+R&amp;B</a></li>
+                     <li><a href="<?php echo $siteURL ?>/precinct/03-jrb/">J + R&amp;B</a></li>
                      <li><a href="<?php echo $siteURL ?>/precinct/04-shadows/">Shadows</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/04-the-vortex/">The Vortex</a></li>
+		     <li><a href="<?php echo $siteURL ?>/precinct/05-rags-to-riches/">Rags to Riches</a></li>
+                     <li><a href="<?php echo $siteURL ?>/precinct/07-the-vortex/">The Vortex</a></li>
                      <li><a href="<?php echo $siteURL ?>/precinct/06-wonderland/">Wonderland</a></li>
                      <li><a href="<?php echo $siteURL ?>/precinct/08-midden/">Midden</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/09-alex-and-the-engineer/">Alex and the engineer</a></li>
+                     <li><a href="<?php echo $siteURL ?>/precinct/09-alex-and-the-engineer/">Alex and the Engineer</a></li>
                      <li><a href="<?php echo $siteURL ?>/precinct/10-tattooed-city/">Tattooed City</a></li>
                      <li><a href="<?php echo $siteURL ?>/precinct/11-outer-limits/">Outer Limits</a></li>
                 </ul>
@@ -71,6 +72,7 @@
                      <!-- <li><a href="#">Getting Here</a></li> -->
                      <!-- <li><a href="#">Getting Around</a></li> -->
                      <!-- <li><a href="#">Map</a></li> -->
+                     <li><a href="<?php echo $siteURL ?>/visitor-information/getting-there-getting-around/">Getting There &amp; Getting Around</a></li>
                      <li><a href="<?php echo $siteURL ?>/where-to-eat-rest/">Where to Eat &amp; Rest</a></li>
                      <!-- <li><a href="#">Getting Home</a></li> -->
                 </ul>
@@ -80,6 +82,7 @@
                <ul>
                   <li><a href="<?php echo $siteURL ?>/about-white-night-melbourne/">About White Night</a></li>
                   <li><a href="<?php echo $siteURL ?>/history-of-white-night/">History</a></li>
+<li><a href="<?php echo $siteURL ?>/getting-involved/">Getting Involved</a></li>
                   <li><a href="<?php echo $siteURL ?>/contact-us/">Contact Us</a></li>
                    <!--
                    
@@ -167,10 +170,9 @@
     <div class="small-6 columns right">
       <img src="<?php bloginfo('template_url') ?>/img/Insignia-portrait_WHT_87.png" alt="Victoria"> </div>
     </div>
-    <?php if (current_user_can( 'manage_options' )) {
-        edit_post_link();
-      } ?>
   </div>
+  
+  
 </footer> 
 
 </div><!-- Container End -->

@@ -130,7 +130,7 @@
           if($duration == 720){
             if (get_field('all_night_details')){
               $durationMsg = get_field('all_night_details') . '<br>';
-            }
+            } else { $durationMsg =''; }
           } else {
             $duration = $duration . ' minutes';
             $time = strtotime($startTime);
@@ -157,11 +157,12 @@
           $genres = get_the_terms( $post->ID, 'genre' );
           
           $genreList = "";
-          
-          foreach($genres as $genre) {
-            $genreLink = '<a href="'. site_url() .'/events/?genre='. $genre->slug .'">' . $genre->slug . '</a> ';
-            $genreList .= $genreLink;
-          } 
+          if($genres){
+            foreach($genres as $genre) {
+              $genreLink = '<a href="'. site_url() .'/events/?genre='. $genre->slug .'">' . $genre->slug . '</a> ';
+              $genreList .= $genreLink;
+            } 
+          }
           
         
         //location
@@ -193,7 +194,7 @@
             }?>
           </figure>
           <?php } //end if event_img ?>
-    		<div class="small-12 medium-12 large-8 columns padding">
+          <div class="small-12 medium-12 large-8 columns padding">    		
     		  <div class="show-for-large-up">
     			  <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
     			  <?php if($subtitle ){ ?>
@@ -213,15 +214,15 @@
             </p>
   			</div>
 		</div>
-
-		<div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
-		  <div class="wn-infoWindow">
-  			  <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>">
-  			  	<h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
-            <?php echo '<p><b>START TIME</b> ' . $startTime .'</p>'; ?>
-		  </div>
-    </div>
-        
+    <?php if($location['lat']){ ?>
+  		<div style="display:none;" class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
+  		  <div class="wn-infoWindow">
+    			  <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>">
+    			  	<h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
+              <?php echo '<p><b>START TIME</b> ' . $startTime .'</p>'; ?>
+  		  </div>
+      </div>
+    <?php } ?>
 		</article>
   <?php
   endwhile;

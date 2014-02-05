@@ -1,6 +1,8 @@
 .event-list {
   article {
-    border: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
     margin-bottom: 0.5rem;
     .top-title {
       min-height: 0;
@@ -51,7 +53,7 @@
   figure .upb_bookmark_control {
     position: absolute;
     top:0;
-    left:14px;
+    left:15px;
     width: 36px;
     text-align: center;
   }

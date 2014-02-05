@@ -22,7 +22,7 @@
                     <ul>
                       <li><a href="<?php echo $url; ?>/precinct/01-northern-lights/">Northern Lights</a></li>
                       <li><a href="<?php echo $url; ?>/precinct/02-lucky-dip/">Lucky Dip</a></li>
-                      <li><a href="<?php echo $url; ?>/precinct/03-jrb/">J+R&B</a></li>
+                      <li><a href="<?php echo $url; ?>/precinct/03-jrb/">J + R&B</a></li>
                       <li><a href="<?php echo $url; ?>/precinct/04-shadows/">Shadows</a></li>
                       <li><a href="<?php echo $url; ?>/precinct/05-rags-to-riches/">Rags to Riches</a></li>
                       <li><a href="<?php echo $url; ?>/precinct/06-wonderland/">Wonderland</a></li>
@@ -105,7 +105,7 @@
                         <div class="small-12 columns">
                           <?php $args = array(
                             'echo' => true,
-                            'redirect' => site_url( $_SERVER['REQUEST_URI'] ), 
+                            'redirect' => get_bloginfo('url'), 
                             'form_id' => 'loginform',
                             'label_username' => __( 'Username' ),
                             'label_password' => __( 'Password' ),
@@ -119,7 +119,7 @@
                             'value_username' => NULL,
                             'value_remember' => false ); ?> 
                             <?php wp_login_form( $args ); ?>
-                            <a href="<?php echo wp_lostpassword_url( get_permalink() ); ?>" title="Lost Password">Lost Password?</a>
+                            <a href="<?php echo wp_lostpassword_url( get_bloginfo('url') ); ?>" title="Lost Password">Lost Password?</a>
                         </div>
                     </div>
                     <div class="row">
@@ -137,11 +137,11 @@
                   <div class="left">
                     <h5>VISITOR INFO</h5>
                      <ul>
-                
-                         <li><a href="<?php echo $url; ?>/visitor-information/">Visiting Melbourne</a></li>
-                         <!-- <li><a href="#">Getting Here</a></li> -->
-                         <!-- <li><a href="#">Getting Around</a></li> -->
+        
+                         <li><a href="<?php echo $url; ?>/visiting-melbourne/">Visiting Melbourne</a></li>
+                         <!-- <li><a href="<?php echo $url; ?>/visitor-information/getting-there-getting-around/">Getting Here / Getting Around</a></li> -->
                          <!-- <li><a href="#">Map</a></li> -->
+                         <li><a href="<?php echo $url; ?>/visitor-information/getting-there-getting-around/">Getting There &amp; Getting Around</a></li>
                          <li><a href="<?php echo $url; ?>/where-to-eat-rest/">Where to Eat &amp; Rest</a></li>
                          <!-- <li><a href="#">Getting Home</a></li> -->
                          
@@ -151,6 +151,7 @@
                     <ul>
                       <li><a href="<?php echo $url; ?>/about-white-night-melbourne/">About White Night</a></li>
                       <li><a href="<?php echo $url; ?>/history-of-white-night/">History</a></li>
+                      <li><a href="<?php echo $url; ?>/getting-involved/">Getting Involved</a></li>
                       <li><a href="<?php echo $url; ?>/contact-us/">Contact Us</a></li>
                      <!--
                      <li><a href="#">History</a></li>
@@ -159,14 +160,24 @@
                      <li><a href="<?php echo $url; ?>/the-team/">The Team</a></li>
                      <li><a href="<?php echo $url; ?>/partners">Partners/Supporters</a></li>
                     </ul>
-                    
                   </div>
                   <div class="right">
                   </div>
+                  <?php if ( is_user_logged_in() ) { ?>
+                      <a class="button blue expand padding-bottom logout" href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" title="Logout">Logout</a>
+                    <?php } ?>
                  </div><?php //end submenu ?>
               </li>
             </ul>
           </div>
-          <div class="search">
+          <div class="menu-buttons search">
+            <ul>
+             <li>             
+               <a id="menu-full-search" class="menu-button dropdown" href="#">?</a>
+                <div class="sub-menu">
+                  <?php get_search_form(); ?>
+                </div>
+             </li>
+            </ul>
           </div>
         </div>

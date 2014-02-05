@@ -4,7 +4,7 @@
 	<div class="small-12 columns" role="main">
 	
 	<?php /* Start loop */ ?>
-	<?php while (have_posts()) : the_post(); 
+	<?php the_post(); 
   	//Lets set up ALL the variables first
   	$event_img = get_field('event_img');
   	$event_feat = $event_img['sizes']['event-feature'];
@@ -59,11 +59,13 @@
     
     $genreList = "";
     
-    foreach($genres as $genre) {
-      $genreLink = '<a href="'. site_url() .'/events/?genre='. $genre->slug .'">' . $genre->slug . '</a> ';
-      $genreList .= $genreLink;
-    } 
-    
+    if($genres){
+      foreach($genres as $genre) {
+        $genreLink = '<a href="'. site_url() .'/events/?genre='. $genre->slug .'">' . $genre->slug . '</a> ';
+        $genreList .= $genreLink;
+      } 
+    }
+          
     // VENUE and LOCATION DETAILS
     if(get_field('existing_venue')) {
   		  $venue = get_field('venue');
@@ -106,6 +108,9 @@
           </div>
           <div class="show-for-large-up full-text">
             <?php the_content(); ?>
+            <?php if(current_user_can( 'manage_options' )){
+               edit_post_link('edit', '<p>', '</p>');
+            } ?>
             <div class="fb-comments" data-href="<?php the_permalink(); ?>" data-numposts="5" data-colorscheme="light"></div>
           </div>
         </div>
@@ -116,7 +121,6 @@
         </div>
       </div>
 		</article>
-	<?php endwhile; // End the loop ?>
 
 	</div>
 

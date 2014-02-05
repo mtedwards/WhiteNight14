@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
 
   function contentDiv() {
     $('article').removeClass('open');
@@ -23,7 +23,7 @@
     $(window).resize(function() {
       contentDiv();
     });
-  }
+  };
   
 	
 	$(".precinct-list").on('click','article > a',function() {
@@ -41,4 +41,4 @@
 		return false;
 	}); 
 	
-})(jQuery);
+}(jQuery));

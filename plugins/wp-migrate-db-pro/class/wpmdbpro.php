@@ -134,8 +134,6 @@ class WPMDBPro extends WPMDBPro_Base {
 			'select_post_types',
 		);
 
-		$this->accepted_fields = apply_filters( 'wpmdb_accepted_profile_fields', $this->accepted_fields );
-
 		$this->default_profile = array(
 			'action' => 'savefile',
 			'save_computer' => '1',
@@ -155,6 +153,8 @@ class WPMDBPro extends WPMDBPro_Base {
 		else {
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		}
+
+		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
 		// this is how many DB rows are processed at a time, allow devs to change this value
 		$this->rows_per_segment = apply_filters( 'wpmdb_rows_per_segment', $this->rows_per_segment );
@@ -285,12 +285,15 @@ class WPMDBPro extends WPMDBPro_Base {
 				}				
 				else {
 					$activate_url = wp_nonce_url( network_admin_url( 'plugins.php?action=activate&amp;plugin=' . $plugin_file ), 'activate-plugin_'  . $plugin_file );
-					$actions .= sprintf( '</span> <a class="action" href="%s">Activate</a></li>', $activate_url );
+					$actions .= sprintf( '</span> <a class="action" href="%s">Activate</a>', $activate_url );
 				}
 			}
 			else {
 				$install_url = wp_nonce_url( network_admin_url( 'update.php?action=install-plugin&plugin=' . $key ), 'install-plugin_' . $key );
-				$actions = sprintf( '<a class="action" href="%s">Install</a></li>', $install_url );
+				$actions = sprintf( '<a class="action" href="%s">Install</a>', $install_url );
+
+				$download_url = $this->get_plugin_update_download_url( $key );
+				$actions .= sprintf( '<a class="action" href="%s">Download</a>', $download_url );
 			}
 			?>
 			<article class="addon <?php echo esc_attr( $key ); ?>">
@@ -355,6 +358,7 @@ class WPMDBPro extends WPMDBPro_Base {
 
 	function parse_migration_form_data( $data ) {
 		parse_str( $data, $form_data );
+		$this->accepted_fields = apply_filters( 'wpmdb_accepted_profile_fields', $this->accepted_fields );
 		$form_data = array_intersect_key( $form_data, array_flip( $this->accepted_fields ) );
 		unset( $form_data['replace_old'][0] );
 		unset( $form_data['replace_new'][0] );
@@ -479,6 +483,15 @@ class WPMDBPro extends WPMDBPro_Base {
 		} else {
 			_e( 'Disabled', 'wp-app-store' );
 		}
+		echo "\r\n";
+
+		_e( 'set_time_limit()', 'wp-app-store' ); echo ': ';
+		if ( $this->set_time_limit_available() ) {
+			_e('Enabled', 'wp-app-store' );
+		} else {
+			_e( 'Disabled', 'wp-app-store' );
+		}
+
 		echo "\r\n";
 		echo "\r\n";
 
@@ -1186,8 +1199,8 @@ class WPMDBPro extends WPMDBPro_Base {
 		$suhosin_post_limit = false;
 
 		if ( function_exists( 'ini_get' ) ) {
-			$suhosin_request_limit = ini_get( 'suhosin.request.max_value_length' );
-			$suhosin_post_limit = ini_get( 'suhosin.post.max_value_length' );
+			$suhosin_request_limit = $this->return_bytes( ini_get( 'suhosin.request.max_value_length' ) );
+			$suhosin_post_limit = $this->return_bytes( ini_get( 'suhosin.post.max_value_length' ) );
 		}
 
 		if ( $suhosin_request_limit && $suhosin_post_limit ) {
@@ -1225,11 +1238,17 @@ class WPMDBPro extends WPMDBPro_Base {
 
 			<div id="icon-tools" class="icon32"><br /></div><h2>Migrate DB Pro</h2>
 
+			<h2 class="nav-tab-wrapper"><a href="#" class="nav-tab nav-tab-active js-action-link migrate" data-div-name="migrate-tab">Migrate</a><a href="#" class="nav-tab js-action-link settings" data-div-name="settings-tab">Settings</a><a href="#" class="nav-tab js-action-link addons" data-div-name="addons-tab">Addons</a><a href="#" class="nav-tab js-action-link help" data-div-name="help-tab">Help</a></h2>
+
+			<?php do_action( 'wpmdb_notices' ); ?>
+
 			<?php
+			$safe_mode = false;
 			$hide_warning = apply_filters( 'wpmdb_hide_safe_mode_warning', false );
 			if ( function_exists( 'ini_get' ) && ini_get( 'safe_mode' ) && !$hide_warning ) {
+				$safe_mode = true;
 				?>
-				<div class="updated warning" style="margin: 10px 0 0 0;">
+				<div class="updated warning">
 					<p>
 						<strong>PHP Safe Mode Enabled</strong> &mdash;
 						We do not officially support running this plugin in
@@ -1248,7 +1267,7 @@ class WPMDBPro extends WPMDBPro_Base {
 			}
 			?>
 
-			<div class="updated warning ie-warning" style="margin: 10px 0 0 0; display: none;">
+			<div class="updated warning ie-warning" style="display: none;">
 				<p>
 					<strong>Internet Explorer Not Supported</strong> &mdash; 
 					Less than 2% of our customers use IE, so we've decided not to spend time supporting it.
@@ -1257,9 +1276,27 @@ class WPMDBPro extends WPMDBPro_Base {
 				</p>
 			</div>
 
-			<div id="wpmdb-main">
+			<?php
+			$hide_warning = apply_filters( 'wpmdb_hide_set_time_limit_warning', false );
+			if ( false == $this->set_time_limit_available() && !$hide_warning && !$safe_mode ) {
+				?>
+				<div class="updated warning">
+					<p>
+						<strong>PHP Function Disabled</strong> &mdash;
+						The <code>set_time_limit()</code> function is currently disabled on your server.
+						We use this function to ensure that the migration doesn't time out. We haven't 
+						disabled the plugin however, so you're free to cross your
+						fingers and hope for the best. You may want to contact your web host to enable this function.
+						<?php if ( function_exists( 'ini_get' ) ) : ?>
+						Your current PHP run time limit is set to <?php echo ini_get( 'max_execution_time' ); ?> seconds.
+						<?php endif; ?>
+					</p>
+				</div>
+				<?php
+			}
+			?>
 
-				<h2 class="nav-tab-wrapper"><a href="#" class="nav-tab nav-tab-active js-action-link migrate" data-div-name="migrate-tab">Migrate</a><a href="#" class="nav-tab js-action-link settings" data-div-name="settings-tab">Settings</a><a href="#" class="nav-tab js-action-link addons" data-div-name="addons-tab">Addons</a><a href="#" class="nav-tab js-action-link help" data-div-name="help-tab">Help</a></h2>
+			<div id="wpmdb-main">
 
 				<?php
 				// select profile if more than > 1 profile saved
@@ -1555,13 +1592,14 @@ class WPMDBPro extends WPMDBPro_Base {
 		$insert_buffer = $insert_query_template = "INSERT INTO " . $this->backquote( $table_name ) . " ( " . $fields . ") VALUES\n";
 
 		do {
-			$where = '';
+			$join = '';
+			$where = 'WHERE 1=1';
 			$order_by = '';
 			// We need ORDER BY here because with LIMIT, sometimes it will return
 			// the same results from the previous query and we'll have duplicate insert statements 
 			if ( isset( $this->form_data['exclude_spam'] ) ) {
 				if ( $wpdb->comments == $table || preg_match( '/' . $wpdb->prefix . '[0-9]+_comments/', $table ) ) {
-					$where = 'WHERE comment_approved != "spam"';
+					$where .= ' AND comment_approved != "spam"';
 				}
 				elseif ( $wpdb->commentmeta == $table || preg_match( '/' . $wpdb->prefix . '[0-9]+_commentmeta/', $table ) ) {
 					$comment_table = $wpdb->comments;
@@ -1571,18 +1609,19 @@ class WPMDBPro extends WPMDBPro_Base {
 						$comment_table = $wpdb->prefix . $blog_id . '_comments';
 						$commentmeta_table = $wpdb->prefix . $blog_id . '_commentmeta';
 					}
-					$where = sprintf( 'INNER JOIN %1$s
+					$join .= sprintf( 'INNER JOIN %1$s
 						ON %1$s.comment_ID = %2$s.comment_id AND %1$s.comment_approved != \'spam\'',
 						$this->backquote( $comment_table ), $this->backquote( $commentmeta_table ) );
 				}
 			}
-			elseif ( isset( $this->form_data['post_type_migrate_option'] ) && $this->form_data['post_type_migrate_option'] == 'migrate_select_post_types' && ! empty( $this->form_data['select_post_types'] ) ) {
+
+			if ( isset( $this->form_data['post_type_migrate_option'] ) && $this->form_data['post_type_migrate_option'] == 'migrate_select_post_types' && ! empty( $this->form_data['select_post_types'] ) ) {
 				$post_types = array();
 				foreach( $this->form_data['select_post_types'] as $post_type ) {
 					$post_types[] = '\'' . $post_type . '\'';
 				}
 				if( $wpdb->posts == $table || preg_match( '/' . $wpdb->prefix . '[0-9]+_posts/', $table ) ) {
-					$where = 'WHERE `post_type` IN ( ';
+					$where .= ' AND `post_type` IN ( ';
 					$where .= implode( ', ', $post_types ) . ' )';
 				}
 				elseif( $wpdb->postmeta == $table || preg_match( '/' . $wpdb->prefix . '[0-9]+_postmeta/', $table ) ) {
@@ -1593,19 +1632,20 @@ class WPMDBPro extends WPMDBPro_Base {
 						$post_table = $wpdb->prefix . $blog_id . '_posts';
 						$postmeta_table = $wpdb->prefix . $blog_id . '_postmeta';
 					}
-					$where = sprintf( 'INNER JOIN %1$s
+					$join .= sprintf( 'INNER JOIN %1$s
 						ON %1$s.ID = %2$s.post_id AND %1$s.post_type IN ( ' . implode( ', ', $post_types ) . ' )' ,
 						$this->backquote( $post_table ), $this->backquote( $postmeta_table ) );
 				}
 			}
-			elseif ( true === apply_filters( 'wpmdb_exclude_transients', true ) && ( $wpdb->options == $table || ( isset( $wpdb->sitemeta ) && $wpdb->sitemeta == $table ) || preg_match( '/' . $wpdb->prefix . '[0-9]+_options/', $table ) ) ) {
+
+			if ( true === apply_filters( 'wpmdb_exclude_transients', true ) && ( $wpdb->options == $table || ( isset( $wpdb->sitemeta ) && $wpdb->sitemeta == $table ) || preg_match( '/' . $wpdb->prefix . '[0-9]+_options/', $table ) ) ) {
 				$col_name = 'option_name';
 
 				if( isset( $wpdb->sitemeta ) && $wpdb->sitemeta == $table ) {
 					$col_name = 'meta_key';
 				}
 
-				$where = "WHERE `{$col_name}` NOT LIKE '\_transient\_%' AND `{$col_name}` NOT LIKE '\_site\_transient\_%'";
+				$where .= " AND `{$col_name}` NOT LIKE '\_transient\_%' AND `{$col_name}` NOT LIKE '\_site\_transient\_%'";
 			}
 
 			$limit = "LIMIT {$row_start}, {$row_inc}";
@@ -1615,7 +1655,7 @@ class WPMDBPro extends WPMDBPro_Base {
 				$primary_keys_keys = array_map( array( $this, 'backquote' ), $primary_keys_keys );
 
 				$order_by = 'ORDER BY ' . implode( ',', $primary_keys_keys );
-				$where .= ( empty( $where ) ? 'WHERE ' : ' AND ' );
+				$where .= ' AND ';
 
 				$temp_primary_keys = $this->primary_keys;
 
@@ -1626,6 +1666,7 @@ class WPMDBPro extends WPMDBPro_Base {
 					foreach( $temp_primary_keys as $primary_key => $value ) {
 						$where .= ( $i == 0 ? '' : ' AND ' );
 						$operator = ( count( $temp_primary_keys ) - 1 == $i ? '>' : '=' );
+						$operator = ( $value == 0 && $operator == '>' ) ? '>=' : $operator;
 						$where .= sprintf( '%s %s %s', $this->backquote( $primary_key ), $operator, $value );
 						++$i;
 					}
@@ -1639,11 +1680,12 @@ class WPMDBPro extends WPMDBPro_Base {
 				$limit = "LIMIT $row_inc";
 			}
 
+			$join = apply_filters( 'wpmdb_rows_join', $join, $table );
 			$where = apply_filters( 'wpmdb_rows_where', $where, $table );
 			$order_by = apply_filters( 'wpmdb_rows_order_by', $order_by, $table );
 			$limit = apply_filters( 'wpmdb_rows_limit', $limit, $table );
 
-			$sql = "SELECT " . $this->backquote( $table ) . ".* FROM " . $this->backquote( $table ) . " $where $order_by $limit";
+			$sql = "SELECT " . $this->backquote( $table ) . ".* FROM " . $this->backquote( $table ) . " $join $where $order_by $limit";
 			$sql = apply_filters( 'wpmdb_rows_sql', $sql, $table );
 
 			$table_data = $wpdb->get_results( $sql );
@@ -1995,6 +2037,25 @@ class WPMDBPro extends WPMDBPro_Base {
 		}
 	}
 
+	function admin_body_class( $classes ) {
+		if ( !$classes ) {
+			$classes = array();
+		}
+		else {
+        	$classes = explode( ' ', $classes );
+        }
+
+		// Recommended way to target WP 3.8+
+		// http://make.wordpress.org/ui/2013/11/19/targeting-the-new-dashboard-design-in-a-post-mp6-world/
+	    if ( version_compare( $GLOBALS['wp_version'], '3.8-alpha', '>' ) ) {
+	        if ( !in_array( 'mp6', $classes ) ) {
+	            $classes[] = 'mp6';
+	        }
+	    }
+
+	    return implode( ' ', $classes );
+	}
+
 	function load_assets() {
 		if ( ! empty( $_GET['download'] ) ) {
 			$this->download_file();
@@ -2280,6 +2341,26 @@ class WPMDBPro extends WPMDBPro_Base {
 		if( ! is_multisite() ) return '';
 		$current_site = get_current_site();
 		return $current_site->domain;
+	}
+
+	function return_bytes($val) {
+		if( is_numeric( $val ) ) return $val;
+		if( empty( $val ) ) return false;
+		$val = trim($val);
+		$last = strtolower($val[strlen($val)-1]);
+		switch($last) {
+			// The 'G' modifier is available since PHP 5.1.0
+			case 'g':
+				$val *= 1024;
+			case 'm':
+				$val *= 1024;
+			case 'k':
+				$val *= 1024;
+			default :
+				$val = false;
+		}
+
+		return $val;
 	}
 
 }

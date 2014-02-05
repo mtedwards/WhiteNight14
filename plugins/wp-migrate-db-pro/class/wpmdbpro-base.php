@@ -371,10 +371,7 @@ class WPMDBPro_Base {
 
 		<tr class="plugin-update-tr wpmdbpro-custom">
 			<td colspan="3" class="plugin-update">
-				<div class="update-message">
-					<div class="wpmdb-new-version-notice"><?php echo $new_version; ?></div>
-					<div class="wpmdb-licence-error-notice"><?php echo $message; ?></div>
-				</div>
+				<div class="update-message"><span class="wpmdb-new-version-notice"><?php echo $new_version; ?></span> <span class="wpmdb-licence-error-notice"><?php echo $message; ?></span></div>
 			</td>
 		</tr>
 
@@ -548,6 +545,29 @@ class WPMDBPro_Base {
 		}
 
 		return add_query_arg( $query_args, $this->dbrains_api_url );
+	}
+
+	function set_time_limit_available() {
+		if ( ! function_exists( 'set_time_limit' ) || ! function_exists( 'ini_get' ) ) return false;
+		$current_max_execution_time = ini_get( 'max_execution_time' );
+		$proposed_max_execution_time = ( $current_max_execution_time == 30 ) ? 31 : 30;
+		@set_time_limit( $proposed_max_execution_time );
+		$current_max_execution_time = ini_get( 'max_execution_time' );
+		return ( $proposed_max_execution_time == $current_max_execution_time );
+	}
+
+	function get_plugin_name( $plugin = false ) {
+		if ( !is_admin() ) return false;
+
+		$plugin_basename = ( false !== $plugin ? $plugin : $this->plugin_basename );
+
+		$plugins = get_plugins();
+
+		if ( !isset( $plugins[$plugin_basename]['Name'] ) ) {
+			return false;
+		}
+
+		return $plugins[$plugin_basename]['Name'];
 	}
 
 }
