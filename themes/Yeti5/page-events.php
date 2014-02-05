@@ -187,11 +187,7 @@
 				  ?>
   		    <figure class="small-12 medium-12 large-4 columns">
   				  <a href="<?php the_permalink(); ?>"><img src="<?php echo $event_img['sizes']['event-medium']; ?>"></a>
-  				<?php if ( is_user_logged_in() ) { 
-              echo upb_bookmark_controls();
-            } else {
-              echo '<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+</a>';  
-            }?>
+            <?php echo upb_bookmark_controls(); ?>
           </figure>
           <?php } //end if event_img ?>
           <div class="small-12 medium-12 large-8 columns padding">    		
