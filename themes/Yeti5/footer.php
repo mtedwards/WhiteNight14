@@ -8,9 +8,6 @@
         <div class="small-6 columns">
           <img src="<?php bloginfo('template_url') ?>/img/MEL_VA_REV_87.png" alt="Melbourne"><br><br>
           <img src="<?php bloginfo('template_url') ?>/img/Insignia-portrait_WHT_87.png" alt="Victoria"><br><br>
-          <?php if ( is_user_logged_in() ) { ?>
-            <a href="<?php echo wp_logout_url( get_permalink() ); ?>" title="Logout">Logout</a>
-          <?php } ?>
         </div>  
         <div class="small-6 columns">
           <ul>

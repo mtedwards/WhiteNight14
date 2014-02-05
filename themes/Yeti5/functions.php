@@ -130,4 +130,14 @@ $editor->add_cap( 'gravityforms_export_entries' );
 $editor->add_cap( 'gravityforms_view_entry_notes' );
 $editor->add_cap( 'gravityforms_edit_entry_notes' );
 
+function wn_set_logged_in_cookie() {
+  setcookie("wn_logged_in", true, time()+86400);
+	}
 
+add_action('wp_login', 'wn_set_logged_in_cookie');
+
+function wn_kill_logged_in_cookie() {
+ setcookie("wn_logged_in", false, 0);
+ }
+
+add_action('wp_logout', 'wn_kill_logged_in_cookie');
