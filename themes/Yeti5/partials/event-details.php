@@ -31,7 +31,7 @@
   <div class="small-12 medium-6 large-12 columns">
     <p>
       <b>LOCATION</b> <?php echo $venueName; ?><br><br>
-      
+      <?php if(get_field('location_details')) { the_field('location_details'); } ?>
     <?php if($venueName == 'To Be Announced' || !$location['lat']) { 
        echo '</p>';
        } else {
