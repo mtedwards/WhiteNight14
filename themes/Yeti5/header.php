@@ -86,7 +86,7 @@ fb_param.currency = 'AUD';
           });
       </script>
       <div class="added-event">
-        Added to +My Night <a href="<?php ?>">View +My Night Now</a>
+        Added to +My Night <a href="<?php bloginfo('url') ?>/my-night">View +My Night Now</a>
       </div>
     </div>  
   </div>
