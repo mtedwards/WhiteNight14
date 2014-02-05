@@ -187,7 +187,11 @@
 				  ?>
   		    <figure class="small-12 medium-12 large-4 columns">
   				  <a href="<?php the_permalink(); ?>"><img src="<?php echo $event_img['sizes']['event-medium']; ?>"></a>
-            <?php echo upb_bookmark_controls(); ?>
+            <?php $id = get_the_ID(); ?>
+            <div class="upb_add_remove_links">
+              <a href="#" rel="<?php echo $id; ?>" class="upb_del_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>" style="display:none;">X</a>
+              <a href="#" rel="<?php echo $id; ?>" class="upb_add_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>">+</a>
+            </div>
           </figure>
           <?php } //end if event_img ?>
           <div class="small-12 medium-12 large-8 columns padding">    		
