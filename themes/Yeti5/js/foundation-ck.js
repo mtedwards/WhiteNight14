@@ -3047,6 +3047,11 @@ var plugin = $.countdown = new Countdown(); // Singleton instance
    
    //Front Page Planning My Night Button
   
+   if (document.cookie.indexOf("wn_logged_in") >= 0) {
+    
+   } else {
+     $('.upb_add_remove_links').html('<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+</a>');
+   }
   
   });
 }(jQuery));
@@ -3406,7 +3411,7 @@ var plugin = $.countdown = new Countdown(); // Singleton instance
   
   
 	
-})(jQuery)
+})(jQuery);
 
 /* **********************************************
      Begin placeholder.js

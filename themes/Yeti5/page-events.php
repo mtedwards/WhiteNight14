@@ -189,7 +189,6 @@
   				  <a href="<?php the_permalink(); ?>"><img src="<?php echo $event_img['sizes']['event-medium']; ?>"></a>
             <?php $id = get_the_ID(); ?>
             <div class="upb_add_remove_links">
-              <a href="#" rel="<?php echo $id; ?>" class="upb_del_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>" style="display:none;">X</a>
               <a href="#" rel="<?php echo $id; ?>" class="upb_add_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>">+</a>
             </div>
           </figure>

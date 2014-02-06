@@ -54,9 +54,10 @@
    
    //Front Page Planning My Night Button
   
-   if (document.cookie.indexOf("wn_logged_in") <= 0) {
-    $('.event-list .upb_del_bookmark').html('<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+</a>');
-    $('.event-list .upb_add_bookmark').html('<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+</a>'); 
+   if (document.cookie.indexOf("wn_logged_in") >= 0) {
+    
+   } else {
+     $('.upb_add_remove_links').html('<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+</a>');
    }
   
   });
