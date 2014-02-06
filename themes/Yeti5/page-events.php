@@ -121,7 +121,11 @@
   if ( $the_query->have_posts() ) :
   while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
   
-    <?php /* Lets get all the variables first */ 
+    <?php 
+      $id = get_the_ID();
+      if($id == 132){} else {
+    
+    /* Lets get all the variables first */ 
         //StartTime
         $startTime = get_field('start_time');
         $startTimeText = '<b>START TIME</b> ' . $startTime .'<br>';
@@ -187,7 +191,6 @@
 				  ?>
   		    <figure class="small-12 medium-12 large-4 columns">
   				  <a href="<?php the_permalink(); ?>"><img src="<?php echo $event_img['sizes']['event-medium']; ?>"></a>
-            <?php $id = get_the_ID(); ?>
             <div class="upb_add_remove_links">
               <a href="#" rel="<?php echo $id; ?>" class="upb_add_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>">+</a>
             </div>
@@ -224,6 +227,7 @@
     <?php } ?>
 		</article>
   <?php
+    } //end if ID - get rid of The Turning
   endwhile;
   else: ?>
     <h2>Sorry there are no events that match your query</h2>
