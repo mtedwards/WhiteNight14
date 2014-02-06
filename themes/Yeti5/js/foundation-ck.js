@@ -3050,9 +3050,10 @@ var plugin = $.countdown = new Countdown(); // Singleton instance
    if (document.cookie.indexOf("wn_logged_in") >= 0) {
     
    } else {
-     $('.upb_add_remove_links').html('<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+</a>');
+     $('figure .upb_add_remove_links').html('<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+</a>');
+     $('.event-details .upb_add_remove_links').html('<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+Add to My Night</a>');
    }
-  
+   
   });
 }(jQuery));
 // @codekit-append "maptabs.js"
