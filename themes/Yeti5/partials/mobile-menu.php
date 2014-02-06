@@ -154,10 +154,7 @@
                      -->
                      <li><a href="<?php echo $url; ?>/the-team/">The Team</a></li>
                      <li><a href="<?php echo $url; ?>/partners">Partners / Supporters</a></li>
-                    </ul>
-                    <?php if ( is_user_logged_in() ) { ?>
-                      <a class="button blue expand padding-bottom logout" href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" title="Logout">Logout</a>
-                    <?php } ?>                
+                    </ul>               
                   </div>
               </div>
               <div class="row">

@@ -91,9 +91,6 @@
                   </div>
                   <div class="right">
                   </div>
-                  <?php if ( is_user_logged_in() ) { ?>
-                      <a class="button blue expand padding-bottom logout" href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" title="Logout">Logout</a>
-                    <?php } ?>
                  </div><?php //end submenu ?>
               </li>
             </ul>
