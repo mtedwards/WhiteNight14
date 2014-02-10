@@ -45,6 +45,14 @@
      
     	// var
     	var latlng = new google.maps.LatLng( $marker.attr('data-lat'), $marker.attr('data-lng') );
+    	
+    	var inconImage;
+    	
+    	if($marker.attr('data-icon')) {
+      		inconImage = $marker.attr('data-icon');
+    	} else {
+      		inconImage = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
+    	}
      
     	// create marker
     	var marker = new google.maps.Marker({
