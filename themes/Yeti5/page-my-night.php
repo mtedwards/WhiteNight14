@@ -181,7 +181,7 @@
       </div>
       
       <?php if ( is_user_logged_in() ) { ?>
-        <div class="social centered-text white-bg">
+        <div class="social centered-text white-bg button-box">
           <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <span class="blue">+</span>My Night</a>
           
           <a class="button blue expand padding-bottom logout" href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" title="Logout">Logout</a>
