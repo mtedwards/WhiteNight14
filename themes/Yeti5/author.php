@@ -1,6 +1,11 @@
 <?php get_header(); ?>
     <div class="small-12 columns">
-      <?php $post_objects = upb_list_bookmarks();
+    	<?php 
+		$curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
+      	$userID = $curauth->ID;
+      	$post_objects = upb_list_user_bookmarks($userID);
+      	$post = $post_object;
+	  	setup_postdata( $post );
         if($post_objects) {?>
       	  <div class="acf-map" id="full-map"></div>
         <?php } ?>
@@ -111,45 +116,7 @@
             <?php
             wp_reset_postdata();
           } else { ?>
-          <div class="row">
-            <div class="small-12 columns">
-              <h2>Planning your night is easy!</h2>
-              <h4>Click the blue <span class="blue">plus +</span> on any event to add it to your night.</h4>
-          
-              <p>Explore the <a href="<?php bloginfo('url'); ?>/events">full programme</a> or browse the <a href="<?php bloginfo('url'); ?>/precincts">precincts</a> to find events that appeal to you.</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="small-12 medium-6 columns">
-              <h5>Precincts</h5>
-              <ul>
-                <li><a href="<?php echo $url; ?>/precinct/01-northern-lights/">Northern Lights</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/02-lucky-dip/">Lucky Dip</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/03-jrb/">J+R&B</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/04-shadows/">Shadows</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/05-rags-to-riches/">Rags to Riches</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/06-wonderland/">Wonderland</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/07-the-vortex/">The Vortex</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/08-midden/">Midden</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/09-alex-and-the-engineer/">Alex and the engineer</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/10-tattooed-city/">Tattooed City</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/11-outer-limits/">Outer Limits</a></li>
-              </ul>
-            </div>
-            <div class="small-12 medium-6 columns">
-              <ul>
-                <li><a href="<?php echo $url; ?>/events/?genre=art">Art</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=design">Design</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=family">Family</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=fashion">Fashion</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=film">Film</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=lighting">Lighting</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=music">Music</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=performance">Performance</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=sport">Sport</a></li>
-              </ul>
-            </div>
-          </div>          
+          <h2>Nothing Found</h2>       
          <?php } //endif; 
           ?>  				
   			</div>

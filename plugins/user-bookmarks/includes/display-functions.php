@@ -47,50 +47,18 @@ function upb_show_bookmark_links($content) {
 add_filter('the_content', 'upb_show_bookmark_links');
 
 // will show a list of a user's bookmarks
-function upb_list_bookmarks( $delete_link = true, $delete_text = 'Remove Event' ) {
-	
-	if(is_user_logged_in()) {
-		$display = '<ul class="upb-bookmarks-list">';
-		
-			$bookmarks = upb_get_user_meta(upb_get_user_id());
-			if($bookmarks) {
-				foreach( $bookmarks as $bookmark) {
-					global $post;
-         
-         // Assign your post details to $post (& not any other variable name!!!!)
-         $post = $bookmark;         
-         setup_postdata( $post );
-
-					$display .= '<div class="row bookmark-' . $bookmark . '">';
-          
-          $display .= '<a href="' . get_permalink() . '" class="upb_bookmark_link small-12 columns" title="' . get_the_title() . '">';
-          $display .= get_the_title();
-          
-          $event_img = get_field('event_img');
-				  if($event_img) { 
-				  $display .= $event_img;
-          }
-          
-          $display .= '</a>';
-          
-          
-          if($delete_link) {
-							$display .= '<a href="#" class="columns small-12 right upb_del_bookmark_' . $bookmark . '" rel="' . $bookmark . '" title="' . __('Remove this Bookmark') . '">Remove Event</a>';
-						}
-					$display .= '</div>';
-			
-				}
-			} else {
-				$display .= '<li class="bookmark-link no-bookmarks">You do not have any bookmarked posts.</li>';
-			}
-		$display .= '</ul>';
-	}
-	else {
-		$display .= 'You must be logged in to view your bookmarks.';
-	}
-	
+function upb_list_bookmarks( ) {	
+	$bookmarks = upb_get_user_meta(upb_get_user_id());
 	return $bookmarks;
 }
+
+
+// will show a list of a user's bookmarks
+function upb_list_user_bookmarks( $userID ) {
+	$bookmarks = upb_get_user_meta($userID);
+	return $bookmarks;
+}
+
 
 function upb_most_bookmarked($number = 5, $count = true) {
 	global $wpdb;
