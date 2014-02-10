@@ -2,13 +2,8 @@
 
 <!-- Row for main content area -->
 	<div class="small-12 columns title-box" role="main">
-  	<h1 class="entry-title centered-text no-bottom margin-top2"><?php the_title(); ?></h1>
-  	<p class="no-bottom hide-for-medium-down"><a href="<?php site_url(); ?>/events/">Explore</a> / Eat</p>
-  	<div class="row">
-    	<div class="small-12 columns">
-   			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>   	
-       	</div>
-  	</div>	
+	  	<h1 class="entry-title centered-text no-bottom margin-top2"><?php the_title(); ?></h1>
+	  	<p class="no-bottom hide-for-medium-down"><a href="<?php site_url(); ?>/events/">Explore</a> / Eat<br><br></p>
 	</div>
 </div>
 <div class="row main-content-section padding-top eat">
@@ -78,13 +73,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN NORTHERN LIGHTS, ';} ?>OPEN ALL NIGHT 7PM TO 7AM:</h3>
+				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN NORTHERN LIGHTS - ';} ?>OPEN ALL NIGHT:</h3>
 				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	  <?php 
-			  	  	  $location = get_field('location'); 
+			  	  	  $location = get_field('location');
+			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone_number'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?> <?php the_field('phone_number'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
