@@ -49,15 +49,16 @@
     	var inconImage;
     	
     	if($marker.attr('data-icon')) {
-      		inconImage = $marker.attr('data-icon');
+      	inconImage = $marker.attr('data-icon');
     	} else {
-      		inconImage = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
+      	inconImage = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
     	}
      
     	// create marker
     	var marker = new google.maps.Marker({
     		position	: latlng,
-    		map			  : map
+    		map			  : map,
+    		icon     : inconImage
     	});
      
     	// add to array
@@ -79,6 +80,7 @@
     		});
     	}
      
+    }
     }
      
     /*
