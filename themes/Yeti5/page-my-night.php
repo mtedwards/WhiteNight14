@@ -75,6 +75,7 @@
                 <div class="color-bar"></div>
                   <div class="padding">
                     <h3><a href="<?php echo $permalink; ?>"><?php the_title(); ?></a></h3>
+                    <p class="hide"><?php echo $location['address']; ?></p>
                   </div>
                 
                 <figure class="aligncenter">
@@ -153,7 +154,7 @@
   		</article>
   	<?php endwhile; // End the loop ?>
 	</div>
-  <div class="small-12 medium-4 large-4 columns is-single-page featured-info">
+  <div class="small-12 medium-4 large-4 columns is-single-page featured-info my-night-featured">
       <div class="centered-text date-text hide-for-medium-down white-bg">
         <h2>22 February 2014</h2>
         <h3 class="no-bottom">7PM TO 7AM</h3>
