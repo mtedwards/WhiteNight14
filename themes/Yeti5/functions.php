@@ -141,3 +141,4 @@ function wn_kill_logged_in_cookie() {
  }
 
 add_action('wp_logout', 'wn_kill_logged_in_cookie');
+
