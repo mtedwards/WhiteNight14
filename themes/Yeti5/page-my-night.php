@@ -28,6 +28,8 @@
             	$event_img = get_field('event_img',$id);
             	$event_feat = $event_img['sizes']['event-feature'];
             	
+            	$pinImage = get_field('pin_image', $id);
+            	
             	$precinct = get_the_terms( $id, 'precinct' );
             	foreach($precinct as $pre) {
               	$precinctClass = 'precinct_' . $pre->term_id;
@@ -74,7 +76,7 @@
               <article <?php post_class($precinctClass) ?> id="post-<?php the_ID(); ?>">
                 <div class="color-bar"></div>
                   <div class="padding">
-                    <h3><a href="<?php echo $permalink; ?>"><?php the_title(); ?></a></h3>
+                    <h3><?php if($pinImage){ echo '<img src="' . $pinImage . '"/> &nbsp;'; } ?><a href="<?php echo $permalink; ?>"><?php the_title(); ?></a></h3>
                     <p class="hide"><?php echo $location['address']; ?></p>
                   </div>
                 
@@ -93,7 +95,7 @@
                   </p>
                 </div>
                 <?php if($location['lat']){ ?>
-                <div class="single marker" style="display:none;" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
+                <div class="single marker" style="display:none;" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>" data-icon="<?php echo $pinImage; ?>">
                   <div class="wn-infoWindow">
                 		  <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>">
                 		  	<h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
