@@ -218,7 +218,7 @@
 		</div>
     <?php if($location['lat']){ ?>
   		<div style="display:none;" class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>" data-icon="<?php the_field('pin_image'); ?>">
-  		  <div class="wn-infoWindow">
+  	  		  <div class="wn-infoWindow">
     			  <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>">
     			  	<h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
               <?php echo '<p><b>START TIME</b> ' . $startTime .'</p>'; ?>
