@@ -94,7 +94,7 @@ add_filter('excerpt_more', 'new_excerpt_more');
 function auto_login_new_user( $user_id ) {
   wp_set_current_user($user_id);
   wp_set_auth_cookie($user_id);
-  
+  wn_set_logged_in_cookie();
   wp_redirect( home_url() . '/my-night/' );
   exit;
 }
