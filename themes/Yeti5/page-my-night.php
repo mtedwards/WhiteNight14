@@ -76,12 +76,12 @@
               <article <?php post_class($precinctClass) ?> id="post-<?php the_ID(); ?>">
                 <div class="color-bar"></div>
                   <div class="padding">
-                    <h3><?php if($pinImage){ echo '<img src="' . $pinImage . '"/> &nbsp;'; } ?><a href="<?php echo $permalink; ?>"><?php the_title(); ?></a></h3>
+                    <h3><?php if($pinImage){ echo '<img class="pinImage" src="' . $pinImage . '"/> &nbsp;'; } ?><a href="<?php echo $permalink; ?>"><?php the_title(); ?></a></h3>
                     <p class="hide"><?php echo $location['address']; ?></p>
                   </div>
                 
                 <figure class="aligncenter">
-        				  <a href="<?php echo $permalink; ?>"><img src="<?php echo $event_feat; ?>"></a>
+        				  <a href="<?php echo $permalink; ?>"><img class="featureImg" src="<?php echo $event_feat; ?>"></a>
         				  <a href="#" rel="<?php echo $id; ?>" class="upb_del_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>">X</a>
                 </figure>
                 <div class="event-details padding">
@@ -182,6 +182,8 @@
       
       <?php if ( is_user_logged_in() ) { ?>
         <div class="social centered-text white-bg">
+          <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <span class="blue">+</span>My Night</a>
+          
           <a class="button blue expand padding-bottom logout" href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" title="Logout">Logout</a>
         </div>
       <?php } ?>

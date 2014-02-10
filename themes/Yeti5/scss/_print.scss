@@ -12,10 +12,22 @@
     }
 
 
+    a[href]:after {
+        content: "" !important;
+    }
+
+    abbr[title]:after {
+        content: ""  !important;
+    }
+
     /*
      * Don't show links for images, or javascript/internal links
      */
 
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
 
     pre,
     blockquote {
@@ -77,7 +89,7 @@
 				margin-bottom: 0;
 			}
 			
-			img {
+			img.featureImg {
 				width: 20%;
 				float: left;
 				margin: 0 1em 1em 0;
@@ -91,6 +103,4 @@
 		}
 	}
 }	
-
-	
 	
