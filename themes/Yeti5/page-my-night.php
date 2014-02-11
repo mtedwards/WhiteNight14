@@ -150,8 +150,15 @@
               </ul>
             </div>
           </div>          
-         <?php } //endif; 
-          ?>  				
+         <?php } //endif;  ?>
+         <?php if (!is_user_logged_in() ) { ?>
+         <div class="row">
+	         <div class="small-12 medium-12 large-8 large-centered columns centered-text">
+	         	<h5>You are currently not Logged In</h5>
+		        <a class="button blue expand padding-bottom logout" href="<?php echo wp_login_url(get_bloginfo('url')); ?>" title="Logout">Login</a>
+	         </div>
+         </div>
+         <?php } ?>
   			</div>
   		</article>
   	<?php endwhile; // End the loop ?>
