@@ -122,8 +122,10 @@
   
    $( ".my-night-featured" ).on("click", "#print", function( event ) {
 	  event.preventDefault();
-      map.setZoom(14); 
-	  window.print()
+      map.setZoom(14);
+      setTimeout(function(){
+        window.print()
+	  },1000);
 	});
 	
 })(jQuery);
