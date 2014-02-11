@@ -13,7 +13,7 @@
                 <input id="addMarkers2" class="filterClick" type="checkbox"> 
                 <label for="addMarkers2">EAT</label>
                 <input id="addMarkers3" class="filterClick" type="checkbox"> 
-                <label for="addMarkers3">Getting Around</label>
+                <label class="long" for="addMarkers3">Getting Around</label>
                 <input id="addMarkers4" class="filterClick" type="checkbox"> 
                 <label for="addMarkers4">Amenities</label>
             	</div>   
