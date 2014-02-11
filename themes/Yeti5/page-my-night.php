@@ -179,7 +179,7 @@
 			<div class="addthis_toolbox addthis_default_style addthis_32x32_style"
 				addthis:url="<?php bloginfo('url'); ?>/my-night/<?php echo $userName; ?>"
                 addthis:title="<?php echo $userName; ?>'s +My Night | White Night Melbourne"
-                addthis:description="">
+                addthis:description="View the events I'm looking forward to at White Night Melbourne">
 			<ul>
 				<li><a class="addthis_button_facebook"></a></li>
 				<li><a class="addthis_button_twitter"></a></li>

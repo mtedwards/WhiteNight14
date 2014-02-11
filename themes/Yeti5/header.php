@@ -52,6 +52,10 @@ fb_param.currency = 'AUD';
 </script>
 <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6012541085286&amp;value=0&amp;currency=AUD" /></noscript>
 <meta property="fb:app_id" content="264434720373211"/>
+<?php if(is_author($author)){ ?>
+		<meta property="og:title" content="+My Night | White Night Melbourne" />
+		<meta property="og:description" content="View the events I'm looking forward to at White Night Melbourne" />
+<?php } ?>
 </head>
 
 <body <?php body_class(); ?>>
