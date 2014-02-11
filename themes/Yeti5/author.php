@@ -145,7 +145,7 @@
         <?php } ?>
       </div>
       
-        <div class="social centered-text white-bg">
+        <div class="social centered-text white-bg button-box">
           <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <?php echo $userName; ?>'s <span class="blue">+</span>My Night</a>
         </div>
 

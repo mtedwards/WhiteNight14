@@ -18,3 +18,15 @@ figure .upb_bookmark_control {
 .button-box {
 	background: #fff !important;
 }
+
+.addthis_toolbox {
+	display: block;
+	ul {
+		width: 100%;
+		text-align: center;
+		li {
+			float: none;
+			display: inline-block;
+		}
+	}
+}
