@@ -115,13 +115,18 @@
             <?php
             wp_reset_postdata();
           } else { ?>
-          <h2>Nothing Found</h2>       
+          <h2><br>Sorry, Nothing has been added to this +My Night profile.</h2>       
          <?php } //endif; 
           ?>  				
   			</div>
   		</article>
 	</div>
   <div class="small-12 medium-4 large-4 columns is-single-page featured-info my-night-featured">
+  	  <?php if($post_objects ){ ?>
+        <div class="social centered-text white-bg button-box">
+          <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <?php echo $userName; ?>'s <span class="blue">+</span>My Night</a>
+        </div>
+       <?php } ?>
       <div class="centered-text date-text hide-for-medium-down white-bg">
         <h2>22 February 2014</h2>
         <h3 class="no-bottom">7PM TO 7AM</h3>
@@ -144,10 +149,6 @@
           <a href="#" class="openMyNight"><img src="<?php bloginfo('template_url'); ?>/img/planningMN2.jpg"></a>
         <?php } ?>
       </div>
-      
-        <div class="social centered-text white-bg button-box">
-          <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <?php echo $userName; ?>'s <span class="blue">+</span>My Night</a>
-        </div>
 
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
