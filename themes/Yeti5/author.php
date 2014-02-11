@@ -1,6 +1,10 @@
 <?php get_header(); ?>
     <div class="small-12 columns">
-      <?php $post_objects = upb_list_bookmarks();
+    	<?php 
+		$curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
+      	$userID = $curauth->ID;
+      	$userName = $curauth->user_login;
+      	$post_objects = upb_list_user_bookmarks($userID);
         if($post_objects) {?>
       	  <div class="acf-map" id="full-map"></div>
         <?php } ?>
@@ -8,11 +12,10 @@
     	
 <!-- Row for main content area -->
 	<div class="small-12 medium-8 large-8 columns my-night" role="main">
-  	<?php while (have_posts()) : the_post(); ?>
   		<article <?php post_class('padding-top') ?> id="post-<?php the_ID(); ?>">
   		  <?php 
-          if( $post_objects ){ ?>
-  				<h1 class="entry-title h2">Events I've Added To <span class="blue">+</span>My Night</h1>
+          if($post_objects ){ ?>
+  				<h1 class="entry-title h2"><?php echo $userName; ?>'s <span class="blue">+</span>My Night</h1>
           <?php } ?>
   			<div class="entry-content event-box-list">
   			<?php 
@@ -20,7 +23,8 @@
   			<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2 ">
   			
         <?php
-            foreach( $post_objects as $post): 
+            foreach( $post_objects as $post):
+            setup_postdata($post);
               $id = $post;
               $mypost = get_post($id);
               $permalink = get_permalink( $id );
@@ -111,50 +115,11 @@
             <?php
             wp_reset_postdata();
           } else { ?>
-          <div class="row">
-            <div class="small-12 columns">
-              <h2>Planning your night is easy!</h2>
-              <h4>Click the blue <span class="blue">plus +</span> on any event to add it to your night.</h4>
-          
-              <p>Explore the <a href="<?php bloginfo('url'); ?>/events">full programme</a> or browse the <a href="<?php bloginfo('url'); ?>/precincts">precincts</a> to find events that appeal to you.</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="small-12 medium-6 columns">
-              <h5>Precincts</h5>
-              <ul>
-                <li><a href="<?php echo $url; ?>/precinct/01-northern-lights/">Northern Lights</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/02-lucky-dip/">Lucky Dip</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/03-jrb/">J+R&B</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/04-shadows/">Shadows</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/05-rags-to-riches/">Rags to Riches</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/06-wonderland/">Wonderland</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/07-the-vortex/">The Vortex</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/08-midden/">Midden</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/09-alex-and-the-engineer/">Alex and the engineer</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/10-tattooed-city/">Tattooed City</a></li>
-                <li><a href="<?php echo $url; ?>/precinct/11-outer-limits/">Outer Limits</a></li>
-              </ul>
-            </div>
-            <div class="small-12 medium-6 columns">
-              <ul>
-                <li><a href="<?php echo $url; ?>/events/?genre=art">Art</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=design">Design</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=family">Family</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=fashion">Fashion</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=film">Film</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=lighting">Lighting</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=music">Music</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=performance">Performance</a></li>
-                <li><a href="<?php echo $url; ?>/events/?genre=sport">Sport</a></li>
-              </ul>
-            </div>
-          </div>          
+          <h2>Nothing Found</h2>       
          <?php } //endif; 
           ?>  				
   			</div>
   		</article>
-  	<?php endwhile; // End the loop ?>
 	</div>
   <div class="small-12 medium-4 large-4 columns is-single-page featured-info my-night-featured">
       <div class="centered-text date-text hide-for-medium-down white-bg">
@@ -180,37 +145,10 @@
         <?php } ?>
       </div>
       
-      <?php if ( is_user_logged_in() ) { ?>
-        <div class="social centered-text white-bg button-box">
-          <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <span class="blue">+</span>My Night</a>
-          
-          <a class="button blue expand padding-bottom logout" href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" title="Logout">Logout</a>
-        </div>
-                <!-- AddThis Button BEGIN -->
         <div class="social centered-text white-bg">
-        	<h2>Share your night</h2>
-			<?php 
-				global $current_user;
-				get_currentuserinfo();
-				$userName = $current_user->user_login;
-			?>
-			<div class="addthis_toolbox addthis_default_style addthis_32x32_style"
-				addthis:url="<?php bloginfo('url'); ?>/my-night/<?php echo $userName; ?>"
-                addthis:title="<?php echo $userName; ?>'s +My Night | White Night Melbourne"
-                addthis:description="">
-
-			<a class="addthis_button_facebook"></a>
-			<a class="addthis_button_twitter"></a>
-			<a class="addthis_button_google_plusone_share"></a>
-			<a class="addthis_button_email"></a>
-			<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
-			</div>
-			<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca4a5d3398899f"></script>
-			<!-- AddThis Button END -->
+          <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <?php echo $userName; ?>'s <span class="blue">+</span>My Night</a>
         </div>
-      <?php } ?>
-      
+
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <?php get_footer(); ?>
