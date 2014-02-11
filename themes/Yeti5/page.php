@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-THIS
 <!-- Row for main content area -->
 	<div class="small-12 medium-8 large-8 columns" role="main">
   	<?php while (have_posts()) : the_post(); ?>
