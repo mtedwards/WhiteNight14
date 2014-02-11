@@ -96,9 +96,22 @@ function auto_login_new_user( $user_id ) {
   wp_set_auth_cookie($user_id);
   wn_set_logged_in_cookie();
   wp_redirect( home_url() . '/my-night/' );
+  triggerPasswordReset($user_id);
   exit;
 }
 add_action( 'user_register', 'auto_login_new_user' );
+
+
+function triggerPasswordReset( $user_id ) {
+
+	$userInfo = get_userdata( $user_id );
+	$target   = site_url() . '/wp-login.php?action=lostpassword';
+	$args     = array(
+		'body'        => array( 'user_login' => $userInfo->user_login ),
+		'sslverify'   => false,
+	);
+	wp_remote_post( $target, $args );
+}
 
 
 // Hide publisher box from certain users:
@@ -142,3 +155,33 @@ function wn_kill_logged_in_cookie() {
 
 add_action('wp_logout', 'wn_kill_logged_in_cookie');
 
+function change_author_permalinks() {
+
+    global $wp_rewrite;
+
+    // Change the value of the author permalink base to whatever you want here
+    $wp_rewrite->author_base = 'my-night';
+
+    $wp_rewrite->flush_rules();
+}
+
+add_action('init','change_author_permalinks');
+
+
+
+function my_retrieve_password_subject_filter($old_subject) {
+    // $old_subject is the default subject line created by WordPress.
+    // (You don't have to use it.)
+
+    $subject = sprintf( __('WHITE NIGHT MELBOURNE Password'));
+    // This is how WordPress creates the subject line. It looks like this:
+    // [Doug's blog] Password Reset
+    // You can change this to fit your own needs.
+
+    // You have to return your new subject line:
+    return $subject;
+}
+
+
+// To get these filters up and running:
+add_filter ( 'retrieve_password_title', 'my_retrieve_password_subject_filter', 10, 1 );
