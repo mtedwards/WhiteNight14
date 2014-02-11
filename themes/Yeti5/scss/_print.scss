@@ -1,0 +1,106 @@
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+
+    a[href]:after {
+        content: "" !important;
+    }
+
+    abbr[title]:after {
+        content: ""  !important;
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+ 
+    
+    // MY NIGHT PRINT STYLES
+    
+    .my-night {
+    	width:100%;
+    }
+	.my-night-featured, .main-menu, footer.main-footer {
+		display: none;
+	}
+	
+	.f-topbar-fixed {
+		padding-top: 10px !important;
+	}
+	
+	.upb_bookmark_control {
+		display: none;
+	}
+	
+	li.my-event {
+		width: 100%;
+		page-break-inside: avoid;
+		article {
+			border: none;
+			
+			.hide {
+				display: block;
+				margin-bottom: 0;
+			}
+			
+			img.featureImg {
+				width: 20%;
+				float: left;
+				margin: 0 1em 1em 0;
+			}
+			
+			.event-details.padding {
+				padding: 0;
+				margin-top: -5px;
+			}
+			
+		}
+	}
+}	
+	

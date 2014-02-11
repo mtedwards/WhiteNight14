@@ -1,6 +1,6 @@
 <?php get_header(); ?>
     <div class="small-12 columns">
-      <?php $post_objects = upb_list_bookmarks(); 
+      <?php $post_objects = upb_list_bookmarks();
         if($post_objects) {?>
       	  <div class="acf-map" id="full-map"></div>
         <?php } ?>
@@ -27,6 +27,8 @@
               //Lets set up ALL the variables first
             	$event_img = get_field('event_img',$id);
             	$event_feat = $event_img['sizes']['event-feature'];
+            	
+            	$pinImage = get_field('pin_image', $id);
             	
             	$precinct = get_the_terms( $id, 'precinct' );
             	foreach($precinct as $pre) {
@@ -74,11 +76,12 @@
               <article <?php post_class($precinctClass) ?> id="post-<?php the_ID(); ?>">
                 <div class="color-bar"></div>
                   <div class="padding">
-                    <h3><a href="<?php echo $permalink; ?>"><?php the_title(); ?></a></h3>
+                    <h3><?php if($pinImage){ echo '<img class="pinImage" src="' . $pinImage . '"/> &nbsp;'; } ?><a href="<?php echo $permalink; ?>"><?php the_title(); ?></a></h3>
+                    <p class="hide"><?php echo $location['address']; ?></p>
                   </div>
                 
                 <figure class="aligncenter">
-        				  <a href="<?php echo $permalink; ?>"><img src="<?php echo $event_feat; ?>"></a>
+        				  <a href="<?php echo $permalink; ?>"><img class="featureImg" src="<?php echo $event_feat; ?>"></a>
         				  <a href="#" rel="<?php echo $id; ?>" class="upb_del_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>">X</a>
                 </figure>
                 <div class="event-details padding">
@@ -92,7 +95,7 @@
                   </p>
                 </div>
                 <?php if($location['lat']){ ?>
-                <div class="single marker" style="display:none;" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
+                <div class="single marker" style="display:none;" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>" data-icon="<?php echo $pinImage; ?>">
                   <div class="wn-infoWindow">
                 		  <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>">
                 		  	<h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
@@ -153,7 +156,36 @@
   		</article>
   	<?php endwhile; // End the loop ?>
 	</div>
-  <div class="small-12 medium-4 large-4 columns is-single-page featured-info">
+  <div class="small-12 medium-4 large-4 columns is-single-page featured-info my-night-featured">
+  	   <?php if ( is_user_logged_in() ) { ?>
+        <div class="social centered-text white-bg button-box">
+          <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <span class="blue">+</span>My Night</a>
+        </div>
+                <!-- AddThis Button BEGIN -->
+        <div class="social centered-text white-bg button-box">
+        	<h2>Share your night</h2>
+			<?php 
+				global $current_user;
+				get_currentuserinfo();
+				$userName = $current_user->user_login;
+			?>
+			<div class="addthis_toolbox addthis_default_style addthis_32x32_style"
+				addthis:url="<?php bloginfo('url'); ?>/my-night/<?php echo $userName; ?>"
+                addthis:title="<?php echo $userName; ?>'s +My Night | White Night Melbourne"
+                addthis:description="">
+			<ul>
+				<li><a class="addthis_button_facebook"></a></li>
+				<li><a class="addthis_button_twitter"></a></li>
+				<li><a class="addthis_button_google_plusone_share"></a></li>
+				<li><a class="addthis_button_email"></a></li>
+				<li><a class="addthis_button_compact"></a></li>
+			</ul>
+			</div>
+			<script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
+			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca4a5d3398899f"></script>
+			<!-- AddThis Button END -->
+        </div>
+      <?php } ?>
       <div class="centered-text date-text hide-for-medium-down white-bg">
         <h2>22 February 2014</h2>
         <h3 class="no-bottom">7PM TO 7AM</h3>
@@ -176,12 +208,13 @@
           <a href="#" class="openMyNight"><img src="<?php bloginfo('template_url'); ?>/img/planningMN2.jpg"></a>
         <?php } ?>
       </div>
-      
-      <?php if ( is_user_logged_in() ) { ?>
-        <div class="social centered-text white-bg">
+       <?php if ( is_user_logged_in() ) { ?>
+        <div class="social centered-text white-bg button-box">
           <a class="button blue expand padding-bottom logout" href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" title="Logout">Logout</a>
         </div>
-      <?php } ?>
+		<?php } ?>
+
+
       
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
