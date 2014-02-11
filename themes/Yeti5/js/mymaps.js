@@ -19,11 +19,11 @@
      
     	// create map	        	
     	var map = new google.maps.Map( $el[0], args);
-     
+		window.map = map;
     	// add a markers reference
     	map.markers = [];
       
-      $markers.hide();
+        $markers.hide();
      
     	// add markers
     	$markers.each(function(){
@@ -120,6 +120,10 @@
   	});
   }
   
-  
+   $( ".my-night-featured" ).on("click", "#print", function( event ) {
+	  event.preventDefault();
+      map.setZoom(14); 
+	  window.print()
+	});
 	
 })(jQuery);
