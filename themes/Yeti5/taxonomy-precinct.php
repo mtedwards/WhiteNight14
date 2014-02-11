@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-
 <!-- Row for main content area -->
 	<div class="small-12 columns title-box" role="main">
   	<h1 class="entry-title centered-text no-bottom margin-top2"><?php $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) ); echo $term->name; ?></h1>
@@ -33,8 +32,6 @@
 <div class="row main-content-section padding-top">
   <div class="small-12 columns event-list">
   <?php
-  
-  // The Loop
   if (have_posts() ) :?>
   <h2>Events in this precinct:</h2>
   <?php while ( have_posts() ) : the_post(); ?>
@@ -91,14 +88,9 @@
   			  $location = get_field('location', 'venue_' . $venue[0]->term_id ); 
 			  } else {
   			  $location = get_field('location');
-			  } 
-        
-        $post_type = get_post_type( $post ); ?>
-        
-        <?php if($post_type == 'event') { ?>
-        
-        
-    
+			  }         
+        $post_type = get_post_type( $post );
+        if($post_type == 'event') { ?>
         <article <?php post_class($precinctClass) ?> id="post-<?php the_ID(); ?>">
           <div class="color-bar"></div>
     			<div class="entry-content row">
@@ -146,7 +138,7 @@
                   <?php echo '<p><b>START TIME</b> ' . $startTime .'</p>'; ?>
       		  </div>
           </div>
-        <?php } ?>        
+        <?php } ?>
     		</article>
 		
       <?php } // end if event  ?>
@@ -154,17 +146,10 @@
 		
   <?php
   endwhile;
-  else: ?>
-    <h2>Sorry there are no events that match your query</h2>
-  <? 
-    endif;
-    
-    // Reset Post Data
-    wp_reset_postdata();
-  
-  ?>
+  endif;
+  wp_reset_postdata(); ?>
 
 </div>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
-<?php get_footer();
+<?php get_footer(); ?>

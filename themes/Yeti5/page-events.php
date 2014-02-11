@@ -2,8 +2,7 @@
   	<?php 
   	  $cur_precinct = $_GET['precinct'];
     	$cur_genre = $_GET['genre'];
-    	$cur_accessibility = $_GET['accessibility'];
-  	?>
+    	$cur_accessibility = $_GET['accessibility']; ?>
 <!-- Row for main content area -->
 	<div class="small-12 columns title-box" role="main">
   	<h1 class="entry-title centered-text no-bottom margin-top2"><?php the_title(); ?></h1>
@@ -27,7 +26,7 @@
           <option value="">All Precincts</option>
           <?php $precincts = get_terms('precinct');
             foreach ( $precincts as $precinct ) { 
-            if( $precinct->slug == $cur_precinct ) { ?>   
+            if( $precinct->slug == $cur_precinct ) { ?>
               <option selected value="<?php echo $precinct->slug; ?>"><?php echo $precinct->name; ?></option>
             <?php } else { ?>
               <option value="<?php echo $precinct->slug; ?>"><?php echo $precinct->name; ?></option>
@@ -40,7 +39,7 @@
           <option value="">All Event Categories</option>
           <?php $genres = get_terms('genre');
             foreach ( $genres as $genre ) { 
-            if( $genre->slug == $cur_genre ) { ?>   
+            if( $genre->slug == $cur_genre ) { ?>
               <option selected value="<?php echo $genre->slug; ?>"><?php echo $genre->name; ?></option>
             <?php } else { ?>
               <option value="<?php echo $genre->slug; ?>"><?php echo $genre->name; ?></option>
@@ -71,9 +70,7 @@
 <div class="row main-content-section padding-top">
   <div class="small-12 columns event-list">
   <?php
-  
   $tax = array();
-  
   if($cur_precinct) {
     $pre_tax = array(
             'taxonomy' => 'precinct',
@@ -82,7 +79,6 @@
             'operator' => 'IN'                   
           );
     }
-  
   
   if($cur_genre) {
     $gen_tax = array(
@@ -118,8 +114,8 @@
   $the_query = new WP_Query( $args );
   
   // The Loop
-  if ( $the_query->have_posts() ) :
-  while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+  if ( $the_query->have_posts() ) {
+  while ( $the_query->have_posts() ) { $the_query->the_post(); ?>
   
     <?php 
       $id = get_the_ID();
@@ -173,21 +169,20 @@
         
         if(get_field('existing_venue')) {
   			  $venue = get_field('venue');
-  			  $location = get_field('location', 'venue_' . $venue[0]->term_id ); 
+  			  	$location = get_field('location', 'venue_' . $venue[0]->term_id ); 
 			  } else {
-  			  $location = get_field('location');
+  			  	$location = get_field('location');
 			  } ?>
-    
-    
+        
     <article <?php post_class($precinctClass) ?> id="post-<?php the_ID(); ?>">
       <div class="color-bar"></div>
 			<div class="entry-content row">
   			<div class="small-12 medium-12 large-8 hide-for-large-up columns padding top-title">
     			  <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
   			</div>
-  			<?php 
+  			<?php
 				  $event_img = get_field('event_img');
-				  if($event_img) { 
+				  if($event_img) {
 				  ?>
   		    <figure class="small-12 medium-12 large-4 columns">
   				  <a href="<?php the_permalink(); ?>"><img src="<?php echo $event_img['sizes']['event-medium']; ?>"></a>
@@ -216,7 +211,7 @@
             </p>
   			</div>
 		</div>
-    <?php if($location['lat']){ ?>
+    <?php if($location['lat']) { ?>
   		<div style="display:none;" class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>" data-icon="<?php the_field('pin_image'); ?>">
   	  		  <div class="wn-infoWindow">
     			  <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>">
@@ -225,27 +220,15 @@
   		  </div>
       </div>
     <?php } ?>
-		</article>
+	</article>
   <?php
     } //end if ID - get rid of The Turning
-  endwhile;
-  else: ?>
-    <h2>Sorry there are no events that match your query</h2>
-  <? 
-    endif;
-    
-    // Reset Post Data
-    wp_reset_postdata();
-  
-  ?>
-
+  } // end white
+  } else { 
+    echo '<h2>Sorry there are no events that match your query</h2>';
+    } // end if
+    wp_reset_postdata(); ?>
 </div>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
 <?php get_footer(); ?>
-
-
-
-
-
-
