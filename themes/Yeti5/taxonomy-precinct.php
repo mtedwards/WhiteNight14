@@ -161,7 +161,7 @@
        <?php } elseif($post_type == 'eat') { ?>
         <div style="display:none;" class="marker2" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>" data-icon="<?php bloginfo('template_url'); ?>/img/eat.png">
       		  <div class="wn-infoWindow">
-        		  <h4><a href="<?php bloginfo('url'); ?>/eat"><?php the_title();?></a></h4>
+        		  <h4><a href="<?php bloginfo('url'); ?>/eat#<?php echo $precinctSlug ?>"><?php the_title();?></a></h4>
       		  </div>
           </div>
         <?php } elseif($post_type == 'transport') { ?>

@@ -2,22 +2,24 @@
 
 <!-- Row for main content area -->
 	<div class="small-12 columns title-box" role="main">
-	  	<h1 class="entry-title centered-text no-bottom margin-top2"><?php the_title(); ?></h1>
+	  	<h1 class="entry-title centered-text margin-top2"><?php the_title(); ?></h1>
 	  	<p class="no-bottom hide-for-medium-down"><a href="<?php site_url(); ?>/events/">Explore</a> / Eat<br><br></p>
+	  	<p>White Night Melbourne is engaging the best food trucks in town to offer a delectable range of cuisines from multicultural dishes to sweet favourites. Participating cafes, restaurants and bars throughout all precincts will extend their trading hours for this special event with many options to feast on during your journey.</p>
 	</div>
 </div>
 <div class="row main-content-section padding-top eat">
   <div class="small-12 columns">
    	
-   	<?php //PRECINCT 1 ?>
-  
-  	<h1 class="entry-title margin-top2">EAT IN PRECINT 1: NORTHERN LIGHTS</h1>
-  
+   	<?php //PRECINCT 1 
+   		$slug = '01-northern-lights';
+   	?>
+   	
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 1: NORTHERN LIGHTS</h1>
   	<article class="precinct_27">
   		<div class="color-bar"></div>
   		<div class="inner">
 		  	<?php
-		  	$slug = '01-northern-lights';
+
 		  	$args = array(   
 				'tax_query' => array(
 					array(
@@ -80,7 +82,7 @@
 			  	  	  $location = get_field('location');
 			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?> <?php the_field('phone_number'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?> <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -90,14 +92,17 @@
 	  	</div>
 	 </article>
   	
-  	<?php //PRECINCT 2 ?>
+  	<?php //PRECINCT 2 
+   		$slug = '02-lucky-dip';
+
+   	?>
   	
-  	<h1 class="entry-title margin-top2">EAT IN PRECINT 2: Lucky Dip</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 2: Lucky Dip</h1>
   	<article class="precinct_26">
   		<div class="color-bar"></div>
   		<div class="inner">
 		  	<?php
-		  	$slug = '02-lucky-dip';
+		  	
 		  	$args = array(   
 				'tax_query' => array(
 					array(
@@ -169,15 +174,18 @@
 	  	</div>
 	 </article>
   	
-  	<?php //PRECINCT 3 ?>
+  	<?php //PRECINCT 3 
+   		$slug = '03-jrb';
+   	?>
+
   	
-  	<h1 class="entry-title margin-top2">EAT IN PRECINT 3: J + R&B</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 3: J + R&B</h1>
   	
   	<article class="precinct_25">
   		<div class="color-bar"></div>
   		<div class="inner">
 		  	<?php
-		  	$slug = '03-jrb';
+		  	
 		  	$args = array(   
 				'tax_query' => array(
 					array(
@@ -239,7 +247,7 @@
 			  	  <?php 
 			  	  	  $location = get_field('location'); 
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone_number'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -250,15 +258,18 @@
 	 </article>
   	
   	
-  	<?php //PRECINCT 4 ?>
+  	<?php //PRECINCT 4 
+   		$slug = '04-shadows';
+   	?>
+
   	
-  	<h1 class="entry-title margin-top2">EAT IN PRECINT 4: SHADOWS</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 4: SHADOWS</h1>
   	
   	<article class="precinct_24">
   		<div class="color-bar"></div>
   		<div class="inner">
 		  	<?php
-		  	$slug = '04-shadows';
+		  	
 		  	$args = array(   
 				'tax_query' => array(
 					array(
@@ -320,7 +331,7 @@
 			  	  <?php 
 			  	  	  $location = get_field('location'); 
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone_number'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -330,15 +341,18 @@
 	  	</div>
 	 </article>
   	
-  	  	<?php //PRECINCT 5 ?>
+  	  	<?php //PRECINCT 5 
+   		$slug = '05-rags-to-riches';
+   	?>
+
   	
-  	<h1 class="entry-title margin-top2">EAT IN PRECINT 5: Rags to Riches</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 5: Rags to Riches</h1>
   	
   	<article class="precinct_23">
   		<div class="color-bar"></div>
   		<div class="inner">
 		  	<?php
-		  	$slug = '05-rags-to-riches';
+		  	
 		  	$args = array(   
 				'tax_query' => array(
 					array(
@@ -400,7 +414,7 @@
 			  	  <?php 
 			  	  	  $location = get_field('location'); 
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone_number'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -410,15 +424,18 @@
 	  	</div>
 	 </article>
 
-  	  	<?php //PRECINCT 6 ?>
+  	  	<?php //PRECINCT 6 
+   		$slug = '06-wonderland';
+   	?>
+
   	
-  	<h1 class="entry-title margin-top2">EAT IN PRECINT 6: Wonderland</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 6: Wonderland</h1>
   	
   	<article class="precinct_22">
   		<div class="color-bar"></div>
   		<div class="inner">
 		  	<?php
-		  	$slug = '06-wonderland';
+		  	
 		  	$args = array(   
 				'tax_query' => array(
 					array(
@@ -480,7 +497,7 @@
 			  	  <?php 
 			  	  	  $location = get_field('location'); 
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone_number'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -490,15 +507,18 @@
 	  	</div>
 	 </article>
   
-  	  	<?php //PRECINCT 7 ?>
+  	  	<?php //PRECINCT 7 
+   		$slug = '07-the-vortex';
+   	?>
+
   	
-  	<h1 class="entry-title margin-top2">EAT IN PRECINT 7: The Vortex</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 7: The Vortex</h1>
   	
   	<article class="precinct_21">
   		<div class="color-bar"></div>
   		<div class="inner">
 		  	<?php
-		  	$slug = '07-the-vortex';
+		  	
 		  	$args = array(   
 				'tax_query' => array(
 					array(
@@ -560,7 +580,7 @@
 			  	  <?php 
 			  	  	  $location = get_field('location'); 
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone_number'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -571,15 +591,18 @@
 	 </article>
   
 
-<?php //PRECINCT 8 ?>
+<?php //PRECINCT 8 
+   		$slug = '08-midden';
+   	?>
+
   	
-  	<h1 class="entry-title margin-top2">EAT IN PRECINT 8: Midden</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 8: Midden</h1>
   	
   	<article class="precinct_20">
   		<div class="color-bar"></div>
   		<div class="inner">
 		  	<?php
-		  	$slug = '08-midden';
+		  	
 		  	$args = array(   
 				'tax_query' => array(
 					array(
@@ -641,7 +664,7 @@
 			  	  <?php 
 			  	  	  $location = get_field('location'); 
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone_number'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -653,15 +676,18 @@
 
   
   
-<?php //PRECINCT 9 ?>
+	 <?php //PRECINCT 9 
+   		$slug = '09-alex-and-the-engineer';
+   	?>
+
   	
-  	<h1 class="entry-title margin-top2">EAT IN PRECINT 9: Alex and the Engineer</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 9: Alex and the Engineer</h1>
   	
   	<article class="precinct_19">
   		<div class="color-bar"></div>
   		<div class="inner">
 		  	<?php
-		  	$slug = '09-alex-and-the-engineer';
+		  	
 		  	$args = array(   
 				'tax_query' => array(
 					array(
@@ -723,7 +749,7 @@
 			  	  <?php 
 			  	  	  $location = get_field('location'); 
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone_number'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -734,15 +760,18 @@
 	 </article>
 
 
-<?php //PRECINCT 10 ?>
+	 <?php //PRECINCT 10 
+   		$slug = '10-tattooed-city';
+   	?>
+
   	
-  	<h1 class="entry-title margin-top2">EAT IN PRECINT 10: Tattooed City</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 10: Tattooed City</h1>
   	
   	<article class="precinct_18">
   		<div class="color-bar"></div>
   		<div class="inner">
 		  	<?php
-		  	$slug = '10-tattooed-city';
+		  	
 		  	$args = array(   
 				'tax_query' => array(
 					array(
@@ -804,7 +833,7 @@
 			  	  <?php 
 			  	  	  $location = get_field('location'); 
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone_number'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -814,15 +843,18 @@
 	  	</div>
 	 </article>  
   
-<?php //PRECINCT 11 ?>
+	 <?php //PRECINCT 11 
+   		$slug = '11-outer-limits';
+   	?>
+
   	
-  	<h1 class="entry-title margin-top2">EAT IN PRECINT 11: Outer Limits</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 11: Outer Limits</h1>
   	
   	<article class="precinct_31">
   		<div class="color-bar"></div>
   		<div class="inner">
 		  	<?php
-		  	$slug = '11-outer-limits';
+		  	
 		  	$args = array(   
 				'tax_query' => array(
 					array(
@@ -884,7 +916,7 @@
 			  	  <?php 
 			  	  	  $location = get_field('location'); 
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone_number'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
