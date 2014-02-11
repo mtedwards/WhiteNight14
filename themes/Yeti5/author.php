@@ -3,9 +3,8 @@
     	<?php 
 		$curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
       	$userID = $curauth->ID;
+      	$userName = $curauth->user_login;
       	$post_objects = upb_list_user_bookmarks($userID);
-      	$post = $post_object;
-	  	setup_postdata( $post );
         if($post_objects) {?>
       	  <div class="acf-map" id="full-map"></div>
         <?php } ?>
@@ -13,11 +12,10 @@
     	
 <!-- Row for main content area -->
 	<div class="small-12 medium-8 large-8 columns my-night" role="main">
-  	<?php while (have_posts()) : the_post(); ?>
   		<article <?php post_class('padding-top') ?> id="post-<?php the_ID(); ?>">
   		  <?php 
-          if( $post_objects ){ ?>
-  				<h1 class="entry-title h2">Events I've Added To <span class="blue">+</span>My Night</h1>
+          if($post_objects ){ ?>
+  				<h1 class="entry-title h2"><?php echo $userName; ?>'s <span class="blue">+</span>My Night</h1>
           <?php } ?>
   			<div class="entry-content event-box-list">
   			<?php 
@@ -25,7 +23,8 @@
   			<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2 ">
   			
         <?php
-            foreach( $post_objects as $post): 
+            foreach( $post_objects as $post):
+            setup_postdata($post);
               $id = $post;
               $mypost = get_post($id);
               $permalink = get_permalink( $id );
@@ -121,7 +120,6 @@
           ?>  				
   			</div>
   		</article>
-  	<?php endwhile; // End the loop ?>
 	</div>
   <div class="small-12 medium-4 large-4 columns is-single-page featured-info my-night-featured">
       <div class="centered-text date-text hide-for-medium-down white-bg">
@@ -147,14 +145,10 @@
         <?php } ?>
       </div>
       
-      <?php if ( is_user_logged_in() ) { ?>
         <div class="social centered-text white-bg">
-          <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <span class="blue">+</span>My Night</a>
-          
-          <a class="button blue expand padding-bottom logout" href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" title="Logout">Logout</a>
+          <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <?php echo $userName; ?>'s <span class="blue">+</span>My Night</a>
         </div>
-      <?php } ?>
-      
+
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <?php get_footer(); ?>
