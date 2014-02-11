@@ -96,7 +96,7 @@
     			<div class="entry-content row">
     			
       			<div class="small-12 medium-12 large-8 hide-for-large-up columns padding top-title">
-        			  <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+        			  <h3><?php if(get_field('pin_image')){ echo '<img src="' . get_field('pin_image') . '"/> &nbsp;';} ?><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
       			</div>
       			<?php 
     				  $event_img = get_field('event_img');
@@ -112,7 +112,7 @@
               <?php } //end if event_img ?>
         		<div class="small-12 medium-12 large-8 columns padding">
         		  <div class="show-for-large-up">
-        			  <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+        			  <h3><?php if(get_field('pin_image')){ echo '<img src="' . get_field('pin_image') . '"/> &nbsp;';} ?><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
         			  <?php if($subtitle ){ ?>
         			    <h5><?php echo $subtitle; ?></h5>
         			  <?php } ?>
@@ -131,8 +131,8 @@
       			</div>
     		</div>
         <?php if($location['lat']) { ?>
-      		<div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
-      		  <div class="wn-infoWindow">
+      		<div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>" data-icon="<?php the_field('pin_image'); ?>">
+      			<div class="wn-infoWindow">
         			  <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>">
         			  	<h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
                   <?php echo '<p><b>START TIME</b> ' . $startTime .'</p>'; ?>
