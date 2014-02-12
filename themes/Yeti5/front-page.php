@@ -14,6 +14,7 @@
             foreach ( $genres as $genre ) {
               echo '<li><a href="'. get_bloginfo('url') .'/events/?genre=' . $genre->slug . '">' . $genre->name . '</a></li>';
               }
+              echo '<li><a href="'. get_bloginfo('url') .'/eat">Food</a></li>';
            ?>
           </ul>
         </div>
