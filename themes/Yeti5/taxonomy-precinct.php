@@ -45,9 +45,9 @@
   <?php
   
   // The Loop
-  if (have_posts() ) :?>
+  if (have_posts() ) { ?>
   <h2>Events in this precinct:</h2>
-  <?php while ( have_posts() ) : the_post(); ?>
+  <?php while ( have_posts() ) { the_post(); ?>
   
     <?php /* Lets get all the variables first */ 
         //StartTime
@@ -161,7 +161,7 @@
        <?php } elseif($post_type == 'eat') { ?>
         <div style="display:none;" class="marker2" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>" data-icon="<?php bloginfo('template_url'); ?>/img/eat.png">
       		  <div class="wn-infoWindow">
-        		  <h4><a href="<?php bloginfo('url'); ?>/eat#<?php echo $precinctSlug ?>"><?php the_title();?></a></h4>
+        		  <h4><a href="<?php bloginfo('url'); ?>/eat/#<?php echo $precinctSlug ?>"><?php the_title();?></a></h4>
       		  </div>
           </div>
         <?php } elseif($post_type == 'transport') { ?>
@@ -182,15 +182,11 @@
         			} ?>
       		  </div>
           </div>
-       <?php } // end if post_type ?>
-		
-		
-  <?php
-  endwhile;
-  else: ?>
-    <h2>Sorry there are no events that match your query</h2>
-  <? 
-    endif;
+       <?php }
+   } //end while
+  } else {
+    echo'<h2>Sorry there are no events that match your query</h2>';
+  } //end if
     
     // Reset Post Data
     wp_reset_postdata();
