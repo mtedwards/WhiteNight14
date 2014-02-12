@@ -87,7 +87,6 @@
                 
                 <figure class="aligncenter">
         				  <a href="<?php echo $permalink; ?>"><img class="featureImg" src="<?php echo $event_feat; ?>"></a>
-        				  <a href="#" rel="<?php echo $id; ?>" class="upb_del_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>">X</a>
                 </figure>
                 <div class="event-details padding">
                   <p>
