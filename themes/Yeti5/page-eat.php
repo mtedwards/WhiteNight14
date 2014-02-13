@@ -75,14 +75,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN NORTHERN LIGHTS - ';} ?>OPEN ALL NIGHT:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
+				<h3 class="margin-top2">Dining Options:</h3>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	  <?php 
 			  	  	  $location = get_field('location');
 			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?> <?php the_field('phone'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?>. <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -158,13 +158,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN NORTHERN LIGHTS - ';} ?>OPEN ALL NIGHT:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
+				<h3 class="margin-top2">Dining Options:</h3>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-			  	  <?php 
-			  	  	  $location = get_field('location'); 
+			  	   <?php 
+			  	  	  $location = get_field('location');
+			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?>. <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -241,13 +242,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN J + R&B - ';} ?>OPEN ALL NIGHT:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
+				<h3 class="margin-top2">Dining Options:</h3>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-			  	  <?php 
-			  	  	  $location = get_field('location'); 
+			  	   <?php 
+			  	  	  $location = get_field('location');
+			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?>. <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -325,13 +327,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN SHADOWS - ';} ?>OPEN ALL NIGHT:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
+				<h3 class="margin-top2">Dining Options:</h3>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-			  	  <?php 
-			  	  	  $location = get_field('location'); 
+			  	   <?php 
+			  	  	  $location = get_field('location');
+			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?>. <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -408,13 +411,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN Rags to Riches - ';} ?>OPEN ALL NIGHT:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
+				<h3 class="margin-top2">Dining Options:</h3>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-			  	  <?php 
-			  	  	  $location = get_field('location'); 
+			  	   <?php 
+			  	  	  $location = get_field('location');
+			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?>. <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -491,13 +495,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN Wonderland - ';} ?>OPEN ALL NIGHT:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
+				<h3 class="margin-top2">Dining Options:</h3>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-			  	  <?php 
-			  	  	  $location = get_field('location'); 
+			  	   <?php 
+			  	  	  $location = get_field('location');
+			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?>. <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -574,13 +579,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN The Vortex - ';} ?>OPEN ALL NIGHT:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
+				<h3 class="margin-top2">Dining Options:</h3>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-			  	  <?php 
-			  	  	  $location = get_field('location'); 
+			  	   <?php 
+			  	  	  $location = get_field('location');
+			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?>. <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -658,13 +664,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN Midden - ';} ?>OPEN ALL NIGHT:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
+				<h3 class="margin-top2">Dining Options:</h3>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-			  	  <?php 
-			  	  	  $location = get_field('location'); 
+			  	   <?php 
+			  	  	  $location = get_field('location');
+			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?>. <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -743,13 +750,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN Alex and the Engineer - ';} ?>OPEN ALL NIGHT:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
+				<h3 class="margin-top2">Dining Options:</h3>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-			  	  <?php 
-			  	  	  $location = get_field('location'); 
+			  	   <?php 
+			  	  	  $location = get_field('location');
+			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?>. <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -827,13 +835,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN Tattooed City - ';} ?>OPEN ALL NIGHT:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
+				<h3 class="margin-top2">Dining Options:</h3>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-			  	  <?php 
-			  	  	  $location = get_field('location'); 
+			  	   <?php 
+			  	  	  $location = get_field('location');
+			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?>. <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
@@ -910,13 +919,14 @@
 		  	);
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
-				<h3 class="margin-top2"><?php if($has_village == true){ echo 'OTHER OPTIONS IN Outer Limits - ';} ?>OPEN ALL NIGHT:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies, from 7pm-7am.</p><p><br></p>
+				<h3 class="margin-top2">Dining Options:</h3>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-			  	  <?php 
-			  	  	  $location = get_field('location'); 
+			  	   <?php 
+			  	  	  $location = get_field('location');
+			  	  	  $alt_location = get_field('alternate_address');
 			  	  ?>
-			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php echo str_replace('Victoria, Australia', '', $location[address]); ?> <?php the_field('phone'); ?></p>
+			  	  <p><b class="uppercase"><?php the_title(); ?></b> <?php if($alt_location){ echo $alt_location; } else { echo str_replace('Victoria, Australia', '', $location[address]); } ?>. <?php the_field('phone'); ?></p>
 			  	  
 			  	<?php 
 			  	endwhile;
