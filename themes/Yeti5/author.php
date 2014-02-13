@@ -48,7 +48,7 @@
                 $msg = get_field('all_night_details',$id);
                 if($msg){
                   $durationMsg = get_field('all_night_details',$id) .'<br>';
-                }
+                } else {$durationMsg =  null;}
               } else {
                 $duration = $duration . ' minutes';
                 $time = strtotime($startTime);

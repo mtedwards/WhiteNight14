@@ -43,13 +43,13 @@
                 $msg = get_field('all_night_details',$id);
                 if($msg){
                   $durationMsg = get_field('all_night_details',$id) .'<br>';
-                }
+                } else {$durationMsg =  null;}
               } else {
                 $duration = $duration . ' minutes';
                 $time = strtotime($startTime);
-          			$end = date("g:i a ", strtotime($duration, $time));
+          		$end = date("g:i a ", strtotime($duration, $time));
                 $durationMsg = '<b>END TIME</b> ' . $end .'<br>';
-              }
+              } 
               
               //Genres out put is $genreList    
               $genres = get_the_terms( $id, 'genre' );              
