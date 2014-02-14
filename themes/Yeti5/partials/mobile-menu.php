@@ -68,6 +68,7 @@
                        <!-- <li><a href="#">Map</a></li> -->
                        <li><a href="<?php echo $url; ?>/visitor-information/getting-there-getting-around/">Getting There &amp; Getting Around</a></li>
                        <li><a href="<?php echo $url; ?>/where-to-eat-rest/">Where to Eat &amp; Rest</a></li>
+                       <li><a href="<?php echo $url; ?>/faq/">Frequently Asked Questions</a></li> 
                        <!-- <li><a href="#">Getting Home</a></li> -->
                     </ul>
                     <h5>About Us</h5>

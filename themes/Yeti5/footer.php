@@ -65,12 +65,13 @@
             <h5>visitor info</h5>
                  <ul>
                      
-                     <li><a href="<?php echo $siteURL ?>/visitor-information/">Visiting Melbourne</a></li>
+                     <li><a href="<?php echo $siteURL; ?>/visitor-information/">Visiting Melbourne</a></li>
                      <!-- <li><a href="#">Getting Here</a></li> -->
                      <!-- <li><a href="#">Getting Around</a></li> -->
                      <!-- <li><a href="#">Map</a></li> -->
-                     <li><a href="<?php echo $siteURL ?>/visitor-information/getting-there-getting-around/">Getting There &amp; Getting Around</a></li>
-                     <li><a href="<?php echo $siteURL ?>/where-to-eat-rest/">Where to Eat &amp; Rest</a></li>
+                     <li><a href="<?php echo $siteURL; ?>/visitor-information/getting-there-getting-around/">Getting There &amp; Getting Around</a></li>
+                     <li><a href="<?php echo $siteURL; ?>/where-to-eat-rest/">Where to Eat &amp; Rest</a></li>
+                     <li><a href="<?php echo $siteURL; ?>/faq/">Frequently Asked Questions</a></li> 
                      <!-- <li><a href="#">Getting Home</a></li> -->
                 </ul>
             </div>
