@@ -166,7 +166,7 @@
   <div class="small-12 medium-4 large-4 columns is-single-page featured-info my-night-featured">
   	   <?php if ( is_user_logged_in() ) { ?>
         <div class="social centered-text white-bg button-box">
-          <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <span class="blue">+</span>My Night</a>
+          <a onclick="_gaq.push(['_trackEvent', 'click', 'print', '<?php the_title(); ?>'])" id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <span class="blue">+</span>My Night</a>
         </div>
                 <!-- AddThis Button BEGIN -->
         <div class="social centered-text white-bg button-box">
@@ -220,7 +220,9 @@
           <a class="button blue expand padding-bottom logout" href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" title="Logout">Logout</a>
         </div>
 		<?php } ?>
-
+		<div class="social centered-text white-bg button-box">
+	      	<a href="<?php the_field('file','options'); ?>" target="_blank"><img src="<?php the_field('image','options'); ?>"></a>
+      	</div>
 
       
   </div>

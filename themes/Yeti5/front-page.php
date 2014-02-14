@@ -42,6 +42,13 @@
               ?>              
               <?php include(locate_template('partials/front-page-box.php')); ?>  
       <?php } ?>
+      	<?php $link_image = get_field('image','options'); 
+	      	if($link_image){
+      	?>
+      	<article>
+	      	<a href="<?php the_field('file','options'); ?>" target="_blank"><img src="<?php the_field('image','options'); ?>"></a>
+      	</article>
+      	<?php } // emd of ?>
       <div class="content"></div>
 	  </div><?php // end .precinct-list ?>
 	  <div class="row">

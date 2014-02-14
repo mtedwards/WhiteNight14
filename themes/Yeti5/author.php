@@ -124,7 +124,7 @@
   <div class="small-12 medium-4 large-4 columns is-single-page featured-info my-night-featured">
   	  <?php if($post_objects ){ ?>
         <div class="social centered-text white-bg button-box">
-          <a id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <?php echo $userName; ?>'s <span class="blue">+</span>My Night</a>
+          <a onclick="_gaq.push(['_trackEvent', 'click', 'print', '<?php the_title(); ?>'])" id="print" class="button black expand padding-bottom logout" href="#" title="Print">Print <?php echo $userName; ?>'s <span class="blue">+</span>My Night</a>
         </div>
        <?php } ?>
       <div class="centered-text date-text hide-for-medium-down white-bg">
@@ -148,6 +148,10 @@
         <?php if(! $myNightEvents) { ?>
           <a href="#" class="openMyNight"><img src="<?php bloginfo('template_url'); ?>/img/planningMN2.jpg"></a>
         <?php } ?>
+        <div class="social centered-text white-bg button-box">
+	      	<a href="<?php the_field('file','options'); ?>" target="_blank"><img src="<?php the_field('image','options'); ?>"></a>
+      	</div>
+
       </div>
 
   </div>

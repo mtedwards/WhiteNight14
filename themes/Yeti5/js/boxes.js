@@ -26,7 +26,7 @@
   };
   
 	
-	$(".precinct-list").on('click','article > a',function() {
+	$(".precinct-list").on('click','article > a.box-open',function() {
 		if ( $(this).closest('article').hasClass("open") ) {
 			// check if current is already open
 			$('article').removeClass('open');

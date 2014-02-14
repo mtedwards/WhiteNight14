@@ -1,6 +1,6 @@
 <article class="<?php echo $precinctClass; ?>">
   <div class="color-bar"></div>
-      <a href="#" onclick="_gaq.push(['_trackEvent', 'click', 'precinct', 'expand'])">
+      <a class="box-open" href="#" onclick="_gaq.push(['_trackEvent', 'click', 'precinct', 'expand'])">
         <div class="precinctTitle">
           <h3><?php echo $name ?></h3>
         </div>

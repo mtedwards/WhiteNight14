@@ -115,4 +115,12 @@ h1.head {
 	}
 }
 
-
+h2.anchor {
+	&:before { 
+	  display: block; 
+	  content: " "; 
+	  margin-top: -100px; 
+	  height: 100px; 
+	  visibility: hidden; 
+	}
+}

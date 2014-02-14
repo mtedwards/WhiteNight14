@@ -9,13 +9,13 @@
       	<div class="my-map"></div>
       	<div class="filters">
               	<input id="addMarkers" class="filterClick" type="checkbox" checked="checked">
-              	<label for="addMarkers">Events</label>
+              	<label onclick="_gaq.push(['_trackEvent', 'toggle', 'events', '<?php the_title(); ?>'])" for="addMarkers">Events</label>
                 <input id="addMarkers2" class="filterClick" type="checkbox"> 
-                <label for="addMarkers2">EAT</label>
+                <label onclick="_gaq.push(['_trackEvent', 'toggle', 'eat', '<?php the_title(); ?>'])" for="addMarkers2">EAT</label>
                 <input id="addMarkers3" class="filterClick" type="checkbox"> 
-                <label class="long" for="addMarkers3">Getting Around</label>
+                <label onclick="_gaq.push(['_trackEvent', 'toggle', 'getting around', '<?php the_title(); ?>'])" class="long" for="addMarkers3">Getting Around</label>
                 <input id="addMarkers4" class="filterClick" type="checkbox"> 
-                <label for="addMarkers4">Amenities</label>
+                <label onclick="_gaq.push(['_trackEvent', 'toggle', 'amenities', '<?php the_title(); ?>'])" for="addMarkers4">Amenities</label>
             	</div>   
     	</div>
     	<div class="small-12 columns">
@@ -92,8 +92,6 @@
             } 
           }
           
-          
-        
         //location
         
         if(get_field('existing_venue')) {
