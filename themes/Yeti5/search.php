@@ -41,6 +41,17 @@
 
   <div class="small-12 medium-4 large-4 columns is-single-page featured-info">
       <?php include(locate_template('partials/sidebar-details.php')); ?>
+      <div class="centered-text white-bg button-box color-buttons">
+	<?php $sidebar_links = get_field('sidebar_links','options');
+		if($sidebar_links) {
+			foreach($sidebar_links as $sidebar_link){
+	 ?>
+	 	<a onclick="_gaq.push(['_trackEvent', 'click', 'sidebar - ', '<?php echo $sidebar_link['link']; ?>'])" href="<?php echo $sidebar_link['link']; ?>" <?php if($sidebar_link['new_page']) {?> target="_blank"<?php } ?>><img src="<?php echo $sidebar_link['image']['url']; ?>"></a>
+	 <?php 
+	 		} //end for each 
+	 	} //end if 
+	 ?>
+</div>
   </div>
 		
 <?php get_footer(); ?>

@@ -4,7 +4,7 @@
 	<div class="small-12 columns title-box" role="main">
 	  	<h1 class="entry-title centered-text margin-top2"><?php the_title(); ?></h1>
 	  	<p class="no-bottom hide-for-medium-down"><a href="<?php site_url(); ?>/events/">Explore</a> / Eat<br><br></p>
-	  	<p>White Night Melbourne is engaging the best food trucks in town to offer a delectable range of cuisines from multicultural dishes to sweet favourites. Participating cafes, restaurants and bars throughout all precincts will extend their trading hours for this special event with many options to feast on during your journey.</p>
+	  	<p>White Night Melbourne is engaging the best food trucks in town to offer a delectable range of cuisines from multicultural dishes to sweet favourites. Participating cafes, restaurants, bars and food courts throughout all precincts will extend their trading hours for this special event with many options to feast on during your journey.</p>
 	</div>
 </div>
 <div class="row main-content-section padding-top eat">
@@ -76,7 +76,7 @@
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
 				<h3 class="margin-top2">Dining Options:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014. They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	  <?php 
 			  	  	  $location = get_field('location');
@@ -159,7 +159,7 @@
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
 				<h3 class="margin-top2">Dining Options:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014. They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	   <?php 
 			  	  	  $location = get_field('location');
@@ -243,7 +243,7 @@
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
 				<h3 class="margin-top2">Dining Options:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014. They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	   <?php 
 			  	  	  $location = get_field('location');
@@ -328,7 +328,7 @@
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
 				<h3 class="margin-top2">Dining Options:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014. They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	   <?php 
 			  	  	  $location = get_field('location');
@@ -412,7 +412,7 @@
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
 				<h3 class="margin-top2">Dining Options:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014. They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	   <?php 
 			  	  	  $location = get_field('location');
@@ -496,7 +496,7 @@
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
 				<h3 class="margin-top2">Dining Options:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014. They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	   <?php 
 			  	  	  $location = get_field('location');
@@ -580,7 +580,7 @@
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
 				<h3 class="margin-top2">Dining Options:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014. They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	   <?php 
 			  	  	  $location = get_field('location');
@@ -665,7 +665,7 @@
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
 				<h3 class="margin-top2">Dining Options:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014. They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	   <?php 
 			  	  	  $location = get_field('location');
@@ -751,7 +751,7 @@
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
 				<h3 class="margin-top2">Dining Options:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014. They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	   <?php 
 			  	  	  $location = get_field('location');
@@ -836,7 +836,7 @@
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
 				<h3 class="margin-top2">Dining Options:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014. They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	   <?php 
 			  	  	  $location = get_field('location');
@@ -920,7 +920,7 @@
 		  	$the_query = new WP_Query( $args );
 		  	if ( $the_query->have_posts() ) : ?>
 				<h3 class="margin-top2">Dining Options:</h3>
-				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014.  They will be extending their hours, subject to demand and supplies.</p><p><br></p>
+				<p>We are delighted to welcome the following restaurants and venues who have chosen to participate in White Night Melbourne 2014. They will be extending their hours, subject to demand and supplies.</p><p><br></p>
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			  	   <?php 
 			  	  	  $location = get_field('location');

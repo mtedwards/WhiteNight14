@@ -220,19 +220,7 @@
           <a class="button blue expand padding-bottom logout" href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" title="Logout">Logout</a>
         </div>
 		<?php } ?>
-		<div class="social centered-text white-bg button-box">
-
-			<?php $sidebar_links = get_field('sidebar_links','options');
-			if($sidebar_links) {
-				foreach($sidebar_links as $sidebar_link){
-		 ?>
-		 				<a onclick="_gaq.push(['_trackEvent', 'click', 'carousel', '<?php echo $sidebar_link['link']; ?>'])" href="<?php echo $slider['link']; ?>" <?php if($sidebar_link['new_page']) {?> target="_blank"<?php } ?>><img src="<?php echo $sidebar_link['image']['url']; ?>"></a>
-		 <?php 
-		 		} //end for each 
-		 	} //end if 
-		 ?>
-      	</div>
-
+		<?php include(locate_template('partials/promo-boxes.php')); ?> 
       
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>

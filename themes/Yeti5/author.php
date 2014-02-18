@@ -148,10 +148,7 @@
         <?php if(! $myNightEvents) { ?>
           <a href="#" class="openMyNight"><img src="<?php bloginfo('template_url'); ?>/img/planningMN2.jpg"></a>
         <?php } ?>
-        <div class="social centered-text white-bg button-box">
-	      	<a href="<?php the_field('file','options'); ?>" target="_blank"><img src="<?php the_field('image','options'); ?>"></a>
-      	</div>
-
+       		<?php include(locate_template('partials/promo-boxes.php')); ?> 
       </div>
 
   </div>

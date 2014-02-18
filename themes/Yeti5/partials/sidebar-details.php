@@ -20,3 +20,4 @@
     <a href="#" class="openMyNight"><img src="<?php bloginfo('template_url'); ?>/img/planningMN2.jpg"></a>
   <?php } ?>
 </div>
+

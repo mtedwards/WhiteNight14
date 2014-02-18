@@ -75,7 +75,7 @@
                     <ul>
                       <li><a href="<?php echo $url; ?>/about-white-night-melbourne/">About White Night</a></li>
                       <li><a href="<?php echo $url; ?>/history-of-white-night/">History</a></li>
-                      <li><a href="<?php echo $url; ?>/getting-involved/">Getting Involved</a></li>
+                     <!--  <li><a href="<?php echo $url; ?>/getting-involved/">Getting Involved</a></li> -->
                       <li><a href="<?php echo $url; ?>/contact-us/">Contact</a></li>
                      <!--
                      <li><a href="#">History</a></li>

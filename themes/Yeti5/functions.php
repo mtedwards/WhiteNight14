@@ -22,6 +22,9 @@ function yeti_theme_support() {
           show_admin_bar(false);
         }
         
+        show_admin_bar(true);
+        
+        
         // Add post formarts supports. http://codex.wordpress.org/Post_Formats
         //add_theme_support('post-formats', array('gallery', 'link', 'image', 'video', 'audio'));
         
