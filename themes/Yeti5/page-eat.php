@@ -14,7 +14,7 @@
    		$slug = '01-northern-lights';
    	?>
    	
-  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 1: NORTHERN LIGHTS</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINCT 1: NORTHERN LIGHTS</h1>
   	<article class="precinct_27">
   		<div class="color-bar"></div>
   		<div class="inner">
@@ -97,7 +97,7 @@
 
    	?>
   	
-  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 2: Lucky Dip</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINCT 2: Lucky Dip</h1>
   	<article class="precinct_26">
   		<div class="color-bar"></div>
   		<div class="inner">
@@ -180,7 +180,7 @@
    	?>
 
   	
-  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 3: J + R&B</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINCT 3: J + R&B</h1>
   	
   	<article class="precinct_25">
   		<div class="color-bar"></div>
@@ -265,7 +265,7 @@
    	?>
 
   	
-  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 4: SHADOWS</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINCT 4: SHADOWS</h1>
   	
   	<article class="precinct_24">
   		<div class="color-bar"></div>
@@ -349,7 +349,7 @@
    	?>
 
   	
-  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 5: Rags to Riches</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINCT 5: Rags to Riches</h1>
   	
   	<article class="precinct_23">
   		<div class="color-bar"></div>
@@ -433,7 +433,7 @@
    	?>
 
   	
-  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 6: Wonderland</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINCT 6: Wonderland</h1>
   	
   	<article class="precinct_22">
   		<div class="color-bar"></div>
@@ -517,7 +517,7 @@
    	?>
 
   	
-  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 7: The Vortex</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINCT 7: The Vortex</h1>
   	
   	<article class="precinct_21">
   		<div class="color-bar"></div>
@@ -602,7 +602,7 @@
    	?>
 
   	
-  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 8: Midden</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINCT 8: Midden</h1>
   	
   	<article class="precinct_20">
   		<div class="color-bar"></div>
@@ -688,7 +688,7 @@
    	?>
 
   	
-  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 9: Alex and the Engineer</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINCT 9: Alex and the Engineer</h1>
   	
   	<article class="precinct_19">
   		<div class="color-bar"></div>
@@ -773,7 +773,7 @@
    	?>
 
   	
-  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 10: Tattooed City</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINCT 10: Tattooed City</h1>
   	
   	<article class="precinct_18">
   		<div class="color-bar"></div>
@@ -857,7 +857,7 @@
    	?>
 
   	
-  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINT 11: Outer Limits</h1>
+  	<h1 id="<?php echo $slug; ?>" class="entry-title margin-top2">EAT IN PRECINCT 11: Outer Limits</h1>
   	
   	<article class="precinct_31">
   		<div class="color-bar"></div>
@@ -942,8 +942,3 @@
 </div>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <?php get_footer(); ?>
-
-
-
-
-
