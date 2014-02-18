@@ -43,7 +43,7 @@
 <div class="row main-content-section padding-top">
   <div class="small-12 columns event-list">
   <?php
-  
+
   // The Loop
   if (have_posts() ) { ?>
   <h2>Events in this precinct:</h2>

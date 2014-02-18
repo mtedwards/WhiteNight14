@@ -185,3 +185,12 @@ function my_retrieve_password_subject_filter($old_subject) {
 
 // To get these filters up and running:
 add_filter ( 'retrieve_password_title', 'my_retrieve_password_subject_filter', 10, 1 );
+
+function my_post_queries( $query ) {
+
+	if(is_tax()){
+      // show 50 posts on custom taxonomy pages
+      $query->set('posts_per_page', 50);
+    }
+  }
+add_action( 'pre_get_posts', 'my_post_queries' );
