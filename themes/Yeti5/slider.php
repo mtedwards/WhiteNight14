@@ -1,17 +1,29 @@
-<!-- <ul data-orbit data-options="bullets:false; stack_on_small: false;"> -->
-<ul>
-  <li>
-    <div class="row">
-      <div class="small-12 columns">
-        <div class="flex-video widescreen">
-                <?php 
-                  $vid = 'http://youtu.be/t2fx5bUhOgI'; 
-                  $vid = preg_replace('/\s+/', '', $vid);   
-                  $vid = wp_oembed_get($vid);
-                  echo $vid;
-                ?>
-        </div>
-      </div>
-    </div>
-  </li>
-</ul>
+<div style="display:none" id="featured" class="orbit-container">
+	<ul data-orbit data-options="bullets:false; stack_on_small: false;">
+		<?php $sliders = get_field('slider');
+			if($sliders) {
+				foreach($sliders as $slider){
+		 ?>
+		 			<li>
+		 				<a onclick="_gaq.push(['_trackEvent', 'click', 'carousel', '<?php echo $slider['link']; ?>'])" href="<?php echo $slider['link']; ?>" <?php if($slider['new_page']) {?> target="_blank"<?php } ?>><img src="<?php echo $slider['image']['url']; ?>"></a>
+		 			</li>
+		 <?php 
+		 		} //end for each
+		 	} else { ?>
+		  <li>
+		    <div class="row">
+		      <div class="small-12 columns">
+		        <div class="flex-video widescreen">
+		                <?php 
+		                  $vid = 'http://youtu.be/t2fx5bUhOgI'; 
+		                  $vid = preg_replace('/\s+/', '', $vid);   
+		                  $vid = wp_oembed_get($vid);
+		                  echo $vid;
+		                ?>
+		        </div>
+		      </div>
+		    </div>
+		  </li>
+		 <?php } ?>
+	</ul>
+</div>

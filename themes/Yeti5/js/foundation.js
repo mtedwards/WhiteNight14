@@ -12,11 +12,11 @@
   foundation/foundation.interchange.js
   foundation/foundation.joyride.js
   foundation/foundation.tab.js
-  foundation/foundation.orbit.js
+  
 */
 
 // @codekit-prepend "respond.js", "rem.js"
-// @codekit-prepend  "foundation/foundation.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js", "foundation/foundation.orbit.js", "jquery.countdown.js", "menu.js"
+// @codekit-prepend  "foundation/foundation.js", "foundation/foundation.orbit.js", "foundation/foundation.topbar.js", "foundation/foundation.interchange.js", "foundation/foundation.orbit.js", "jquery.countdown.js", "menu.js"
 
 (function ($) {
   $(document).ready(function(){
@@ -59,7 +59,11 @@
    } else {
      $('figure .upb_add_remove_links').html('<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+</a>');
      $('.event-details .upb_add_remove_links').html('<a href="#" class="upb_bookmark_control" id="myNightLoggedOut">+Add to My Night</a>');
-   }
+   };
+   
+      // hide orbit slider on load when user browses to page
+	$('#featured').fadeIn(100); // hide div, may need to change id to match yours
+	
    
   });
 }(jQuery));
