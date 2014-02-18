@@ -221,7 +221,16 @@
         </div>
 		<?php } ?>
 		<div class="social centered-text white-bg button-box">
-	      	<a href="<?php the_field('file','options'); ?>" target="_blank"><img src="<?php the_field('image','options'); ?>"></a>
+
+			<?php $sidebar_links = get_field('sidebar_links','options');
+			if($sidebar_links) {
+				foreach($sidebar_links as $sidebar_link){
+		 ?>
+		 				<a onclick="_gaq.push(['_trackEvent', 'click', 'carousel', '<?php echo $sidebar_link['link']; ?>'])" href="<?php echo $slider['link']; ?>" <?php if($sidebar_link['new_page']) {?> target="_blank"<?php } ?>><img src="<?php echo $sidebar_link['image']['url']; ?>"></a>
+		 <?php 
+		 		} //end for each 
+		 	} //end if 
+		 ?>
       	</div>
 
       
