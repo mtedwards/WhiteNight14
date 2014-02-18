@@ -1,6 +1,6 @@
 <?php get_header(); ?>
   	<?php 
-  	  $cur_precinct = $_GET['precinct'];
+  	    $cur_precinct = $_GET['precinct'];
     	$cur_genre = $_GET['genre'];
     	$cur_accessibility = $_GET['accessibility']; ?>
 <!-- Row for main content area -->
@@ -185,7 +185,7 @@
 				  if($event_img) {
 				  ?>
   		    <figure class="small-12 medium-12 large-4 columns">
-  				  <a href="<?php the_permalink(); ?>"><img src="<?php echo $event_img['sizes']['event-medium']; ?>"></a>
+  				  <a href="<?php the_permalink(); ?>"><img src="<?php echo $event_img['sizes']['event-small']; ?>"></a>
             <div class="upb_add_remove_links">
               <a href="#" rel="<?php echo $id; ?>" class="upb_add_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>">+</a>
             </div>
@@ -214,7 +214,7 @@
     <?php if($location['lat']) { ?>
   		<div style="display:none;" class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>" data-icon="<?php the_field('pin_image'); ?>">
   	  		  <div class="wn-infoWindow">
-    			  <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>">
+    			  <!-- <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>"> -->
     			  	<h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
               <?php echo '<p><b>START TIME</b> ' . $startTime .'</p>'; ?>
   		  </div>
