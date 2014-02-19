@@ -1,5 +1,19 @@
 <?php
 
+// Load Scripts ASYNC
+
+function add_async_forscript($url)
+{
+    if (strpos($url, '#asyncload')===false)
+        return $url;
+    else if (is_admin())
+        return str_replace('#asyncload', '', $url);
+    else
+        return str_replace('#asyncload', '', $url)."' async='async"; 
+}
+add_filter('clean_url', 'add_async_forscript', 11, 1);
+
+
 require_once('lib/clean.php'); // do all the cleaning and enqueue here
 require_once('lib/foundation.php'); // load Foundation specific functions like top-bar
 
@@ -196,3 +210,5 @@ function my_post_queries( $query ) {
     }
   }
 add_action( 'pre_get_posts', 'my_post_queries' );
+
+

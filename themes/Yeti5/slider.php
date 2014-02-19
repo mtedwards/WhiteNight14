@@ -5,7 +5,7 @@
 				foreach($sliders as $slider){
 		 ?>
 		 			<li>
-		 				<a onclick="_gaq.push(['_trackEvent', 'click', 'carousel', '<?php echo $slider['link']; ?>'])" href="<?php echo $slider['link']; ?>" <?php if($slider['new_page']) {?> target="_blank"<?php } ?>><img src="<?php echo $slider['image']['url']; ?>"></a>
+		 				<a onclick="_gaq.push(['_trackEvent', 'click', 'carousel', '<?php echo $slider['link']; ?>'])" href="<?php echo $slider['link']; ?>" <?php if($slider['new_page']) {?> target="_blank"<?php } ?>><img style="width:100%"; src="<?php echo $slider['image']['sizes']['large']; ?>"></a>
 		 			</li>
 		 <?php 
 		 		} //end for each
