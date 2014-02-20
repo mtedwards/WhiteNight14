@@ -26,7 +26,7 @@
               $permalink = get_permalink( $id );
               //Lets set up ALL the variables first
             	$event_img = get_field('event_img',$id);
-            	$event_feat = $event_img['sizes']['event-feature'];
+            	$event_feat = $event_img['sizes']['event-small'];
             	
             	$pinImage = get_field('pin_image', $id);
             	
@@ -81,7 +81,7 @@
                   </div>
                 
                 <figure class="aligncenter">
-        				  <a href="<?php echo $permalink; ?>"><img class="featureImg" src="<?php echo $event_feat; ?>"></a>
+        				  <a href="<?php echo $permalink; ?>"><img style="width:100%" class="featureImg" src="<?php echo $event_feat; ?>"></a>
         				  <a href="#" rel="<?php echo $id; ?>" class="upb_del_bookmark upb_bookmark_control upb_bookmark_control_<?php echo $id; ?>">X</a>
                 </figure>
                 <div class="event-details padding">

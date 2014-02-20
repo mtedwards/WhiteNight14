@@ -31,7 +31,7 @@
               $permalink = get_permalink( $id );
               //Lets set up ALL the variables first
             	$event_img = get_field('event_img',$id);
-            	$event_feat = $event_img['sizes']['event-feature'];
+            	$event_feat = $event_img['sizes']['event-small'];
             	
             	$pinImage = get_field('pin_image', $id);
             	
@@ -86,7 +86,7 @@
                   </div>
                 
                 <figure class="aligncenter">
-        				  <a href="<?php echo $permalink; ?>"><img class="featureImg" src="<?php echo $event_feat; ?>"></a>
+        				  <a href="<?php echo $permalink; ?>"><img style="width:100%" class="featureImg" src="<?php echo $event_feat; ?>"></a>
                 </figure>
                 <div class="event-details padding">
                   <p>
@@ -101,7 +101,6 @@
                 <?php if($location['lat']){ ?>
                 <div class="single marker" style="display:none;" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>" data-icon="<?php echo $pinImage; ?>">
                   <div class="wn-infoWindow">
-                		  <img style="float:left; margin-right:5px;" src="<?php echo $event_img['sizes']['thumbnail']; ?>">
                 		  	<h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
                         <?php echo '<p><b>START TIME</b> ' . $startTime .'</p>'; ?>
                   </div>
