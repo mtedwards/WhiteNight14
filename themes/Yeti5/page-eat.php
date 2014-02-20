@@ -306,9 +306,16 @@
 			else :
 				$has_village = false;
 		  	endif;
-		  	wp_reset_postdata();
+		  	wp_reset_postdata(); ?>
 		  	
-		  	$args = array(   
+		  	<h3 class="margin-top2">R&R ON COLLINS BROUGHT TO YOU BY BANK OF MELBOURNE</h3>
+		  	<p><b>DESCRIPTION</b> Take a break from the excitement of the city and recharge in the centre of Collins Street. Relax on award-winning recycled cardboard seating from Paper Tiger and enjoy a cool refreshment before continuing your cultural journey. <a href="http://whitenightmelbourne.com.au/event/rr-on-collins-brought-to-you-by-bank-of-melbourne/
+">Add R&R to My Night</a><br>
+		  	<b>OPENING HOURS</b> 7:00 PM – 7:00 AM</p>
+		  	
+		  	
+		  	<?php 
+		  		$args = array(   
 				'tax_query' => array(
 					array(
 			            'taxonomy' => 'precinct',
