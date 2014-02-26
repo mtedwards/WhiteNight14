@@ -2,10 +2,12 @@
   <h2>22 February 2014</h2>
   <h3 class="no-bottom">7PM TO 7AM</h3>
 </div>
+<!--
 <div class="centered-text countdown hide-for-medium-down white-bg">
   <h6>Countdown to White Night Melbourne</h6>
   <div id="countdown"></div>
 </div>
+-->
 <div class="social centered-text white-bg">
   <a href="https://www.facebook.com/WhiteNightMelbourne" class="social-icon facebook" target="_blank" onclick="_gaq.push(['_trackEvent', 'click', 'social', 'facebook'])" >Like us on Facebook</a>
   <a href="https://twitter.com/whitenightmelb" class="social-icon twitter" target="_blank" onclick="_gaq.push(['_trackEvent', 'click', 'social', 'twitter'])">Follow us on Twitter</a>
