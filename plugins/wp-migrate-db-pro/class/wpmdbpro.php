@@ -22,6 +22,9 @@ class WPMDBPro extends WPMDBPro_Base {
 	function __construct( $plugin_file_path ) {
 		parent::__construct( $plugin_file_path );
 
+		$this->plugin_slug = 'wp-migrate-db-pro';
+		$this->plugin_version = $GLOBALS['wpmdb_meta']['wp-migrate-db-pro']['version'];
+
 		$this->max_insert_string_len = 50000; // 50000 is the default as defined by phphmyadmin
 
 		$default_settings = array(
@@ -258,12 +261,15 @@ class WPMDBPro extends WPMDBPro_Base {
 	}
 
 	function ajax_update_max_request_size() {
+		$this->check_ajax_referer( 'update-max-request-size' );
 		$this->settings['max_request'] = (int) $_POST['max_request_size'] * 1024;
 		update_option( 'wpmdb_settings', $this->settings );
-		exit;
+		$result = $this->end_ajax();
+		return $result;
 	}
 
 	function ajax_check_licence() {
+		$this->check_ajax_referer( 'check-licence' );
 		$licence = ( empty( $_POST['licence'] ) ? $this->get_licence_key() : $_POST['licence'] );
 		$response = $this->check_licence( $licence );
 		$decoded_response = json_decode( $response, ARRAY_A );
@@ -281,9 +287,9 @@ class WPMDBPro extends WPMDBPro_Base {
 
 		$addons_available = ( $decoded_response['addons_available'] == '1' );
 		if( ! $addons_available ) { ?>
-			<p class="inline-message warning"><strong>Addons Unavailable</strong> &ndash; Addons are not included with 
+			<div class="inline-message warning"><strong>Addons Unavailable</strong> &ndash; Addons are not included with 
 			the Personal license. Visit <a href="https://deliciousbrains.com/my-account/" target="_blank">My&nbsp;Account</a>
-			to upgrade in just a few clicks.</p>
+			to upgrade in just a few clicks.</div>
 			<?php
 		}
 
@@ -308,10 +314,9 @@ class WPMDBPro extends WPMDBPro_Base {
 			else {
 				$install_url = wp_nonce_url( network_admin_url( 'update.php?action=install-plugin&plugin=' . $key ), 'install-plugin_' . $key );
 				$actions = sprintf( '<a class="action" href="%s">Install</a>', $install_url );
-
-				$download_url = $this->get_plugin_update_download_url( $key );
-				$actions .= sprintf( '<a class="action" href="%s">Download</a>', $download_url );
 			}
+			$download_url = $this->get_plugin_update_download_url( $key );
+			$actions .= sprintf( '<a class="action" href="%s">Download</a>', $download_url );
 			?>
 			<article class="addon <?php echo esc_attr( $key ); ?>">
 				<div class="desc">
@@ -329,11 +334,12 @@ class WPMDBPro extends WPMDBPro_Base {
 		$decoded_response['addon_content'] = $addon_content;
 		$response = json_encode( $decoded_response );
 
-		echo $response;
-		exit;
+		$result = $this->end_ajax( $response );
+		return $result;
 	}
 
 	function ajax_activate_licence() {
+		$this->check_ajax_referer( 'activate-licence' );
 		$args = array(
 			'licence_key' => $_POST['licence_key'],
 			'site_url' => site_url( '', 'http' )
@@ -354,8 +360,8 @@ class WPMDBPro extends WPMDBPro_Base {
 			$response['masked_licence'] = $this->get_formatted_masked_licence();
 		}
 
-		echo json_encode( $response );
-		exit;
+		$result = $this->end_ajax( json_encode( $response ) );
+		return $result;
 	}
 
 	function is_json( $string, $strict = false ) {
@@ -389,14 +395,20 @@ class WPMDBPro extends WPMDBPro_Base {
 	}
 
 	function ajax_clear_log() {
+		$this->check_ajax_referer( 'clear-log' );
 		delete_option( 'wpmdb_error_log' );
-		exit;
+		$result = $this->end_ajax();
+		return $result;
 	}
 
 	function ajax_get_log() {
+		$this->check_ajax_referer( 'get-log' );
+		ob_start();
 		$this->output_diagnostic_info();
 		$this->output_log_file();
-		exit;
+		$return = ob_get_clean();
+		$result = $this->end_ajax( $return );
+		return $result;
 	}
 
 	function output_log_file() {
@@ -408,6 +420,7 @@ class WPMDBPro extends WPMDBPro_Base {
 
 	function output_diagnostic_info() {
 		global $table_prefix;
+		global $wpdb;
 		
 		_e( 'site_url()', 'wp-app-store' ); echo ': ';
 		echo site_url();
@@ -434,7 +447,11 @@ class WPMDBPro extends WPMDBPro_Base {
 		echo "\r\n";
 
 		_e( 'MySQL', 'wp-app-store' ); echo ': ';
-		if ( function_exists( 'mysql_get_server_info' ) ) echo esc_html( mysql_get_server_info() );
+		echo esc_html( empty( $wpdb->use_mysqli ) ? mysql_get_server_info() : mysqli_get_server_info( $wpdb->dbh ) );
+		echo "\r\n";
+		
+		_e( 'ext/mysqli', 'wp-app-store' ); echo ': ';
+		echo empty( $wpdb->use_mysqli ) ? 'no' : 'yes';
 		echo "\r\n";
 		
 		_e( 'WP Memory Limit', 'wp-app-store' ); echo ': ';
@@ -529,12 +546,13 @@ class WPMDBPro extends WPMDBPro_Base {
 	function fire_migration_complete() {
 		$filtered_post = $this->filter_post_elements( $_POST, array( 'action', 'url' ) );
 		if ( ! $this->verify_signature( $filtered_post, $this->settings['key'] ) ) {
-			echo $this->invalid_content_verification_error . ' (#138)';
-			exit;
+			$result = $this->end_ajax( $this->invalid_content_verification_error . ' (#138)' );
+			return $result;
 		}
 
 		do_action( 'wpmdb_migration_complete', 'pull', $_POST['url'] );
-		exit;
+		$result = $this->end_ajax();
+		return $result;
 	}
 
 	function get_alter_queries() {
@@ -552,36 +570,46 @@ class WPMDBPro extends WPMDBPro_Base {
 	
 	// After table migration, delete old tables and rename new tables removing the temporarily prefix
 	function ajax_finalize_migration() {
+		$this->check_ajax_referer( 'finalize-migration' );
 		global $wpdb;
+		$return = '';
 		if ( $_POST['intent'] == 'pull' ) {
-			$this->finalize_migration();
+			$return = $this->finalize_migration();
 		}
 		else {
 			do_action( 'wpmdb_migration_complete', 'push', $_POST['url'] );
 			$data = $_POST;
+			if ( isset( $data['nonce'] ) ) {
+				unset( $data['nonce'] );
+			}
 			$data['action'] = 'wpmdb_remote_finalize_migration';
 			$data['intent'] = 'pull';
 			$data['prefix'] = $wpdb->prefix;
 			$data['type'] = 'push';
 			$data['location'] = home_url();
+			$data['temp_prefix'] = $this->temp_prefix;
 			$data['sig'] = $this->create_signature( $data, $data['key'] );
 			$ajax_url = trailingslashit( $_POST['url'] ) . 'wp-admin/admin-ajax.php';
 			$response = $this->remote_post( $ajax_url, $data, __FUNCTION__ );
+			ob_start();
 			echo $response;
 			$this->display_errors();
+			$return = ob_get_clean();
 		}
-		exit;
+		$result = $this->end_ajax( $return );
+		return $result;
 	}
 
 	function respond_to_remote_finalize_migration() {
-		$filtered_post = $this->filter_post_elements( $_POST, array( 'action', 'intent', 'url', 'key', 'form_data', 'stage', 'prefix', 'type', 'location', 'tables' ) );
+		$filtered_post = $this->filter_post_elements( $_POST, array( 'action', 'intent', 'url', 'key', 'form_data', 'prefix', 'type', 'location', 'tables', 'temp_prefix' ) );
 		if ( ! $this->verify_signature( $filtered_post, $this->settings['key'] ) ) {
-			echo $this->invalid_content_verification_error . ' (#123)';
-			exit;
+			$result = $this->end_ajax( $this->invalid_content_verification_error . ' (#123)' );
+			return $result;
 		}
-		$this->finalize_migration();
-		exit;
-		}
+		$return = $this->finalize_migration();
+		$result = $this->end_ajax( $return );
+		return $result;
+	}
 
 	function finalize_migration() {
 		global $wpdb;
@@ -589,7 +617,8 @@ class WPMDBPro extends WPMDBPro_Base {
 		$tables = explode( ',', $_POST['tables'] );
 		$temp_tables = array();
 		foreach( $tables as $table ) {
-			$temp_tables[] = $this->temp_prefix . $table;
+			$temp_prefix = stripslashes( $_POST['temp_prefix'] );
+			$temp_tables[] = $temp_prefix . $table;
 		}
 
 		$sql = "SET FOREIGN_KEY_CHECKS=0;\n";
@@ -604,9 +633,9 @@ class WPMDBPro extends WPMDBPro_Base {
 		$preserved_options = apply_filters( 'wpmdb_preserved_options', $preserved_options );
 
 		foreach ( $temp_tables as $table ) {
-			$sql .= 'DROP TABLE IF EXISTS ' . $this->backquote( substr( $table, strlen( $this->temp_prefix ) ) ) . ';';
+			$sql .= 'DROP TABLE IF EXISTS ' . $this->backquote( substr( $table, strlen( $temp_prefix ) ) ) . ';';
 			$sql .= "\n";
-			$sql .= 'RENAME TABLE ' . $this->backquote( $table )  . ' TO ' . $this->backquote( substr( $table, strlen( $this->temp_prefix ) ) ) . ';';
+			$sql .= 'RENAME TABLE ' . $this->backquote( $table )  . ' TO ' . $this->backquote( substr( $table, strlen( $temp_prefix ) ) ) . ';';
 			$sql .= "\n";
 		}
 
@@ -621,7 +650,11 @@ class WPMDBPro extends WPMDBPro_Base {
 		$sql .= $this->get_alter_queries();
 		$sql .= "DROP TABLE IF EXISTS " . $this->backquote( $alter_table_name ) . ";\n";
 
-		$this->process_chunk( $sql );
+		$process_chunk_result = $this->process_chunk( $sql );
+		if( true !== $process_chunk_result ) {
+			$result = $this->end_ajax( $process_chunk_result );
+			return $result;
+		}
 
 		$type = ( isset( $_POST['type'] ) ? 'push' : 'pull' );
 		$location = ( isset( $_POST['location'] ) ? $_POST['location'] : $_POST['url'] );
@@ -633,8 +666,14 @@ class WPMDBPro extends WPMDBPro_Base {
 			$data['sig'] = $this->create_signature( $data, $_POST['key'] );
 			$ajax_url = trailingslashit( $_POST['url'] ) . 'wp-admin/admin-ajax.php';
 			$response = $this->remote_post( $ajax_url, $data, __FUNCTION__ );
+			ob_start();
 			echo $response;
 			$this->display_errors();
+			$maybe_errors = trim( ob_get_clean() );
+			if( false === empty( $maybe_errors ) ) {
+				$result = $this->end_ajax( $maybe_errors );
+				return $result;
+			}
 		}
 
 		// flush rewrite rules to prevent 404s and other oddities
@@ -654,13 +693,13 @@ class WPMDBPro extends WPMDBPro_Base {
 
 		$tmp_file_path = wp_tempnam( $tmp_file_name );
 		if ( !isset( $_FILES['chunk']['tmp_name'] ) || !move_uploaded_file( $_FILES['chunk']['tmp_name'], $tmp_file_path ) ) {
-			echo 'Could not upload the SQL to the server. (#135)';
-			exit;
+			$result = $this->end_ajax( 'Could not upload the SQL to the server. (#135)' );
+			return $result;
 		}
 
 		if ( false === ( $chunk = file_get_contents( $tmp_file_path ) ) ) {
-			echo 'Could not read the SQL we\'ve uploaded to the server. (#136)';
-			exit;
+			$result = $this->end_ajax( 'Could not read the SQL we\'ve uploaded to the server. (#136)' );
+			return $result;
 		}
 
 		@unlink( $tmp_file_path );
@@ -668,21 +707,22 @@ class WPMDBPro extends WPMDBPro_Base {
 		$filtered_post['chunk'] = $chunk;
 
 		if ( !$this->verify_signature( $filtered_post, $this->settings['key'] ) ) {
-			echo $this->invalid_content_verification_error . ' (#130)';
-			exit;
+			$result = $this->end_ajax( $this->invalid_content_verification_error . ' (#130)' );
+			return $result;
 		}
 
 		if ( $this->settings['allow_push'] != true ) {
-			echo 'The connection succeeded but the remote site is configured to reject push connections. You can change this in the "settings" tab on the remote site. (#133)';
-			exit;
+			$result = $this->end_ajax( 'The connection succeeded but the remote site is configured to reject push connections. You can change this in the "settings" tab on the remote site. (#133)' );
+			return $result;
 		}
 
 		if( $gzip ) {
 			$filtered_post['chunk'] = gzuncompress( $filtered_post['chunk'] );
 		}
 
-		$this->process_chunk( $filtered_post['chunk'] );
-		exit;
+		$process_chunk_result = $this->process_chunk( $filtered_post['chunk'] );
+		$result = $this->end_ajax( $process_chunk_result );
+		return $result;
 	}
 
 	function process_chunk( $chunk ) {
@@ -693,6 +733,7 @@ class WPMDBPro extends WPMDBPro_Base {
 		$queries = array_filter( explode( ";\n", $chunk ) );
 		array_unshift( $queries, "SET sql_mode='NO_AUTO_VALUE_ON_ZERO';" );
 
+		ob_start();
 		$wpdb->show_errors();
 		if( empty( $wpdb->charset ) ) {
 			$charset = ( defined( 'DB_CHARSET' ) ? DB_CHARSET : 'utf8' );
@@ -701,34 +742,45 @@ class WPMDBPro extends WPMDBPro_Base {
 		}
 		foreach( $queries as $query ) {
 			if( false === $wpdb->query( $query ) ) {
-				exit;
+				$return = ob_get_clean();
+				$result = $this->end_ajax( $return );
+				return $result;
 			}
 		}
+		return true;
 	}
 
 	function ajax_migrate_table() {
+		$this->check_ajax_referer( 'migrate-table' );
 		global $wpdb;
 
 		$this->form_data = $this->parse_migration_form_data( $_POST['form_data'] );
 
+		$result = '';
 		// checks if we're performing a backup, if so, continue with the backup and exit immediately after
 		if ( $_POST['stage'] == 'backup' && $_POST['intent'] != 'savefile' ) {
 			// if performing a push we need to backup the REMOTE machine's DB
 			if ( $_POST['intent'] == 'push' ) {
 				$data = $_POST;
+				if ( isset( $data['nonce'] ) ) {
+					unset( $data['nonce'] );
+				}
 				$data['action'] = 'wpmdb_backup_remote_table';
 				$data['intent'] = 'pull';
 				$ajax_url = trailingslashit( $_POST['url'] ) . 'wp-admin/admin-ajax.php';
 				$data['primary_keys'] = stripslashes( $data['primary_keys'] );
 				$data['sig'] = $this->create_signature( $data, $data['key'] );
 				$response = $this->remote_post( $ajax_url, $data, __FUNCTION__ );
+				ob_start();
 				$this->display_errors();
-				echo $response;
+				$return = ob_get_clean();
+				$return .= $response;
 			}
 			else {
-				$this->handle_table_backup();
-				}
-			exit;
+				$return = $this->handle_table_backup();
+			}
+			$result = $this->end_ajax( $return );
+			return $result;
 		}
 
 		// Pull and push need to be handled differently for obvious reasons, trigger different code depending on the migration intent (push or pull)
@@ -747,14 +799,24 @@ class WPMDBPro extends WPMDBPro_Base {
 			if ( $_POST['intent'] == 'savefile' ) {
 				$this->fp = $this->open( $sql_dump_file_name );
 			}
-			$this->export_table( $_POST['table'] );
-			$this->display_errors();
+			$result = $this->export_table( $_POST['table'] );
 			if ( $_POST['intent'] == 'savefile' ) {
 				$this->close( $this->fp );
 			}
+			ob_start();
+			$this->display_errors();
+			$maybe_errors = trim( ob_get_clean() );
+			if( false === empty( $maybe_errors ) ) {
+				$result = $this->end_ajax( $maybe_errors );
+				return $result;
+			}
+			return $result;
 		}
 		else {
 			$data = $_POST;
+			if ( isset( $data['nonce'] ) ) {
+				unset( $data['nonce'] );
+			}
 			$data['action'] = 'wpmdb_process_pull_request';
 			$data['pull_limit'] = $this->get_sensible_pull_limit();
 			if( is_multisite() ) {
@@ -770,11 +832,17 @@ class WPMDBPro extends WPMDBPro_Base {
 			$data['sig'] = $this->create_signature( $data, $data['key'] );
 
 			$response = $this->remote_post( $ajax_url, $data, __FUNCTION__ );
+			ob_start();
 			$this->display_errors();
+			$maybe_errors = trim( ob_get_clean() );
+			if( false === empty( $maybe_errors ) ) {
+				$result = $this->end_ajax( $maybe_errors );
+				return $result;
+			}
 
 			if( strpos( $response, ';' ) === false ) {
-				echo $response;
-				exit;
+				$result = $this->end_ajax( $response );
+				return $result;
 			}
 
 			// returned data is just a big string like this query;query;query;33
@@ -784,29 +852,34 @@ class WPMDBPro extends WPMDBPro_Base {
 			$chunk = substr( $response, 0, strrpos( $response, ";\n" ) + 1 );
 
 			if ( ! empty( $chunk ) ) {
-				$this->process_chunk( $chunk );
+				$process_chunk_result = $this->process_chunk( $chunk );
+				if( true !== $process_chunk_result ) {
+					$result = $this->end_ajax( $process_chunk_result );
+					return $result;
+				}
 			}
 
-			echo json_encode( 
+			$result = $this->end_ajax( json_encode( 
 				array(
 					'current_row' 		=> $row_information[0],
 					'primary_keys'		=> $row_information[1]
 				)
-			);
+			) );
 		}
-		exit;
+		return $result;
 	}
 
 	function respond_to_backup_remote_table() {
 		$filtered_post = $this->filter_post_elements( $_POST, array( 'action', 'intent', 'url', 'key', 'table', 'form_data', 'stage', 'bottleneck', 'prefix', 'current_row', 'dump_filename', 'last_table', 'gzip', 'primary_keys', 'path_current_site', 'domain_current_site' ) );
 		$filtered_post['primary_keys'] = stripslashes( $filtered_post['primary_keys'] );
 		if ( ! $this->verify_signature( $filtered_post, $this->settings['key'] ) ) {
-			echo $this->invalid_content_verification_error . ' (#137)';
-			exit;
+			$result = $this->end_ajax( $this->invalid_content_verification_error . ' (#137)' );
+			return $result;
 		}
 
 		$this->form_data = $this->parse_migration_form_data( $_POST['form_data'] );
-		$this->handle_table_backup();
+		$result = $this->handle_table_backup();
+		return $result;
 	}
 
 	function handle_table_backup() {
@@ -821,9 +894,19 @@ class WPMDBPro extends WPMDBPro_Base {
 		if ( $file_created == false ) {
 			$this->db_backup_header();
 		}
-		$this->export_table( $_POST['table'] );
+		$result = $this->export_table( $_POST['table'] );
+		if( isset( $this->fp ) ) {
+			$this->close( $this->fp );
+		}
+		ob_start();
 		$this->display_errors();
-		$this->close( $this->fp );
+		$maybe_errors = trim( ob_get_clean() );
+		if( false === empty( $maybe_errors ) ) {
+			$result = $this->end_ajax( $maybe_errors );
+			return $result;
+		}
+
+		return $result;
 	}
 
 	function respond_to_process_pull_request() {
@@ -837,24 +920,28 @@ class WPMDBPro extends WPMDBPro_Base {
 		}
 
 		if ( ! $this->verify_signature( $filtered_post, $this->settings['key'] ) ) {
-			echo $this->invalid_content_verification_error . ' (#124)';
-			exit;
+			$result = $this->end_ajax( $this->invalid_content_verification_error . ' (#124)' );
+			return $result;
 		}
 
 		if ( $this->settings['allow_pull'] != true ) {
-			echo 'The connection succeeded but the remote site is configured to reject pull connections. You can change this in the "settings" tab on the remote site. (#132)';
-			exit;
+			$result = $this->end_ajax( 'The connection succeeded but the remote site is configured to reject pull connections. You can change this in the "settings" tab on the remote site. (#132)' );
+			return $result;
 		}
 
 		$this->maximum_chunk_size = $_POST['pull_limit'];
 		$this->export_table( $_POST['table'] );
+		ob_start();
 		$this->display_errors();
-		exit;
+		$return = ob_get_clean();
+		$result = $this->end_ajax( $return );
+		return $result;
 	}
 
 	// Occurs right before the first table is migrated / backed up during the migration process
 	// Does a quick check to make sure the verification string is valid and also opens / creates files for writing to (if required)
 	function ajax_initiate_migration() {
+		$this->check_ajax_referer( 'initiate-migration' );
 		$this->form_data = $this->parse_migration_form_data( $_POST['form_data'] );
 		if ( $_POST['intent'] == 'savefile' ) {
 
@@ -870,7 +957,11 @@ class WPMDBPro extends WPMDBPro_Base {
 
 			$create_alter_table_query = $this->get_create_alter_table_query();
 			// sets up our table to store 'ALTER' queries
-			$this->process_chunk( $create_alter_table_query );
+			$process_chunk_result = $this->process_chunk( $create_alter_table_query );
+			if( true !== $process_chunk_result ) {
+				$result = $this->end_ajax( $process_chunk_result );
+				return $result;
+			}
 
 			if ( $this->gzip() && isset( $this->form_data['gzip_file'] ) ) {
 				$return['dump_filename'] .= '.gz';
@@ -896,18 +987,20 @@ class WPMDBPro extends WPMDBPro_Base {
 
 			if ( false === $response ) {
 				$return = array( 'wpmdb_error' => 1, 'body' => $this->error );
+				$result = $this->end_ajax( json_encode( $return ) );
+				return $result;
 			}
-			else{
-				$return = array(
-					'body' => stripslashes( $response ),
-				);
-				$return = json_decode( $response, ARRAY_A );
-			}
+			
+			$return = json_decode( stripslashes( $response ), ARRAY_A );
 
 			if( $_POST['intent'] == 'pull' ) {
 				// sets up our table to store 'ALTER' queries
 				$create_alter_table_query = $this->get_create_alter_table_query();
-				$this->process_chunk( $create_alter_table_query );
+				$process_chunk_result = $this->process_chunk( $create_alter_table_query );
+				if( true !== $process_chunk_result ) {
+					$result = $this->end_ajax( $process_chunk_result );
+					return $result;
+				}
 			}
 
 			if( ! empty( $this->form_data['create_backup'] ) && $_POST['intent'] == 'pull' ) {
@@ -918,12 +1011,11 @@ class WPMDBPro extends WPMDBPro_Base {
 
 		}
 
-		$return['dump_filename'] = ( empty( $return['dump_filename'] ) ? '' : $return['dump_filename'] );
-		$return['dump_url'] = ( empty( $return['dump_url'] ) ? '' : $return['dump_url'] );
+		$return['dump_filename'] = ( empty( $return['dump_filename'] ) ) ? '' : $return['dump_filename'];
+		$return['dump_url'] = ( empty( $return['dump_url'] ) ) ? '' : $return['dump_url'];
 
-		echo json_encode( $return );
-
-		exit;
+		$result = $this->end_ajax( json_encode( $return ) );
+		return $result;
 	}
 
 	// End point for the above remote_post call, ensures that the verification string is valid before continuing with the migration
@@ -951,18 +1043,22 @@ class WPMDBPro extends WPMDBPro_Base {
 			$return['dump_url'] = $this->get_sql_dump_info( 'backup', 'url' );
 		}
 
-		echo json_encode( $return );
-
 		if( $_POST['intent'] == 'push' ) {
 			// sets up our table to store 'ALTER' queries
 			$create_alter_table_query = $this->get_create_alter_table_query();
-			$this->process_chunk( $create_alter_table_query );
+			$process_chunk_result = $this->process_chunk( $create_alter_table_query );
+			if( true !== $process_chunk_result ) {
+				$result = $this->end_ajax( $process_chunk_result );
+				return $result;
+			}
 		}
 
-		exit;
+		$result = $this->end_ajax( json_encode( $return ) );
+		return $result;
 	}
 
 	function ajax_save_profile() {
+		$this->check_ajax_referer( 'save-profile' );
 		$profile = $this->parse_migration_form_data( $_POST['profile'] );
 		$profile = wp_parse_args( $profile, $this->checkbox_options );
 		if ( isset( $profile['save_migration_profile_option'] ) && $profile['save_migration_profile_option'] == 'new' ) {
@@ -976,38 +1072,45 @@ class WPMDBPro extends WPMDBPro_Base {
 			$this->settings['profiles'][$key]['name'] = $name;
 		}
 		update_option( 'wpmdb_settings', $this->settings );
-		echo count( $this->settings['profiles'] ) - 1;
-		exit;
+		$result = $this->end_ajax( count( $this->settings['profiles'] ) - 1 );
+		return $result;
 	}
 
 	function ajax_save_setting() {
+		$this->check_ajax_referer( 'save-setting' );
 		$this->settings[$_POST['setting']] = ( $_POST['checked'] == 'false' ? false : true );
 		update_option( 'wpmdb_settings', $this->settings );
-		exit;
+		$result = $this->end_ajax();
+		return $result;
 	}
 
 	function ajax_delete_migration_profile() {
+		$this->check_ajax_referer( 'delete-migration-profile' );
 		$key = $_POST['profile_id'];
+		$return = '';
 		if ( isset( $this->settings['profiles'][$key] ) ) {
 			unset( $this->settings['profiles'][$key] );
 			update_option( 'wpmdb_settings', $this->settings );
 		}
 		else {
-			echo '-1';
+			$return = '-1';
 		}
-		exit;
+		$result = $this->end_ajax( $return );
+		return $result;
 	}
 
 	function ajax_reset_api_key() {
+		$this->check_ajax_referer( 'reset-api-key' );
 		$this->settings['key'] = $this->generate_key();
 		update_option( 'wpmdb_settings', $this->settings );
-		printf( "%s\n%s", site_url( '', 'https' ), $this->settings['key'] );
-		exit;
+		$result = $this->end_ajax( sprintf( "%s\n%s", site_url( '', 'https' ), $this->settings['key'] ) );
+		return $result;
 	}
 
 	// AJAX endpoint for when the user pastes into the connection info box (or when they click "connect")
 	// Responsible for contacting the remote website and retrieving info and testing the verification string
 	function ajax_verify_connection_to_remote_site() {
+		$this->check_ajax_referer( 'verify-connection-to-remote-site' );
 		$data = array(
 			'action'  => 'wpmdb_verify_connection_to_remote_site',
 			'intent' => $_POST['intent']
@@ -1024,23 +1127,23 @@ class WPMDBPro extends WPMDBPro_Base {
 
 		if ( false === $response ) {
 			$return = array( 'wpmdb_error' => 1, 'body' => $this->error );
-			echo json_encode( $return );
-			exit;
+			$result = $this->end_ajax( json_encode( $return ) );
+			return $result;
 		}
 
 		$response = unserialize( trim( $response ) );
 
 		if ( isset( $response['error'] ) && $response['error'] == 1 ) {
 			$return = array( 'wpmdb_error' => 1, 'body' => $response['message'] );
-			echo json_encode( $return );
-			exit;
+			$result = $this->end_ajax( json_encode( $return ) );
+			return $result;
 		}
 
 		$response['scheme'] = $url_bits['scheme'];
 		$return = json_encode( $response );
 
-		echo $return;
-		exit;
+		$result = $this->end_ajax( $return );
+		return $result;
 	}
 
 	// End point for the above remote_post call, returns table information, absolute file path, table prefix, etc
@@ -1053,15 +1156,15 @@ class WPMDBPro extends WPMDBPro_Base {
 		if ( !$this->verify_signature( $filtered_post, $this->settings['key'] ) ) {
 			$return['error'] = 1;
 			$return['message'] = $this->invalid_content_verification_error . ' (#120) <a href="#" class="try-again js-action-link">Try again?</a>';
-			echo serialize( $return );
-			exit;
+			$result = $this->end_ajax( serialize( $return ) );
+			return $result;
 		}
 
 		if ( !isset( $this->settings['allow_' . $_POST['intent']] ) || $this->settings['allow_' . $_POST['intent']] != true ) {
 			$return['error'] = 1;
 			$return['message'] = 'The connection succeeded but the remote site is configured to reject ' . $_POST['intent'] . ' connections. You can change this in the "settings" tab on the remote site. (#122) <a href="#" class="try-again js-action-link">Try again?</a>';
-			echo serialize( $return );
-			exit;
+			$result = $this->end_ajax( serialize( $return ) );
+			return $result;
 		}
 
 		$return['tables'] = $this->get_tables();
@@ -1074,7 +1177,7 @@ class WPMDBPro extends WPMDBPro_Base {
 		$return['prefix'] = $wpdb->prefix;
 		$return['bottleneck'] = $this->get_bottleneck();
 		$return['error'] = 0;
-		$return['plugin_version'] = $this->get_installed_version();
+		$return['plugin_version'] = $this->plugin_version;
 		$return['domain'] = $this->get_domain_current_site();
 		$return['path_current_site'] = $this->get_path_current_site();
 		$return['uploads_dir'] = $this->get_short_uploads_dir();
@@ -1082,9 +1185,10 @@ class WPMDBPro extends WPMDBPro_Base {
 		$return['post_types'] = $this->get_post_types();
 		$return['write_permissions'] = ( is_writeable( $this->get_upload_info( 'path' ) ) ? '1' : '0' );
 		$return['upload_dir_long'] = $this->get_upload_info( 'path' );
+		$return['temp_prefix'] = $this->temp_prefix;
 		$return = apply_filters( 'wpmdb_establish_remote_connection_data', $return );
-		echo serialize( $return );
-		exit;
+		$result = $this->end_ajax( serialize( $return ) );
+		return $result;
 	}
 
 	function format_table_sizes( $size ) {
@@ -1240,52 +1344,66 @@ class WPMDBPro extends WPMDBPro_Base {
 			<?php do_action( 'wpmdb_notices' ); ?>
 
 			<?php
+			$hide_warning = apply_filters( 'wpmdb_hide_outdated_addons_warning', false );
+
+			foreach( $this->addons as $addon_basename => $addon ) {
+				if( false == $this->is_addon_outdated( $addon_basename ) || false == is_plugin_active( $addon_basename ) ) continue;
+				$update_url = wp_nonce_url( network_admin_url( 'update.php?action=upgrade-plugin&plugin=' . urlencode( $addon_basename ) ), 'upgrade-plugin_' . $addon_basename );			
+				$addon_slug = current( explode( '/', $addon_basename ) );
+				if ( isset( $GLOBALS['wpmdb_meta'][$addon_slug]['version'] ) ) {
+					$version = ' (' . $GLOBALS['wpmdb_meta'][$addon_slug]['version'] . ')';
+				}
+				else {
+					$version = '';
+				}
+				?>
+				<div class="updated warning inline-message">
+					<strong>Update Required</strong> &mdash; 
+					<?php printf( 'The version of the %s addon you have installed%s is out-of-date and will not work with this version WP Migrate DB Pro. <a href="%s">Update Now</a>', $addon['name'], $version, $update_url ); ?>
+				</div>
+			<?php
+			}
+
 			$hide_warning = apply_filters( 'wpmdb_hide_safe_mode_warning', false );
 			if ( function_exists( 'ini_get' ) && ini_get( 'safe_mode' ) && !$hide_warning ) {
 				?>
-				<div class="updated warning">
-					<p>
-						<strong>PHP Safe Mode Enabled</strong> &mdash;
-						We do not officially support running this plugin in
-						safe mode because <code>set_time_limit()</code>
-						has no effect. Therefore we can't extend the run time of the
-						script and ensure it doesn't time out before the migration completes.
-						We haven't disabled the plugin however, so you're free to cross your
-						fingers and hope for the best. However, if you have trouble,
-						we can't help you until you turn off safe mode.
-						<?php if ( function_exists( 'ini_get' ) ) : ?>
-						Your current PHP run time limit is set to <?php echo ini_get( 'max_execution_time' ); ?> seconds.
-						<?php endif; ?>
-					</p>
+				<div class="updated warning inline-message">
+					<strong>PHP Safe Mode Enabled</strong> &mdash;
+					We do not officially support running this plugin in
+					safe mode because <code>set_time_limit()</code>
+					has no effect. Therefore we can't extend the run time of the
+					script and ensure it doesn't time out before the migration completes.
+					We haven't disabled the plugin however, so you're free to cross your
+					fingers and hope for the best. However, if you have trouble,
+					we can't help you until you turn off safe mode.
+					<?php if ( function_exists( 'ini_get' ) ) : ?>
+					Your current PHP run time limit is set to <?php echo ini_get( 'max_execution_time' ); ?> seconds.
+					<?php endif; ?>
 				</div>
 				<?php
 			}
 			?>
 
-			<div class="updated warning ie-warning" style="display: none;">
-				<p>
-					<strong>Internet Explorer Not Supported</strong> &mdash; 
-					Less than 2% of our customers use IE, so we've decided not to spend time supporting it.
-					We ask that you use Firefox or a Webkit-based browser like Chrome or Safari instead.
-					If this is a problem for you, please let us know.
-				</p>
+			<div class="updated warning ie-warning inline-message" style="display: none;">
+				<strong>Internet Explorer Not Supported</strong> &mdash; 
+				Less than 2% of our customers use IE, so we've decided not to spend time supporting it.
+				We ask that you use Firefox or a Webkit-based browser like Chrome or Safari instead.
+				If this is a problem for you, please let us know.
 			</div>
 
 			<?php
 			$hide_warning = apply_filters( 'wpmdb_hide_set_time_limit_warning', false );
 			if ( false == $this->set_time_limit_available() && !$hide_warning && !$safe_mode ) {
 				?>
-				<div class="updated warning">
-					<p>
-						<strong>PHP Function Disabled</strong> &mdash;
-						The <code>set_time_limit()</code> function is currently disabled on your server.
-						We use this function to ensure that the migration doesn't time out. We haven't 
-						disabled the plugin however, so you're free to cross your
-						fingers and hope for the best. You may want to contact your web host to enable this function.
-						<?php if ( function_exists( 'ini_get' ) ) : ?>
-						Your current PHP run time limit is set to <?php echo ini_get( 'max_execution_time' ); ?> seconds.
-						<?php endif; ?>
-					</p>
+				<div class="updated warning inline-message">
+					<strong>PHP Function Disabled</strong> &mdash;
+					The <code>set_time_limit()</code> function is currently disabled on your server.
+					We use this function to ensure that the migration doesn't time out. We haven't 
+					disabled the plugin however, so you're free to cross your
+					fingers and hope for the best. You may want to contact your web host to enable this function.
+					<?php if ( function_exists( 'ini_get' ) ) : ?>
+					Your current PHP run time limit is set to <?php echo ini_get( 'max_execution_time' ); ?> seconds.
+					<?php endif; ?>
 				</div>
 				<?php
 			}
@@ -1508,7 +1626,11 @@ class WPMDBPro extends WPMDBPro_Base {
 				$alter_table_name = $this->get_alter_table_name();
 				$insert = sprintf( "INSERT INTO %s ( `query` ) VALUES ( '%s' );\n", $this->backquote( $alter_table_name ), esc_sql( $alter_table_query ) );
 				if ( $this->form_data['action'] == 'savefile' || $_POST['stage'] == 'backup' ) {
-					$this->process_chunk( $insert );
+					$process_chunk_result = $this->process_chunk( $insert );
+					if( true !== $process_chunk_result ) {
+						$result = $this->end_ajax( $process_chunk_result );
+						return $result;
+					}
 				}
 				else {
 					$this->stow( $insert );
@@ -1575,10 +1697,12 @@ class WPMDBPro extends WPMDBPro_Base {
 			}
 		}
 
+		$first_select = true;
 		if( ! empty( $_POST['primary_keys'] ) ) {
 			$_POST['primary_keys'] = trim( $_POST['primary_keys'] );
 			if( ! empty( $_POST['primary_keys'] ) && is_serialized( $_POST['primary_keys'] ) ) {
 				$this->primary_keys = unserialize( stripslashes( $_POST['primary_keys'] ) );
+				$first_select = false;
 			}
 		}
 
@@ -1592,7 +1716,7 @@ class WPMDBPro extends WPMDBPro_Base {
 			$order_by = '';
 			// We need ORDER BY here because with LIMIT, sometimes it will return
 			// the same results from the previous query and we'll have duplicate insert statements 
-			if ( isset( $this->form_data['exclude_spam'] ) ) {
+			if ( 'backup' != $_POST['stage'] && isset( $this->form_data['exclude_spam'] ) ) {
 				if ( $this->table_is( 'comments', $table ) ) {
 					$where .= ' AND comment_approved != "spam"';
 				}
@@ -1603,7 +1727,7 @@ class WPMDBPro extends WPMDBPro_Base {
 				}
 			}
 			
-			if ( isset( $this->form_data['post_type_migrate_option'] ) && $this->form_data['post_type_migrate_option'] == 'migrate_select_post_types' && ! empty( $this->form_data['select_post_types'] ) ) {
+			if ( 'backup' != $_POST['stage'] && isset( $this->form_data['post_type_migrate_option'] ) && $this->form_data['post_type_migrate_option'] == 'migrate_select_post_types' && ! empty( $this->form_data['select_post_types'] ) ) {
 				$post_types = '\'' . implode( '\', \'', $this->form_data['select_post_types'] ) . '\'';
 				if( $this->table_is( 'posts', $table ) ) {
 					$where .= ' AND `post_type` IN ( ' . $post_types . ' )';
@@ -1626,7 +1750,7 @@ class WPMDBPro extends WPMDBPro_Base {
 				}
 			}
 
-			if ( true === apply_filters( 'wpmdb_exclude_transients', true ) && ( $this->table_is( 'options', $table ) || ( isset( $wpdb->sitemeta ) && $wpdb->sitemeta == $table ) ) ) {
+			if ( 'backup' != $_POST['stage'] && true === apply_filters( 'wpmdb_exclude_transients', true ) && ( $this->table_is( 'options', $table ) || ( isset( $wpdb->sitemeta ) && $wpdb->sitemeta == $table ) ) ) {
 				$col_name = 'option_name';
 
 				if( isset( $wpdb->sitemeta ) && $wpdb->sitemeta == $table ) {
@@ -1643,29 +1767,39 @@ class WPMDBPro extends WPMDBPro_Base {
 				$primary_keys_keys = array_map( array( $this, 'backquote' ), $primary_keys_keys );
 
 				$order_by = 'ORDER BY ' . implode( ',', $primary_keys_keys );
-				$where .= ' AND ';
-
-				$temp_primary_keys = $this->primary_keys;
-
-				$primary_key_count = count( $temp_primary_keys );
-				for( $j = 0; $j < $primary_key_count; $j++ ) { 
-					$where .= ( $j == 0 ? '( ' : ' OR ( ' ); 
-					$i = 0;
-					foreach( $temp_primary_keys as $primary_key => $value ) {
-						$where .= ( $i == 0 ? '' : ' AND ' );
-						$operator = ( count( $temp_primary_keys ) - 1 == $i ? '>' : '=' );
-						$operator = ( $value == 0 && $operator == '>' ) ? '>=' : $operator;
-						$where .= sprintf( '%s %s %s', $this->backquote( $primary_key ), $operator, $value );
-						++$i;
-					}
-					$tmp = $temp_primary_keys;
-					$keys = array_keys( $tmp );
-					$end = end( $keys );
-					unset( $temp_primary_keys[$end] );
-					$where .= ' )';
-				}
-
 				$limit = "LIMIT $row_inc";
+				if( false == $first_select ) {
+					$where .= ' AND ';
+
+					$temp_primary_keys = $this->primary_keys;
+					$primary_key_count = count( $temp_primary_keys );
+
+					// build a list of clauses, iteratively reducing the number of fields compared in the compound key
+					// e.g. (a = 1 AND b = 2 AND c > 3) OR (a = 1 AND b > 2) OR (a > 1)
+					$clauses = array();
+					for( $j = 0; $j < $primary_key_count; $j++ ) {
+						// build a subclause for each field in the compound index
+						$subclauses = array();
+						$i = 0;
+						foreach( $temp_primary_keys as $primary_key => $value ) {
+							// only the last field in the key should be different in this subclause
+							$operator = ( count( $temp_primary_keys ) - 1 == $i ? '>' : '=' );
+							$subclauses[] = sprintf( '%s %s %s', $this->backquote( $primary_key ), $operator, $wpdb->prepare( '%s', $value ) );
+							++$i;
+						}
+
+						// remove last field from array to reduce fields in next clause
+						array_pop( $temp_primary_keys );
+
+						// join subclauses into a single clause
+						// NB: AND needs to be wrapped in () as it has higher precedence than OR
+						$clauses[] = '( ' . implode( ' AND ', $subclauses ) . ' )';
+					}
+					// join clauses into a single clause
+					// NB: OR needs to be wrapped in () as it has lower precedence than AND
+					$where .= '( ' . implode( ' OR ', $clauses ) . ' )';
+				}
+				$first_select = false;
 			}
 
 			$join = implode( ' ', array_unique( $join ) );
@@ -1756,7 +1890,7 @@ class WPMDBPro extends WPMDBPro_Base {
 						$this->stow( $insert_buffer );
 						$insert_buffer = $insert_query_template;
 						$query_size = 0;
-						$this->transfer_chunk();
+						return $this->transfer_chunk();
 					}
 
 					if ( ( $query_size + strlen( $insert_line ) ) > $this->max_insert_string_len && $insert_buffer != $insert_query_template ) {
@@ -1812,7 +1946,7 @@ class WPMDBPro extends WPMDBPro_Base {
 		}
 
 		$this->row_tracker = -1;
-		$this->transfer_chunk();
+		return $this->transfer_chunk();
 
 	} // end backup_table()
 
@@ -1821,19 +1955,36 @@ class WPMDBPro extends WPMDBPro_Base {
 		return ( $wpdb->{$desired_table} == $given_table || preg_match( '/' . $wpdb->prefix . '[0-9]+_' . $desired_table . '/', $given_table ) );
 	}
 
+	/**
+	 * return multisite-compatible names for requested tables, based on queried table name
+	 *
+	 * @param array  $tables          list of table names required
+	 * @param string $queried_table   name of table from which to derive the blog ID
+	 *
+	 * @return array                  list of table names altered for multisite compatibility
+	 */
 	function get_ms_compat_table_names( $tables, $queried_table ) {
 		global $wpdb;
-		$blog_id = str_replace( array( $wpdb->prefix, '_' . $tables[0] ) , array( '', '' ), $queried_table );
+
+		// default table prefix
+		$prefix = $wpdb->prefix;
+
+		// if multisite, extract blog ID from queried table name and add to prefix
+		// won't match for primary blog because it uses standard table names, i.e. blog_id will never be 1
+		if ( is_multisite() && preg_match( '/^' . preg_quote( $wpdb->prefix, '/' ) . '([0-9]+)_/', $queried_table, $matches ) ) {
+			$blog_id = $matches[1];
+			$prefix .= $blog_id . '_';
+		}
+
+		// build table names
 		$ms_compat_table_names = array();
 		foreach( $tables as $table ) {
-			$ms_compat_table_names[$table . '_table'] = $wpdb->{$table};
-			if( is_multisite() && ! empty( $blog_id ) ) {
-				$ms_compat_table_names[$table . '_table'] = sprintf( '%s%s_%s', $wpdb->prefix, $blog_id, $table );
-			}
+			$ms_compat_table_names[$table . '_table'] = $prefix . $table;
 		}
+
 		return $ms_compat_table_names;
 	}
-
+	
 	/**
 	 * Take a serialized array and unserialize it replacing elements as needed and
 	 * unserialising any subordinate arrays and performing the replace on those too.
@@ -1935,6 +2086,7 @@ class WPMDBPro extends WPMDBPro_Base {
 	function close( $fp ) {
 		if ( $this->gzip() && isset( $this->form_data['gzip_file'] ) ) gzclose( $fp );
 		else fclose( $fp );
+		unset( $this->fp );
 	}
 
 	function stow( $query_line, $replace = true ) {
@@ -1963,18 +2115,18 @@ class WPMDBPro extends WPMDBPro_Base {
 
 		if( $_POST['intent'] == 'savefile' || $_POST['stage'] == 'backup' ) {
 			$this->close( $this->fp );
-			echo json_encode( 
+			$result = $this->end_ajax( json_encode( 
 				array(
 					'current_row' 	=> $this->row_tracker,
 					'primary_keys'	=> serialize( $this->primary_keys )
 				)
-			);
-			exit;
+			) );
+			return $result;
 		}
 
 		if ( $_POST['intent'] == 'pull' ) {
-			echo $this->row_tracker . ',' . serialize( $this->primary_keys );
-			exit;
+			$result = $this->end_ajax( $this->row_tracker . ',' . serialize( $this->primary_keys ) );
+			return $result;
 		}
 
 		$chunk_gzipped = '0';
@@ -1994,20 +2146,22 @@ class WPMDBPro extends WPMDBPro_Base {
 
 		$ajax_url = trailingslashit( $this->remote_url ) . 'wp-admin/admin-ajax.php';
 		$response = $this->remote_post( $ajax_url, $data, __FUNCTION__ );
+		ob_start();
 		$this->display_errors();
-		$response = trim( $response );
+		$response = ob_get_clean();
+		$response .= trim( $response );
 		if( ! empty( $response ) ) {
-			echo $response;
-			exit;
+			$result = $this->end_ajax( $response );
+			return $result;
 		}
 
-		echo json_encode( 
+		$result = $this->end_ajax( json_encode( 
 			array(
 				'current_row' 		=> $this->row_tracker,
 				'primary_keys'		=> serialize( $this->primary_keys )
 			)
-		);
-		exit;
+		) );
+		return $result;
 	}
 
 	/**
@@ -2097,28 +2251,35 @@ class WPMDBPro extends WPMDBPro_Base {
 			exit;
 		}
 
-		$plugins_url = trailingslashit( plugins_url() ) . trailingslashit( $this->plugin_slug );
+		if( isset( $_GET['wpmdb-disable-ssl'] ) && wp_verify_nonce( $_GET['nonce'], 'wpmdb-disable-ssl' ) ) {
+			set_site_transient( 'wpmdb_temporarily_disable_ssl', '1', 60 * 60 * 24 * 30 ); // 30 days
+			$hash = ( isset( $_GET['hash'] ) ) ? $_GET['hash'] : '';
+			// redirecting here because we don't want to keep the query string in the web browsers address bar
+			wp_redirect( network_admin_url( $this->plugin_base . '#' . $hash ) );
+			exit;
+		}
+
+		$plugins_url = trailingslashit( plugins_url() ) . trailingslashit( $this->plugin_folder_name );
+
+		$version = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? time() : $this->plugin_version;
 
 		$src = $plugins_url . 'asset/css/styles.css';
-		wp_enqueue_style( 'wp-migrate-db-pro-styles', $src, array(), $this->get_installed_version() );
+		wp_enqueue_style( 'wp-migrate-db-pro-styles', $src, array(), $version );
 		
 		$src = $plugins_url . 'asset/js/common.js';
-		wp_enqueue_script( 'wp-migrate-db-pro-common', $src, NULL, $this->get_installed_version(), true );
+		wp_enqueue_script( 'wp-migrate-db-pro-common', $src, NULL, $version, true );
 
 		$src = $plugins_url . 'asset/js/hook.js';
-		wp_enqueue_script( 'wp-migrate-db-pro-hook', $src, NULL, $this->get_installed_version(), true );
+		wp_enqueue_script( 'wp-migrate-db-pro-hook', $src, NULL, $version, true );
 
 		do_action( 'wpmdb_load_assets' );
 
 		$src = $plugins_url . 'asset/js/script.js';
-		wp_enqueue_script( 'wp-migrate-db-pro-script', $src, array( 'jquery' ), $this->get_installed_version(), true );
+		wp_enqueue_script( 'wp-migrate-db-pro-script', $src, array( 'jquery' ), $version, true );
 
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-slider');
-
-		// PressTrends
-		$this->presstrends();
 	}
 
 	function download_file() {
@@ -2150,7 +2311,27 @@ class WPMDBPro extends WPMDBPro_Base {
 	}
 
 	function admin_head_connection_info() {
-		global $table_prefix; ?>
+		global $table_prefix;
+
+		$nonces = array(
+			'update_max_request_size' 			=> wp_create_nonce( 'update-max-request-size' ),
+			'check_licence'						=> wp_create_nonce( 'check-licence' ),
+			'verify_connection_to_remote_site'	=> wp_create_nonce( 'verify-connection-to-remote-site' ),
+			'activate_licence'					=> wp_create_nonce( 'activate-licence' ),
+			'clear_log'							=> wp_create_nonce( 'clear-log' ),
+			'get_log'							=> wp_create_nonce( 'get-log' ),
+			'save_profile'						=> wp_create_nonce( 'save-profile' ),
+			'initiate_migration'				=> wp_create_nonce( 'initiate-migration' ),
+			'migrate_table'						=> wp_create_nonce( 'migrate-table' ),
+			'finalize_migration'				=> wp_create_nonce( 'finalize-migration' ),
+			'reset_api_key'						=> wp_create_nonce( 'reset-api-key' ),
+			'delete_migration_profile'			=> wp_create_nonce( 'delete-migration-profile' ),
+			'save_setting'						=> wp_create_nonce( 'save-setting' ),
+		);
+
+		$nonces = apply_filters( 'wpmdb_nonces', $nonces );
+
+		?>
 		<script type='text/javascript'>
 			var wpmdb_connection_info = '<?php echo json_encode( array( site_url( '', 'https' ), $this->settings['key'] ) ); ?>';
 			var wpmdb_this_url = '<?php echo addslashes( home_url() ) ?>';
@@ -2167,72 +2348,16 @@ class WPMDBPro extends WPMDBPro_Base {
 			var wpmdb_this_prefix = '<?php echo $table_prefix; ?>';
 			var wpmdb_is_multisite = <?php echo ( is_multisite() ? 'true' : 'false' ); ?>;
 			var wpmdb_openssl_available = <?php echo ( $this->open_ssl_enabled() ? 'true' : 'false' ); ?>;
-			var wpmdb_plugin_version = '<?php echo $this->get_installed_version(); ?>';
+			var wpmdb_plugin_version = '<?php echo $this->plugin_version; ?>';
 			var wpmdb_max_request = '<?php echo $this->settings['max_request'] ?>';
 			var wpmdb_bottleneck = '<?php echo $this->get_bottleneck( 'max' ); ?>';
 			var wpmdb_this_uploads_dir = '<?php echo addslashes( $this->get_short_uploads_dir() ); ?>';
 			var wpmdb_has_licence = '<?php echo ( $this->get_licence_key() == '' ? '0' : '1' ); ?>';
 			var wpmdb_write_permission = <?php echo ( is_writeable( $this->get_upload_info( 'path' ) ) ? 'true' : 'false' ); ?>;
+			var wpmdb_nonces = <?php echo json_encode( $nonces ); ?>;
 			<?php do_action( 'wpmdb_js_variables' ); ?>
 		</script>
 		<?php
-	}
-
-	function presstrends() {
-		// PressTrends Account API Key
-		$api_key = 'mr3j649a7lisvnwszscydb9ebujzsf2q9a3j';
-		$auth	= 'qkpuarenbf2v0qtnvv37h6zlap52xrdcr';
-
-		// Start of Metrics
-		global $wpdb;
-		$data = get_transient( 'presstrends_cache_data' );
-		if ( !$data || $data == '' ) {
-			$api_base = 'http://api.presstrends.io/index.php/api/pluginsites/update/auth/';
-			$url	  = $api_base . $auth . '/api/' . $api_key . '/';
-
-			$count_posts	= wp_count_posts();
-			$count_pages	= wp_count_posts( 'page' );
-			$comments_count = wp_count_comments();
-
-			// wp_get_theme was introduced in 3.4, for compatibility with older versions, let's do a workaround for now.
-			if ( function_exists( 'wp_get_theme' ) ) {
-				$theme_data = wp_get_theme();
-				$theme_name = urlencode( $theme_data->Name );
-			} else {
-				$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
-				$theme_name = $theme_data['Name'];
-			}
-
-			$plugin_name = '&';
-			foreach ( get_plugins() as $plugin_info ) {
-				$plugin_name .= $plugin_info['Name'] . '&';
-			}
-			// CHANGE __FILE__ PATH IF LOCATED OUTSIDE MAIN PLUGIN FILE
-			$plugin_data		 = get_plugin_data( $this->plugin_file_path );
-			$posts_with_comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type='post' AND comment_count > 0" );
-			$data				= array(
-				'url'			 => stripslashes( str_replace( array( 'http://', '/', ':' ), '', site_url() ) ),
-				'posts'		   => $count_posts->publish,
-				'pages'		   => $count_pages->publish,
-				'comments'		=> $comments_count->total_comments,
-				'approved'		=> $comments_count->approved,
-				'spam'			=> $comments_count->spam,
-				'pingbacks'	   => $wpdb->get_var( "SELECT COUNT(comment_ID) FROM $wpdb->comments WHERE comment_type = 'pingback'" ),
-				'post_conversion' => ( $count_posts->publish > 0 && $posts_with_comments > 0 ) ? number_format( ( $posts_with_comments / $count_posts->publish ) * 100, 0, '.', '' ) : 0,
-				'theme_version'   => $plugin_data['Version'],
-				'theme_name'	  => $theme_name,
-				'site_name'	   => str_replace( ' ', '', get_bloginfo( 'name' ) ),
-				'plugins'		 => count( get_option( 'active_plugins' ) ),
-				'plugin'		  => urlencode( $plugin_name ),
-				'wpversion'	   => get_bloginfo( 'version' ),
-			);
-
-			foreach ( $data as $k => $v ) {
-				$url .= $k . '/' . $v . '/';
-			}
-			wp_remote_get( $url );
-			set_transient( 'presstrends_cache_data', $data, $this->transient_timeout );
-		}
 	}
 
 	function site_transient_update_plugins( $trans ) {
@@ -2242,13 +2367,30 @@ class WPMDBPro extends WPMDBPro_Base {
 		if( false === $plugin_upgrade_data || ! isset( $plugin_upgrade_data['wp-migrate-db-pro'] ) ) return $trans;
 
 		foreach( $plugin_upgrade_data as $plugin_slug => $upgrade_data ) {
-			$plugin_basename = sprintf( '%1$s/%1$s.php', $plugin_slug );
+			// If pre-1.1.2 version of Media Files addon, use the slug as folder name
+			if ( !isset( $GLOBALS['wpmdb_meta'][$plugin_slug]['folder'] ) ) {
+				$plugin_folder = $plugin_slug;
+			}
+			else {
+				$plugin_folder = $GLOBALS['wpmdb_meta'][$plugin_slug]['folder'];
+			}
+
+			$plugin_basename = sprintf( '%s/%s.php', $plugin_folder, $plugin_slug );
 			$latest_version = $this->get_latest_version( $plugin_slug );
-			$installed_version = $this->get_installed_version( $plugin_basename );
 
-			if( false === $installed_version  ) continue;
+			if ( !isset( $GLOBALS['wpmdb_meta'][$plugin_slug]['version'] ) ) {
+				// If pre-1.1.2 version of Media Files addon and it is active
+				// assume version 1.1.1 so they can at least upgrade
+				global $wpmdbpro_media_files;
+				if ( !empty( $wpmdbpro_media_files ) ) {
+					$installed_version = '1.1.1';
+				}
+			}
+			else {
+				$installed_version = $GLOBALS['wpmdb_meta'][$plugin_slug]['version'];
+			}
 
-			if ( version_compare( $installed_version, $latest_version, '<' ) ) {
+			if ( isset( $installed_version ) && version_compare( $installed_version, $latest_version, '<' ) ) {
 				$is_beta = $this->is_beta_version( $latest_version );
 
 				$trans->response[$plugin_basename] = new stdClass();
@@ -2384,6 +2526,15 @@ class WPMDBPro extends WPMDBPro_Base {
 		}
 
 		return $val;
+	}
+
+	function end_ajax( $return = false ) {
+		if( defined( 'DOING_WPMDB_TESTS' ) ) {
+			return ( false === $return ) ? NULL : $return;
+		}
+
+		echo ( false === $return ) ? '' : $return;
+		exit;
 	}
 
 	function maybe_checked( $option ) {

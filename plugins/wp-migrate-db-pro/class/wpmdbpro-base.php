@@ -4,8 +4,10 @@ class WPMDBPro_Base {
 	protected $plugin_file_path;
 	protected $plugin_dir_path;
 	protected $plugin_slug;
+	protected $plugin_folder_name;
 	protected $plugin_basename;
 	protected $plugin_base;
+	protected $plugin_version;
 	protected $template_dir;
 	protected $plugin_title;
 	protected $dbrains_api_url;
@@ -17,20 +19,33 @@ class WPMDBPro_Base {
 	protected $error;
 	protected $temp_prefix = '_mig_';
 	protected $invalid_content_verification_error = 'Invalid content verification signature, please verify the connection information on the remote site and try again.';
+	protected $addons;
 
 	function __construct( $plugin_file_path ) {
 		$this->settings = get_option( 'wpmdb_settings' );
+
+		$this->addons = array(
+			'wp-migrate-db-pro-media-files/wp-migrate-db-pro-media-files.php' => array(
+				'name'				=> 'Media Files',
+				'required_version'	=> '1.1.3',
+			) 
+		);
 
 		$this->transient_timeout = 60 * 60 * 12;
 		$this->transient_retry_timeout = 60 * 60 * 2;
 
 		$this->plugin_file_path = $plugin_file_path;
 		$this->plugin_dir_path = plugin_dir_path( $plugin_file_path );
-		$this->plugin_slug = basename( $this->plugin_dir_path );
+		$this->plugin_folder_name = basename( $this->plugin_dir_path );
 		$this->plugin_basename = plugin_basename( $plugin_file_path );
 		$this->template_dir = $this->plugin_dir_path . 'template' . DS;
-		$this->plugin_title = ucwords( str_ireplace( '-', ' ', $this->plugin_slug ) );
-		$this->plugin_title = str_ireplace( array( 'db', 'wp' ), array( 'DB', 'WP' ), $this->plugin_title );
+		$this->plugin_title = ucwords( str_ireplace( '-', ' ', basename( $plugin_file_path ) ) );
+		$this->plugin_title = str_ireplace( array( 'db', 'wp', '.php' ), array( 'DB', 'WP', '' ), $this->plugin_title );
+
+		// We need to set $this->plugin_slug here because it was set here
+		// in Media Files prior to version 1.1.2. If we remove it the customer
+		// cannot upgrade, view release notes, etc
+		$this->plugin_slug = basename( $plugin_file_path, '.php' );
 
 		if ( defined( 'DBRAINS_API_BASE' ) ) {
 			$this->dbrains_api_base = DBRAINS_API_BASE;
@@ -60,6 +75,8 @@ class WPMDBPro_Base {
 
 		// Adds a custom error message to the plugin install page if required (licence expired / invalid)
 		add_filter( 'http_response', array( $this, 'verify_download' ), 10, 3 );
+
+		add_action( 'wpmdb_notices', array( $this, 'version_update_notice' ) );
 	}
 
 	function printer( $debug ) {
@@ -68,20 +85,6 @@ class WPMDBPro_Base {
 
 	function template( $template ) {
 		include $this->template_dir . $template . '.php';
-	}
-
-	function get_installed_version( $plugin = false ) {
-		if ( !is_admin() ) return false;
-
-		$plugin_basename = ( false !== $plugin ? $plugin : $this->plugin_basename );
-
-		$plugins = get_plugins();
-
-		if ( !isset( $plugins[$plugin_basename]['Version'] ) ) {
-			return false;
-		}
-
-		return $plugins[$plugin_basename]['Version'];
 	}
 
 	function open_ssl_enabled() {
@@ -299,6 +302,9 @@ class WPMDBPro_Base {
 		if( empty( $data['sig'] ) ) {
 			return false;
 		}
+		if ( isset( $data['nonce'] ) ) {
+			unset( $data['nonce'] );
+		}
 		$temp = $data;
 		$computed_signature = $this->create_signature( $temp, $key );
 		return $computed_signature === $data['sig'];
@@ -308,6 +314,9 @@ class WPMDBPro_Base {
 		$url = $this->dbrains_api_url;
 		$args['request'] = $request;
 		$url = add_query_arg( $args, $url );
+		if ( false !== get_site_transient( 'wpmdb_temporarily_disable_ssl' ) && 0 === strpos( $this->dbrains_api_url, 'https://' ) ) {
+			$url = substr_replace( $url, 'http', 0, 5 );
+		}
 		return $url;
 	}
 
@@ -323,7 +332,11 @@ class WPMDBPro_Base {
 
 		if ( is_wp_error( $response ) || (int) $response['response']['code'] < 200 || (int) $response['response']['code'] > 399 ) {
 			$this->log_error( print_r( $response, true ) );
-			return json_encode( array( 'errors' => array( 'connection_failed' => $url . 'Could not connect to deliciousbrains.com.' ) ) );
+			$disable_ssl_url = network_admin_url( $this->plugin_base . '&nonce=' . wp_create_nonce( 'wpmdb-disable-ssl' ) . '&wpmdb-disable-ssl=1' );
+			$connection_failed_message = '<div class="updated warning inline-message">';
+ 			$connection_failed_message .= sprintf( __( '<strong>Could not connect to deliciousbrains.com</strong> &mdash; You will not receive update notifications or be able to activate your license until this is fixed. This issue is often caused by an improperly configured SSL server (https). We recommend <a href="%s" target="_blank">fixing the SSL configuration on your server</a>, but if you need a quick fix you can:<p><a href="%s" class="temporarily-disable-ssl button">Temporarily disable SSL for connections to deliciousbrains.com</a></p>', 'wp-migrate-db-pro' ), 'https://deliciousbrains.com/wp-migrate-db-pro/documentation/#could-no-connect', $disable_ssl_url );
+ 			$connection_failed_message .= '</div>';
+			return json_encode( array( 'errors' => array( 'connection_failed' => $connection_failed_message ) ) );
 		}
 
 		return $response['body'];
@@ -363,7 +376,13 @@ class WPMDBPro_Base {
 		$licence_response = $this->is_licence_expired();
 		$licence_problem = isset( $licence_response['errors'] );
 
-		$installed_version = $this->get_installed_version( $this->plugin_basename );
+		if ( !isset( $GLOBALS['wpmdb_meta'][$this->plugin_slug]['version'] ) ) {
+			$installed_version = '0';
+		}
+		else {
+			$installed_version = $GLOBALS['wpmdb_meta'][$this->plugin_slug]['version'];
+		}
+
 		$latest_version = $this->get_latest_version( $this->plugin_slug );
 
 		$new_version = '';
@@ -507,10 +526,16 @@ class WPMDBPro_Base {
 	function get_latest_version( $slug ) {
 		$data = $this->get_upgrade_data();
 
-		// Return the latest beta version if the installed version is beta 
-		// and the API returned a beta version and it's newer than the latest stable version
-		$installed_version = $this->get_installed_version( sprintf( '%1$s/%1$s.php', $slug ) );
+		// If pre-1.1.2 version of Media Files addon
+		if ( !isset( $GLOBALS['wpmdb_meta'][$slug]['version'] ) ) {
+			$installed_version = false;
+		}
+		else {
+			$installed_version = $GLOBALS['wpmdb_meta'][$slug]['version'];
+		}
 
+		// Return the latest beta version if the installed version is beta
+		// and the API returned a beta version and it's newer than the latest stable version
 		if ( $installed_version && $this->is_beta_version( $installed_version )
 			&& isset( $data[$slug]['beta_version'] )
 			&& version_compare( $data[$slug]['version'], $data[$slug]['beta_version'], '<' )
@@ -541,7 +566,7 @@ class WPMDBPro_Base {
 			otherwise we'll end up making API requests over and over again
 			and slowing things down big time.
 		*/
-		$default_upgrade_data = array( 'wp-migrate-db-pro' => array( 'version' => $this->get_installed_version() ) );
+		$default_upgrade_data = array( 'wp-migrate-db-pro' => array( 'version' => $GLOBALS['wpmdb_meta']['wp-migrate-db-pro']['version'] ) );
 
 		if ( !$data ) {
 			set_site_transient( 'wpmdb_upgrade_data', $default_upgrade_data, $this->transient_retry_timeout );
@@ -607,6 +632,10 @@ class WPMDBPro_Base {
 		return $plugins[$plugin_basename]['Name'];
 	}
 
+	function get_class_props() {
+		return get_object_vars( $this );
+	}
+
 	// Get only the table beginning with our DB prefix or temporary prefix, also skip views
 	function get_tables( $scope = 'regular' ) {
 		global $wpdb;
@@ -619,6 +648,78 @@ class WPMDBPro_Base {
 			$clean_tables[] = $table[0];
 		}
 		return apply_filters( 'wpmdb_tables', $clean_tables, $scope );
+	}
+
+	function version_update_notice() {
+		// We don't want to show both the "Update Required" and "Update Available" messages at the same time
+		if( isset( $this->addons[$this->plugin_basename] ) && true == $this->is_addon_outdated( $this->plugin_basename ) ) return;
+		// To reduce UI clutter we hide addon update notices if the core plugin has updates available
+		if( isset( $this->addons[$this->plugin_basename] ) ) {
+			$core_slug = 'wp-migrate-db-pro';
+			$core_installed_version = $GLOBALS['wpmdb_meta'][$core_slug]['version'];
+			$core_latest_version = $this->get_latest_version( $core_slug );
+			// Core update is available, don't show update notices for addons until core is updated
+			if ( version_compare( $core_installed_version, $core_latest_version, '<' ) ) return;
+		}
+
+		$update_url = wp_nonce_url( network_admin_url( 'update.php?action=upgrade-plugin&plugin=' . urlencode( $this->plugin_basename ) ), 'upgrade-plugin_' . $this->plugin_basename );
+
+		// If pre-1.1.2 version of Media Files addon, don't bother getting the versions
+		if ( !isset( $GLOBALS['wpmdb_meta'][$this->plugin_slug]['version'] ) ) {
+			?>
+			<div style="display: block;" class="updated warning inline-message">
+				<strong>Update Available</strong> &mdash; 
+				A new version of <?php echo $this->plugin_title; ?> is now available. <a href="<?php echo $update_url; ?>">Update Now</a>
+			</div>
+			<?php
+		}
+		else {
+			$installed_version = $GLOBALS['wpmdb_meta'][$this->plugin_slug]['version'];
+			$latest_version = $this->get_latest_version( $this->plugin_slug );
+
+			if ( version_compare( $installed_version, $latest_version, '<' ) ) { ?>
+				<div style="display: block;" class="updated warning inline-message">
+					<strong>Update Available</strong> &mdash; 
+					<?php printf( '%s %s', $this->plugin_title, $latest_version ); ?> is now available. You currently have <?php echo $installed_version; ?> installed. <a href="<?php echo $update_url; ?>">Update Now</a>
+				</div>
+				<?php
+			}
+		}
+	}
+
+	function plugins_dir() {
+		$path = untrailingslashit( $this->plugin_dir_path );
+		return substr( $path, 0, strrpos( $path, DS ) ) . DS;
+	}
+
+	function is_addon_outdated( $addon_basename ) { 
+		$addon_slug = current( explode( '/', $addon_basename ) );
+		// If pre-1.1.2 version of Media Files addon, then it is outdated
+		if ( ! isset( $GLOBALS['wpmdb_meta'][$addon_slug]['version'] ) ) return true;
+		$installed_version = $GLOBALS['wpmdb_meta'][$addon_slug]['version'];
+		$required_version = $this->addons[$addon_basename]['required_version'];
+		return version_compare( $installed_version, $required_version, '<' );
+	}
+
+	function get_plugin_file_path() {
+		return $this->plugin_file_path;
+	}
+
+	function check_ajax_referer( $action ) {
+		$result = check_ajax_referer( $action, 'nonce', false );
+		if ( false === $result ) {
+			$return = array( 'wpmdb_error' => 1, 'body' => sprintf( __( 'Invalid nonce for: %s', 'wp-migrate-db-pro' ), $action ) );
+			$result = $this->end_ajax( json_encode( $return ) );
+			return $result;
+		}
+
+		$cap = ( is_multisite() ) ? 'manage_network_options' : 'export';
+		$cap = apply_filters( 'wpmdb_ajax_cap', $cap );
+		if ( !current_user_can( $cap ) ) {
+			$return = array( 'wpmdb_error' => 1, 'body' => sprintf( __( 'Access denied for: %s', 'wp-migrate-db-pro' ), $action ) );
+			$result = $this->end_ajax( json_encode( $return ) );
+			return $result;
+		}
 	}
 
 }

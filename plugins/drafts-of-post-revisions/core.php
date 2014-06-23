@@ -6,7 +6,7 @@
 class Draft_Post_Revisions {
 	
 	// plugin version number
-	public static $version = "0.7.3";
+	public static $version = "0.8.1";
 	// key for wp_options to store plugin options
 	private static $options_key = 'dpr_options';
 	// array of permitted options
@@ -50,6 +50,9 @@ class Draft_Post_Revisions {
 		if ('edit.php' == $pagenow)
 			add_action('admin_print_scripts', array($this, 'add_js'));
 		
+		if ('post.php' == $pagenow && isset($_GET['dpr_published']) && $_GET['dpr_published'])
+			add_action('admin_footer-post.php', array($this, 'add_autosave_cancel_js'), 999999);	
+		
 		// custom revision page and method
 		add_action('load-revision.php', array($this, 'dpr_revision'));		
 		// add action to deal with post deletion
@@ -66,6 +69,12 @@ class Draft_Post_Revisions {
 	public function add_js() {
 		wp_register_script( 'dprjs', plugins_url( '/assets/dpr.dev.js', __FILE__ ), '', '1.0', 'true' );
 		wp_enqueue_script( 'dprjs' );
+	}
+	
+	// this is a hack to keep wp autosave from finding different post_content in local storage and
+	// subsequently displaying an admin notice
+	public function add_autosave_cancel_js() {
+		echo '<script>wp.autosave.local.setData(false); wp.autosave.local.checkPost();</script>';
 	}
 		
 	// routes a request to create a new draft
@@ -121,16 +130,16 @@ class Draft_Post_Revisions {
 		}
 		
 		if ($ajax)
-			exit(DPR_Mustache::render('post_edit_row', array('post' => get_post($pub_id))));
+			exit(DPR_Mustachio::render('post_edit_row', array('post' => get_post($pub_id))));
 		
-		wp_redirect( get_edit_post_link($redirect_id, '&') );
+		wp_redirect( get_edit_post_link($redirect_id, '&') . "&dpr_published=true" );
 		exit();
 	}
 	
 	// load-revision.php callback to create our own custom diff page
 	// mostly follows wp's revision.php
 	public function dpr_revision() {
-		if ( $_GET['action'] != 'dpr_diff' ) return;
+		if ( !isset($_GET['action']) || $_GET['action'] != 'dpr_diff' ) return;
 		
 		// a wp global to set the correct active menu item
 		global $parent_file;
@@ -181,7 +190,7 @@ class Draft_Post_Revisions {
 		
 		require_once( './admin-header.php' );
 		
-		echo DPR_Mustache::render('diff', array(
+		echo DPR_Mustachio::render('diff', array(
 			'left' => $parent,
 			'right' => $draft,
 			'rev_fields' => $rev_fields
@@ -197,7 +206,7 @@ class Draft_Post_Revisions {
 		if ( ! $this->drafter->has_draft($post->ID) ) return;
 		
 		$this->notices->add(array(
-			'text' => DPR_Mustache::render('notice/_post_deletion', array('title' => $post->post_title)),
+			'text' => DPR_Mustachio::render('notice/_post_deletion', array('title' => $post->post_title)),
 			'type' => 'error'
 		));
 	}
@@ -212,7 +221,7 @@ class Draft_Post_Revisions {
 		// if it's a parent, warn the user about editing parents with drafts
 		if ( $this->drafter->has_draft($post->ID) ) {
 			$this->notices->now(array(
-				'text' => DPR_Mustache::render('notice/_active_drafts'), 
+				'text' => DPR_Mustachio::render('notice/_active_drafts'), 
 				'type' => 'error'
 			));
 
@@ -222,7 +231,7 @@ class Draft_Post_Revisions {
 			
 			if ( $parent->post_modified > $post->post_date ) {
 				$this->notices->now(array(
-					'text' => DPR_Mustache::render('notice/_parent_post_updated', array(
+					'text' => DPR_Mustachio::render('notice/_parent_post_updated', array(
 						'post_type' => $parent->post_type,
 						'right' => $parent->ID,
 						'left' => $post->ID
@@ -266,7 +275,7 @@ class Draft_Post_Revisions {
 			$all_types[$key] = array('name' => $value, 'supported' => in_array($value, $supported));
 		}
 			
-		echo DPR_Mustache::render('options_page', array(
+		echo DPR_Mustachio::render('options_page', array(
 			'all_types' => array_values($all_types)
 		));
 	}
@@ -301,7 +310,7 @@ class Draft_Post_Revisions {
 	public function render_draft_meta_box($post) {
 		$parent = get_post($post->post_parent);
 		$parent->admin_link = get_edit_post_link($parent->ID, '&');
-		echo DPR_Mustache::render('meta_box/_draft', array(
+		echo DPR_Mustachio::render('meta_box/_draft', array(
 			'parent' => (array) $parent,
 			'draft' => $post
 		));
@@ -323,7 +332,7 @@ class Draft_Post_Revisions {
 			),
 			$kids
 		);
-		echo DPR_Mustache::render('meta_box/_parent', array('kids' => $kids));
+		echo DPR_Mustachio::render('meta_box/_parent', array('kids' => $kids));
 	}
 	
 	

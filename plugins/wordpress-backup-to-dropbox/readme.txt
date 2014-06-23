@@ -3,7 +3,7 @@ Contributors: michael.dewildt
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=38SEXDYP28CFA
 Tags: backup, dropbox
 Requires at least: 3.0
-Tested up to: 3.7
+Tested up to: 3.9
 Stable tag: trunk
 
 Keep your valuable WordPress website, its media and database backed up to Dropbox in minutes with this sleek, easy to use plugin.
@@ -86,6 +86,7 @@ For news and updates please visit my blog - http://www.mikeyd.com.au/category/wo
 * Russian (ru_RU)
 * Sweedish (sv_SE)
 * Finland (fi_FI)
+* Danish (da_DK)
 
 == Installation ==
 
@@ -94,6 +95,12 @@ For news and updates please visit my blog - http://www.mikeyd.com.au/category/wo
 3. The first time you access the settings you will be prompted to authorize it with Dropbox
 
 == Frequently Asked Questions ==
+
+= I am getting this error: `Error message: Error Processing Request: error:0D0890A1:asn1 encoding routines:ASN1_verify:unknown message digest algorithm` =
+
+This is due to the recent [Heartbleed vulnerability](http://heartbleed.com/) and indicates that your server has an outdated version of OpenSSL that is no longer compatible with Dropbox and must be updated in order to continue using the plugin.
+
+Please contact your host to get it updated.
 
 = Why won’t my backup start? =
 
@@ -113,11 +120,13 @@ However, the plugin has been designed to get around these limitations by using a
 
 In short, this is a feature! :-)
 
+= Does the plugin backup the WordPress databse? =
+
+It sure does. Your database tables will be dumped to a SQL file that can be used to import into a database when you need to restore or move your website.
+
 = Where are my database backup files located? =
 
-The database is backed up into two files named '[database name]-backup-core.sql' and '[database name]-backup-plugins.sql'. These files will be will be found at the path 'wp-content/backups' within the App folder of your Dropbox.
-
-The first file contains all the core WordPress tables and data and the second contains tables and data related to your plugins. Sometimes your second file will not have any data in it because most plugins will store their data in the wp_options table.
+The database is backed up into a file named '[database name]-backup.sql' and can be found at the path 'wp-content/backups' within the App folder of your Dropbox.
 
 = Wow! My second backup was heaps faster. Why is that? =
 
@@ -136,6 +145,25 @@ You can also install the zip [premium extension](http://wpb2d.com/premium) that 
 3. Premium Extensions: Add extra functionality with ease and a 60 day money back guarantee.
 
 == Changelog ==
+
+= 1.9 =
+* Tested to work with WordPress 3.9.
+* Fixed bug in SQL dump where NULL was outputting as '' and 0 as '0'; thanks for the heads up Tervor!
+* Add Danish Translations; thanks Henrik!
+* Add constant to configure the restart time; NO_ACTIVITY_WAIT_TIME defaults to 5 mins.
+* Add Danish translation thanks Michael!
+
+= 1.8.1 =
+* Fix some spelling mistakes
+* Fix bug where chunked upload temp memory cant be read that leads to a zero byte upload
+
+= 1.8 =
+* Compatible with WP 3.8
+* Fixed menu ordering to better avoid clashes with other plugins
+* Fixed PHP notice in Dropbox Facade
+* Updated FAQ
+* Namespace CSS so it's less likely to clash with other plugins
+* Fix a potential issue where some tables and be missed in backup on resume
 
 = 1.7 =
 * Code is now conforms to most of the PSR standards that are much better then the WP ones

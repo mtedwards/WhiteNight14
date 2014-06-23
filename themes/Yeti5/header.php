@@ -56,6 +56,7 @@ fb_param.currency = 'AUD';
 		<meta property="og:title" content="+My Night | White Night Melbourne" />
 		<meta property="og:description" content="View the events I'm looking forward to at White Night Melbourne" />
 <?php } ?>
+	<meta name="google-site-verification" content="LeLPKkCvkogj3Vg63eNP9iCxSW82BSTRZSmGkxCMPA4" />
 </head>
 
 <body <?php body_class(); ?>>

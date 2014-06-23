@@ -3,7 +3,7 @@ Contributors: daxitude
 Tags: status, post status, workflow, Revision
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 0.7.3
+Stable tag: 0.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,13 @@ When you're ready to update the parent post, click the Publish button from the d
 1. Draft revisions organized in edit.php under their own custom post status
 
 == Changelog ==
+
+= 0.8.1 =
+* Fix diff page with new wp 3.8 html
+* Rename Mustache.php to Mustachio.php to avoid weird conflicts with other plugins using Mustache
+
+= 0.8 =
+* updated to be compatible with WP 3.8
 
 = 0.7.3 =
 * bugfix - make sure compare changes link works when WP is installed in a sub-dir

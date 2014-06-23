@@ -62,7 +62,7 @@
                 <div class="small-4 columns">
                      <h5>VISITOR INFO</h5>
                      <ul>                
-                       <li><a href="<?php echo $url; ?>/visiting-melbourne/">Visiting Melbourne</a></li>
+                       <!-- <li><a href="<?php echo $url; ?>/visiting-melbourne/">Visiting Melbourne</a></li> -->
                        <!-- <li><a href="#">Getting Here</a></li> -->
                        <!-- <li><a href="#">Getting Around</a></li> -->
                        <!-- <li><a href="#">Map</a></li> -->

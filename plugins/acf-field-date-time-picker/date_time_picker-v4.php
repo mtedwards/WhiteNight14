@@ -23,7 +23,7 @@ class acf_field_date_time_picker extends acf_field
 		$this->name = 'date_time_picker';
 		$this->label = __('Date and Time Picker');
 		$this->category = __("jQuery", $this->domain); // Basic, Content, Choice, etc
-		$this->domain = 'acf-date_time_picker';
+		$this->domain = 'acf-field-date-time-picker';
 		$this->defaults = array(
 			 'label'             => __( 'Choose Time', $this->domain )
 			, 'time_format'       => 'h:mm tt'
@@ -371,7 +371,7 @@ class acf_field_date_time_picker extends acf_field
 		$js_locale = $this->get_js_locale(get_locale());
 
 		wp_enqueue_script( 'jquery-ui-timepicker', $this->settings['dir'] . 'js/jquery-ui-timepicker-addon.js', array(
-				'acf-datepicker',
+				'acf-input',
 				'jquery-ui-slider'
 		), $this->settings['version'], true );
 

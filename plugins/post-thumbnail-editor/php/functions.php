@@ -205,13 +205,15 @@ function pte_get_all_alternate_size_information( $id ){
 }
 
 /*
- * pte_launch
+ * pte_body
  *
- * Outputs the base HTML needed to display and transform the inages
+ * Returns the base HTML needed to display and transform the inages
  *
  * Requires post id as $_GET['id']
  */
-function pte_launch( $page, $id ){
+function pte_body( $id ){
+	ob_start();
+
 	$logger = PteLogger::singleton();
 	$options = pte_get_options();
 
@@ -233,11 +235,9 @@ function pte_launch( $page, $id ){
 		$logger->error( __( "Please contact support", PTE_DOMAIN ) );
 	}
 
-	$sizer = $big > 400 ? 400 / $big : 1;
-	$sizer = sprintf( "%.8F", $sizer );
-	$logger->debug( "PTE-VERSION: " . PTE_VERSION );
-	$logger->debug( "USER-AGENT: " . $_SERVER['HTTP_USER_AGENT'] );
-	$logger->debug( "WORDPRESS: " . $GLOBALS['wp_version'] );
+	PteLogger::debug( "PTE-VERSION: " . PTE_VERSION .
+		"\nUSER-AGENT:  " . $_SERVER['HTTP_USER_AGENT'] .
+		"\nWORDPRESS:   " . $GLOBALS['wp_version'] );
 
 	$script_url = PTE_PLUGINURL . 'php/load-scripts.php?load=jquery,imgareaselect,jquery-json,pte';
 	$style_url = PTE_PLUGINURL . 'php/load-styles.php?load=imgareaselect,pte';
@@ -246,7 +246,56 @@ function pte_launch( $page, $id ){
 		$script_url .= "&d=1";
 	}
 
-	require( $page );
+	// Generate an image and put into the ptetmp directory
+	if (false === $editor_image = pte_generate_working_image($id)) {
+		$editor_image = sprintf("%s?action=pte_imgedit_preview&amp;_ajax_nonce=%s&amp;postid=%d&amp;rand=%d",
+			admin_url('admin-ajax.php'),
+			$nonce,
+			$id,
+			rand(1,99999)
+		);
+	}
+
+	require( PTE_PLUGINPATH . "html/pte.php" );
+	return ob_get_clean();
+}
+
+function pte_generate_working_image($id)
+{
+	$options = pte_get_options();
+	if (false == $options['pte_imgedit_disk'])
+		return false;
+
+	// SETS PTE_TMP_DIR and PTE_TMP_URL
+	extract( pte_tmp_dir() );
+
+	$original_file = _load_image_to_edit_path( $id );
+	$size = $options['pte_imgedit_max_size'];
+
+	$editor = wp_get_image_editor( $original_file );
+	$finfo    = pathinfo( $original_file );
+	$basename = sprintf("%s-%s.%s", $id, $size, $finfo['extension']);
+	$file     = sprintf("%s%s", $PTE_TMP_DIR, $basename );
+	$url      = sprintf("%s%s", $PTE_TMP_URL, $basename );
+
+	if ( file_exists( $file ) )
+		return $url;
+
+	PteLogger::debug("\nGENERATING WORKING IMAGE:\n  [{$file}]\n  [{$url}]");
+
+	// Resize the image and check the results
+	$results = $editor->resize($size,$size);
+	if ( is_wp_error( $results ) ) {
+		PteLogger::error( $results );
+		return false;
+	}
+
+	// Save the image
+	if ( is_wp_error( $editor->save( $file ) ) ) {
+		PteLogger::error( "Unable to save the generated image falling back to ajax-ed image" );
+		return false;
+	}
+	return $url;
 }
 
 function pte_check_int( $int ){
@@ -374,13 +423,11 @@ function pte_resize_images(){
 
 	// The following information is common to all sizes
 	// *** common-info
-	$dst_x          = 0;
-	$dst_y          = 0;
 	$original_file  = _load_image_to_edit_path( $id );
 	$original_size  = @getimagesize( $original_file );
-	$uploads 	    = wp_upload_dir();
-	$PTE_TMP_DIR    = $uploads['basedir'] . DIRECTORY_SEPARATOR . "ptetmp" . DIRECTORY_SEPARATOR;
-	$PTE_TMP_URL    = $uploads['baseurl'] . "/ptetmp/";
+
+	// SETS PTE_TMP_DIR and PTE_TMP_URL
+	extract( pte_tmp_dir() );
 	$thumbnails     = array();
 
 	if ( !$original_size ){
@@ -409,6 +456,8 @@ function pte_resize_images(){
 
 		// === CREATE IMAGE ===================
 		// This function is in wp-includes/media.php
+		// We've added a filter to return our own editor which extends the wordpress one.
+		add_filter( 'wp_image_editors', 'pte_image_editors' );
 		$editor = wp_get_image_editor( $original_file );
 		if ( is_a( $editor, "WP_Image_Editor_Imagick" ) ) $logger->debug( "EDITOR: ImageMagick" );
 		if ( is_a( $editor, "WP_Image_Editor_GD" ) ) $logger->debug( "EDITOR: GD" );
@@ -464,6 +513,13 @@ function pte_resize_images(){
 	) );
 }
 
+function pte_image_editors( $editor_array ){
+	require_once( PTE_PLUGINPATH . 'php/class-pte-image-editor-gd.php' );
+	require_once( PTE_PLUGINPATH . 'php/class-pte-image-editor-imagick.php' );
+	array_unshift( $editor_array, 'PTE_Image_Editor_Imagick', 'PTE_Image_Editor_GD' );
+	return $editor_array;
+}
+
 /*
  * pte_confirm_images
  *
@@ -506,12 +562,14 @@ function pte_confirm_images($immediate = false){
 	//    Update metadata
 	//    Delete old image
 	// Remove PTE/$id directory
-	$uploads = wp_upload_dir();
-	$PTE_TMP_DIR = $uploads['basedir'] . DIRECTORY_SEPARATOR . "ptetmp" . DIRECTORY_SEPARATOR . $id;
+
+	// SETS PTE_TMP_DIR and PTE_TMP_URL
+	extract( pte_tmp_dir() );
+
 	foreach ( $sizes as $size => $data ){
 		// Make sure we're only moving our files
 		$good_file = $PTE_TMP_DIR
-			. DIRECTORY_SEPARATOR
+			. $id . DIRECTORY_SEPARATOR
 			. basename( $_GET['pte-confirm'][$size] );
 
 		if ( ! ( isset( $good_file ) && file_exists( $good_file ) ) ){
@@ -590,16 +648,50 @@ function pte_delete_images()
 	if ( !check_ajax_referer( "pte-delete-{$id}", 'pte-nonce', false ) ){
 		return pte_json_error( "CSRF Check failed" );
 	}
-	$uploads = wp_upload_dir();
-	$PTE_TMP_DIR = $uploads['basedir'] . DIRECTORY_SEPARATOR . "ptetmp" . DIRECTORY_SEPARATOR . $id;
+
+	// SETS PTE_TMP_DIR and PTE_TMP_URL
+	extract( pte_tmp_dir() );
+	$PTE_TMP_DIR = $PTE_TMP_DIR . $id . DIRECTORY_SEPARATOR;
+
 	// Delete tmpdir
+	PteLogger::debug( "Deleting [{$PTE_TMP_DIR}]" );
 	pte_rmdir( $PTE_TMP_DIR );
 	return pte_json_encode( array( "success" => "Yay!" ) );
 }
 
 function pte_get_jpeg_quality($quality){
-	$logger = PteLogger::singleton();
 	$options = pte_get_options();
-	$logger->debug( "COMPRESSION: " . $options['pte_jpeg_compression'] );
-	return $options['pte_jpeg_compression'];
+	$jpeg_compression = $options['pte_jpeg_compression'];
+	if ( isset( $_GET['pte-jpeg-compression'] ) ) {
+		$tmp_jpeg = intval( $_GET['pte-jpeg-compression'] );
+		if ( 0 <= $tmp_jpeg && $tmp_jpeg <= 100 ){
+			$jpeg_compression = $tmp_jpeg;
+		}
+	}
+	PteLogger::debug( "COMPRESSION: " . $jpeg_compression );
+	return $jpeg_compression;
+}
+
+/**
+ * Sending output to an iframe
+ */
+function pte_init_iframe() {
+	global $title, $pte_iframe;
+	$pte_iframe = true;
+
+	// Provide the base framework/HTML for the editor.
+	require_once( ABSPATH . WPINC . '/script-loader.php' );
+	// Check the input parameters and create the HTML
+	pte_edit_setup();
+
+	print( "<!DOCTYPE html>\n<html><head><title>${title}</title>\n" );
+
+	print_head_scripts();
+	print_admin_styles();
+
+	print( '</head><body class="wp-core-ui pte-iframe">' );
+	// Simply echo the created HTML
+	pte_edit_page();
+	print_footer_scripts();
+	print( '</body></html>' );
 }

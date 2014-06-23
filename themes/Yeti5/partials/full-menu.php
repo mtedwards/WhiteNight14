@@ -66,7 +66,7 @@
                     <h5>VISITOR INFO</h5>
                      <ul>
         
-                         <li><a href="<?php echo $url; ?>/visiting-melbourne/">Visiting Melbourne</a></li>
+                         <!-- <li><a href="<?php echo $url; ?>/visiting-melbourne/">Visiting Melbourne</a></li> -->
                          <!-- <li><a href="<?php echo $url; ?>/visitor-information/getting-there-getting-around/">Getting Here / Getting Around</a></li> -->
                          <!-- <li><a href="#">Map</a></li> -->
                          <li><a href="<?php echo $url; ?>/visitor-information/getting-there-getting-around/">Getting There &amp; Getting Around</a></li>
