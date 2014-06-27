@@ -11,14 +11,7 @@
           <div class="menu-buttons">
             <ul>
 			   <li id="my-night-menu-item-mobile">
-              	 <script>
-                  if (document.cookie.indexOf("wn_logged_in") >= 0) {
-                    $( '#my-night-menu-item-mobile' ).load( "/partial/mobile-menu-logged-in/", function() {});
-                  }
-                  else {
-                    $( '#my-night-menu-item-mobile' ).load( "/partial/mobile-menu-logged-out/", function() {});
-                  }
-                </script>
+                <?php include(locate_template('partials/mobile-menu-logged-out.php')); ?>
               </li>
             </ul>
           </div>

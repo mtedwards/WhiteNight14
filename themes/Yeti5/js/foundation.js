@@ -25,7 +25,7 @@
       // Countdown
       
       var newYear = new Date(); 
-      newYear = new Date(new Date(2014, 2-1, 22, 19)); 
+      newYear = new Date(new Date(2015, 2-1, 21, 19)); 
       $('#countdown').countdown({until: newYear, format: 'dHM'});
       
       // Replace Content on Event Read More

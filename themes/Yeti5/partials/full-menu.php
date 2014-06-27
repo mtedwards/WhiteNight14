@@ -50,15 +50,9 @@
                 </div>
               </li>
               <li id="my-night-menu-item">
-              </li>
-                <script>
-                  if (document.cookie.indexOf("wn_logged_in") >= 0) {
-                    $( '#my-night-menu-item' ).load( "/partial/full-menu-logged-in/", function() {});
-                  }
-                  else {
-                    $( '#my-night-menu-item' ).load( "/partial/full-menu-logged-out/", function() {});
-                  }
-                </script>
+              
+                <?php include(locate_template('partials/full-menu-logged-out.php')); ?>
+                </li>
               <li>
                 <a id="menu-full-info" class="menu-button dropdown" href="#">Visitor Info</a>
                  <div class="sub-menu">

@@ -75,21 +75,8 @@ fb_param.currency = 'AUD';
     <div class="main-menu contain-to-grid fixed">
       <nav class="top-bar" id="header-menu" data-topbar>
         <?php include(locate_template('partials/mobile-menu.php')); ?>
+        <?php include(locate_template('partials/full-menu.php')); ?>
       </nav>
-      <script type="text/javascript">           
-        enquire.register("screen and (min-width: 730px)", {
-              deferSetup : true,
-              setup : function() {
-                  $( '#header-menu' ).load( "/partial/full-menu/", function() {});
-              },
-              match : function() {
-                  $( '#header-menu' ).load( "/partial/full-menu/", function() {});
-              },
-              unmatch : function() {
-                  $( '#header-menu' ).load( "/partial/mobile-menu/", function() {});
-              }  
-          });
-      </script>
       <div class="added-event">
         Added to +My Night <a href="<?php bloginfo('url') ?>/my-night">View +My Night Now</a>
       </div>

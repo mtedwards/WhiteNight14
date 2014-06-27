@@ -110,12 +110,9 @@
         </div>
         <div class="row">
           <div class="small-12 columns"><h4>subscribe</h4></div>
-          <form method="post" action="http://acmn.pty.mkt3562.com/WhiteNight/NewWebsiteSubscribe">
+          <form method="post" action="<?php bloginfo('url'); ?>/thanks">
             <div class="small-8 columns"><input type="text" name="Email" placeholder="Email"></div>
             <div class="small-4 columns"><button type="submit" class="button blue no-margin expand">Submit</button></div>
-            <input type="hidden" name="formSourceName" value="StandardForm">
-            <!-- DO NOT REMOVE HIDDEN FIELD sp_exp -->
-            <input type="hidden" name="sp_exp" value="yes">
           </form>
           
       </div>
@@ -125,12 +122,9 @@
     <div class="small-12 columns">
       <div class="row">
           <div class="small-12 columns"><h4>subscribe</h4></div>
-          <form method="post" action="http://acmn.pty.mkt3562.com/WhiteNight/NewWebsiteSubscribe">
+          <form method="post" action="<?php bloginfo('url'); ?>/thanks">
             <div class="small-8 columns"><input type="text" name="Email" placeholder="Email"></div>
             <div class="small-4 columns"><button type="submit" class="button blue no-margin expand">Submit</button></div>
-            <input type="hidden" name="formSourceName" value="StandardForm">
-            <!-- DO NOT REMOVE HIDDEN FIELD sp_exp -->
-            <input type="hidden" name="sp_exp" value="yes">
           </form>
       </div><?php // end subscribe ?>
       <div class="row">
