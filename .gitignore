@@ -7,3 +7,5 @@
 .DS_Store
 
 /backups/wpb2d-backup-log.txt.40276d02c09e7a565041cac16d81ec2765ba08b9-wpb2d-secret
+
+plugins/
