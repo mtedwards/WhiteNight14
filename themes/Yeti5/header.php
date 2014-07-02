@@ -77,9 +77,6 @@ fb_param.currency = 'AUD';
         <?php include(locate_template('partials/mobile-menu.php')); ?>
         <?php include(locate_template('partials/full-menu.php')); ?>
       </nav>
-      <div class="added-event">
-        Added to +My Night <a href="<?php bloginfo('url') ?>/my-night">View +My Night Now</a>
-      </div>
     </div>  
   </div>
 

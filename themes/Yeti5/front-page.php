@@ -17,9 +17,8 @@
 
 	  <div class="row">
   	  <div class="small-12 columns">
-    	  <?php the_content(); ?>
+    	  <?php // the_content(); ?>
   	  </div>
 	  </div>
 	</div><?php //end role main ?>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <?php get_footer(); ?>
