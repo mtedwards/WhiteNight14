@@ -12,7 +12,7 @@
 	</div>
   <div class="small-12 medium-4 large-4 columns is-single-page featured-info">
       <?php include(locate_template('partials/sidebar-details.php')); ?>
-	 <?php include(locate_template('partials/promo-boxes.php')); ?>  
+	 <?php // include(locate_template('partials/promo-boxes.php')); ?>  
 </div>
 		
 <?php get_footer(); ?>

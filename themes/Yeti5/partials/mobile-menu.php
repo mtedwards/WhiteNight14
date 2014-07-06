@@ -10,8 +10,8 @@
           </div>
           <div class="menu-buttons">
             <ul>
-			   <li id="my-night-menu-item-mobile">
-                <?php include(locate_template('partials/mobile-menu-logged-out.php')); ?>
+              <li id="my-night-menu-item-mobile">
+                <?php //include(locate_template('partials/mobile-menu-logged-out.php')); ?>
               </li>
             </ul>
           </div>
@@ -19,40 +19,19 @@
             <a class="icon-list dropdown"></a>
             <div class="sub-menu right">
               <div class="row">
-                <div class="small-4 columns">
-                   <ul>
-                      <li><a href="<?php echo $url; ?>/events/"><b>FULL PROGRAMME</b></a></li>
-                      <!-- <li><a href="#"><b>Journeys</b></a></li> -->
-                    </ul>
-                    <h5>Precincts</h5>
+                <div class="small-12 columns">
+                    <h5>SUBMISSIONS</h5>
                     <ul>
-                      <li><a href="<?php echo $url; ?>/precinct/01-northern-lights/">Northern Lights</a></li>
-                      <li><a href="<?php echo $url; ?>/precinct/02-lucky-dip/">Lucky Dip</a></li>
-                      <li><a href="<?php echo $url; ?>/precinct/03-jrb/">J + R&B</a></li>
-                      <li><a href="<?php echo $url; ?>/precinct/04-shadows/">Shadows</a></li>
-                      <li><a href="<?php echo $url; ?>/precinct/05-rags-to-riches/">Rags to Riches</a></li>
-                      <li><a href="<?php echo $url; ?>/precinct/06-wonderland/">Wonderland</a></li>
-                      <li><a href="<?php echo $url; ?>/precinct/07-the-vortex/">The Vortex</a></li>
-                      <li><a href="<?php echo $url; ?>/precinct/08-midden/">Midden</a></li>
-                      <li><a href="<?php echo $url; ?>/precinct/09-alex-and-the-engineer/">Alex and the engineer</a></li>
-                      <li><a href="<?php echo $url; ?>/precinct/10-tattooed-city/">Tattooed City</a></li>
-                      <li><a href="<?php echo $url; ?>/precinct/11-outer-limits/">Outer Limits</a></li>
+                      <li><a href="<?php echo $url; ?>/2015-eoi/performance/">Performance</a></li>
+                      <li><a href="<?php echo $url; ?>/2015-eoi/lighting-av-projection/">Lighting / AV / Projection</a></li>
+                      <li><a href="<?php echo $url; ?>/2015-eoi/installation-visual-art/">Installation / Visual Art</a></li>
+                      <li><a href="<?php echo $url; ?>/2015-eoi/venues-galleries-spaces/">Venues / Galleries / Spaces</a></li>
+                      <li><a href="<?php echo $url; ?>/2015-eoi/buskers/">Buskers</a></li>
+                      <li><a href="<?php echo $url; ?>/2015-eoi/cafes-bars-restaurants-food-trucks/">Cafes / Bars / Restaurants / Food Trucks</a></li>
+                      <li><a href="<?php echo $url; ?>/2015-eoi/box-funding/">Out of the Box Funding</a></li>
                     </ul>
                 </div>
-                <div class="small-4 columns">
-                   <ul>
-                      <li><a href="<?php echo $url; ?>/events/?genre=art">Art</a></li>
-                      <li><a href="<?php echo $url; ?>/events/?genre=design">Design</a></li>
-                      <li><a href="<?php echo $url; ?>/events/?genre=family">Family</a></li>
-                      <li><a href="<?php echo $url; ?>/events/?genre=fashion">Fashion</a></li>
-                      <li><a href="<?php echo $url; ?>/events/?genre=film">Film</a></li>
-                      <li><a href="<?php echo $url; ?>/events/?genre=lighting">Lighting</a></li>
-                      <li><a href="<?php echo $url; ?>/events/?genre=music">Music</a></li>
-                      <li><a href="<?php echo $url; ?>/events/?genre=performance">Performance</a></li>
-                      <li><a href="<?php echo $url; ?>/events/?genre=sport">Sport</a></li>
-                    </ul>
-                </div>
-                <div class="small-4 columns">
+                <div class="small-12 columns">
                      <h5>VISITOR INFO</h5>
                      <ul>                
                        <!-- <li><a href="<?php echo $url; ?>/visiting-melbourne/">Visiting Melbourne</a></li> -->
@@ -78,11 +57,6 @@
                      <li><a href="<?php echo $url; ?>/partners">Partners / Supporters</a></li>
                     </ul>               
                   </div>
-              </div>
-              <div class="row">
-                <div class="small-12 columns">
-                  <?php get_search_form(); ?>
-                </div>
               </div>
             </div>
           </div>

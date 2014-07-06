@@ -1,9 +1,9 @@
-<div class="centered-text date-text hide-for-medium-down white-bg">
+<div class="centered-text date-text show-for-medium-up white-bg">
   <h2>21 February 2015</h2>
   <h3 class="no-bottom">7PM TO 7AM</h3>
 </div>
 
-<div class="centered-text countdown hide-for-medium-down white-bg">
+<div class="centered-text countdown show-for-medium-up white-bg">
   <h6>Countdown to White Night Melbourne</h6>
   <div id="countdown"></div>
 </div>

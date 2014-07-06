@@ -1,4 +1,3 @@
-<!--
 <div style="display:none" id="featured" class="orbit-container">
 	<ul data-orbit data-options="bullets:false; stack_on_small: false; timer_speed: 4000; resume_on_mouseout: true;">
 		<?php $sliders = get_field('slider');
@@ -28,9 +27,3 @@
 		 <?php } ?>
 	</ul>
 </div>
--->
-<ul>
-	<li>
-		<img style="width:100%"; src="<?php bloginfo('template_url') ?>/img/thankyouWeb1.png">
-	</li>
-</ul>
