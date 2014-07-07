@@ -49,30 +49,9 @@
                 <a id="menu-full-info" class="menu-button dropdown" href="#">Explore</a>
                  <div class="sub-menu">
                   <div class="left">
-                    <h5>VISITOR INFO</h5>
                      <ul>
-        
-                         <!-- <li><a href="<?php echo $url; ?>/visiting-melbourne/">Visiting Melbourne</a></li> -->
-                         <!-- <li><a href="<?php echo $url; ?>/visitor-information/getting-there-getting-around/">Getting Here / Getting Around</a></li> -->
-                         <!-- <li><a href="#">Map</a></li> -->
-                         <li><a href="<?php echo $url; ?>/visitor-information/getting-there-getting-around/">Getting There &amp; Getting Around</a></li>
-                         <li><a href="<?php echo $url; ?>/where-to-eat-rest/">Where to Eat &amp; Rest</a></li> 
-                         <li><a href="<?php echo $url; ?>/faq/">Frequently Asked Questions</a></li>                       <!-- <li><a href="#">Getting Home</a></li> -->
-                         
-                
-                    </ul>
-                    <h5>About Us</h5>
-                    <ul>
-                      <li><a href="<?php echo $url; ?>/about-white-night-melbourne/">About White Night</a></li>
-                      <li><a href="<?php echo $url; ?>/history-of-white-night/">History</a></li>
-                      <!-- <li><a href="<?php echo $url; ?>/getting-involved/">Getting Involved</a></li> -->
-                      <li><a href="<?php echo $url; ?>/contact-us/">Contact Us</a></li>
-                     <!--
-                     <li><a href="#">History</a></li>
-                     <li><a href="#">International Events</a></li>
-                     -->
-                     <li><a href="<?php echo $url; ?>/the-team/">The Team</a></li>
-                     <li><a href="<?php echo $url; ?>/partners">Partners/Supporters</a></li>
+                         <li><a href="<?php echo $url; ?>/events/">2014 Full Programme</a></li>
+                         <li><a href="<?php echo $url; ?>/events/">2013 Full Programme</a></li> 
                     </ul>
                   </div>
                   <div class="right">

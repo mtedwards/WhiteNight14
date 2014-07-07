@@ -1,96 +1,61 @@
 </div> <?php // main-content-section end ?>
-<?php $siteURL = get_bloginfo('url'); ?>
+<?php $url = get_bloginfo('url'); ?>
  <footer class="main-footer padding-top">
   <div class="row show-for-medium-up">  
-    <div class="small-4 columns logos">
+    <div class="small-6 columns logos">
   <!-- Logos  / full programme /  journeys --> 
       <div class="row">
-        <div class="small-6 columns">
+        <div class="small-4 columns">
           <img src="<?php bloginfo('template_url') ?>/img/MEL_VA_REV_87.png" alt="Melbourne"><br><br>
           <img src="<?php bloginfo('template_url') ?>/img/Insignia-portrait_WHT_87.png" alt="Victoria"><br><br>
         </div>  
-        <div class="small-6 columns">
-          <ul>
-               <li><a href="<?php echo $siteURL ?>/events"><h5>full programme</h5></a></li>               
-          </ul>
+        <div class="small-8 columns">
+          <h5>Submissions</h5>
+            <ul>
+              <li><a href="<?php echo $url; ?>/2015-eoi/performance/">Performance</a></li>
+              <li><a href="<?php echo $url; ?>/2015-eoi/lighting-av-projection/">Lighting / AV / Projection</a></li>
+              <li><a href="<?php echo $url; ?>/2015-eoi/installation-visual-art/">Installation / Visual Art</a></li>
+              <li><a href="<?php echo $url; ?>/2015-eoi/venues-galleries-spaces/">Venues / Galleries / Spaces</a></li>
+              <li><a href="<?php echo $url; ?>/2015-eoi/buskers/">Buskers</a></li>
+              <li><a href="<?php echo $url; ?>/2015-eoi/cafes-bars-restaurants-food-trucks/">Cafes / Bars / Restaurants / Food Trucks</a></li>
+              <li><a href="<?php echo $url; ?>/2015-eoi/box-funding/">Out of the Box Funding</a></li>
+            </ul>
         </div>
       </div>
     </div>
-    <div class="small-3 columns explore">
+    <div class="small-2 columns explore">
         <div class="row">
            <!-- Explore  menu--> 
-            <div class="small-8 columns">
-                <h5>Precincts</h5>
-                 <ul>
-                     <li><a href="<?php echo $siteURL ?>/precinct/01-northern-lights/">Northern Lights</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/02-lucky-dip/">Lucky Dip</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/03-jrb/">J + R&amp;B</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/04-shadows/">Shadows</a></li>
-		     <li><a href="<?php echo $siteURL ?>/precinct/05-rags-to-riches/">Rags to Riches</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/07-the-vortex/">The Vortex</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/06-wonderland/">Wonderland</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/08-midden/">Midden</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/09-alex-and-the-engineer/">Alex and the Engineer</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/10-tattooed-city/">Tattooed City</a></li>
-                     <li><a href="<?php echo $siteURL ?>/precinct/11-outer-limits/">Outer Limits</a></li>
-                </ul>
-            </div>
-            <div class="small-4 columns">
-                 <ul>
-                     <li><a href="<?php echo $siteURL ?>/events/?genre=art">Art</a></li>
-                     <li><a href="<?php echo $siteURL ?>/events/?genre=design">Design</a></li>
-                     <li><a href="<?php echo $siteURL ?>/events/?genre=family">Family</a></li>
-                     <li><a href="<?php echo $siteURL ?>/events/?genre=fashion">Fashion</a></li>
-                     <li><a href="<?php echo $siteURL ?>/events/?genre=film">Film</a></li>
-                     <li><a href="<?php echo $siteURL ?>/events/?genre=lighting">Lighting</a></li>
-                     <li><a href="<?php echo $siteURL ?>/events/?genre=music">Music</a></li>
-                     <li><a href="<?php echo $siteURL ?>/events/?genre=performance">Performance</a></li>
-                     <li><a href="<?php echo $siteURL ?>/events/?genre=sport">Sport</a></li>
-                </ul>
+            <div class="small-8 small-centered columns">
+              <h5>About</h5>     
+              <ul>
+                <li><a href="<?php echo $url; ?>/about-white-night-melbourne/">About White Night</a></li>
+                <li><a href="<?php echo $url; ?>/2015-eoi//">Getting Involved</a></li>
+                <li><a href="<?php echo $url; ?>/history-of-white-night/">History</a></li>
+                <li><a href="<?php echo $url; ?>/contact-us/">Contact Us</a></li>
+               <!--
+               <li><a href="#">History</a></li>
+               <li><a href="#">International Events</a></li>
+               -->
+               <li><a href="<?php echo $url; ?>/the-team/">The Team</a></li>
+               <li><a href="<?php echo $url; ?>/partners">Partners / Supporters</a></li>
+              </ul>
             </div>
         </div>
       </div><?php //end explore ?>
     <!-- my night menu  menu--> 
-    <div class="small-1 columns">
-          <h5>my<br>night</h5>
-           <ul>
-               <li><a class="openMyNight" href="#">Create my night</a></li>
-               <li><a class="openMyNight" href="#">Login</a></li>
-               <!-- <li><a href="#">help</a></li> -->
-          </ul>
-      </div><?php //end myNight ?>
     <div class="small-4 columns search">
         <div class="row">
-          <div class="small-6 columns ">
-            <h5>visitor info</h5>
-                 <ul>
-                     
-                     <!-- <li><a href="<?php echo $siteURL; ?>/visitor-information/">Visiting Melbourne</a></li> -->
-                     <!-- <li><a href="#">Getting Here</a></li> -->
-                     <!-- <li><a href="#">Getting Around</a></li> -->
-                     <!-- <li><a href="#">Map</a></li> -->
-                     <li><a href="<?php echo $siteURL; ?>/visitor-information/getting-there-getting-around/">Getting There &amp; Getting Around</a></li>
-                     <li><a href="<?php echo $siteURL; ?>/where-to-eat-rest/">Where to Eat &amp; Rest</a></li>
-                     <li><a href="<?php echo $siteURL; ?>/faq/">Frequently Asked Questions</a></li> 
-                     <!-- <li><a href="#">Getting Home</a></li> -->
-                </ul>
-            </div>
-          <div class=" small-6 columns ">
-          <h5>about us</h5>
-               <ul>
-                  <li><a href="<?php echo $siteURL ?>/about-white-night-melbourne/">About White Night</a></li>
-                  <li><a href="<?php echo $siteURL ?>/history-of-white-night/">History</a></li>
-<li><a href="<?php echo $siteURL ?>/getting-involved/">Getting Involved</a></li>
-                  <li><a href="<?php echo $siteURL ?>/contact-us/">Contact Us</a></li>
-                   <!--
-                   
-                   <li><a href="#">International Events</a></li>
-                   -->
-                   <li><a href="<?php echo $siteURL ?>/the-team/">The Team</a></li>
-                   <li><a href="<?php echo $siteURL ?>/partners">Partners/Supporters</a></li>
-          
+          <div class="row">
+           <!-- Explore  menu--> 
+            <div class="small-8 small-centered columns">
+              <h5>EXPLORE</h5>     
+              <ul>
+                <li><a href="<?php echo $url; ?>/events/">2014 Full Programme</a></li>
+                <li><a href="<?php echo $url; ?>/events/">2013 Full Programme</a></li>
               </ul>
-          </div>
+            </div>
+        </div>
         </div>
         <div class="row">
           <div class="small-12 columns">
@@ -145,7 +110,7 @@
   </div>
   <div class="row margin-top2">
     <div class="small-6 columns">
-      <small>Copyright WNM <?php the_time('Y'); ?></small>
+      <small>Copyright WNM <?php echo date("Y"); ?></small>
     </div>
     <div class="small-6 columns right">
       <small>
